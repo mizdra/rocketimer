@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import { useChainedTimer } from './hook/use-chained-timer';
 import { TimerCard } from './component/TimeCard';
 import { TimerController } from './component/TimerController';
+import { Timeline } from './component/Timeline';
 
 export type AppProps = {};
 
@@ -19,6 +20,7 @@ export function App(_props: AppProps) {
 
   return (
     <Container maxWidth="lg">
+      <Timeline lapConfigs={lapConfigs} currentLapRemain={currentLapRemain} currentLapIndex={currentLapIndex} />
       <TimerCard title={currentLapTitle} duration={currentLapRemain} />
       <TimerController status={status} onStart={start} onStop={reset} />
     </Container>
