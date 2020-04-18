@@ -6,10 +6,7 @@ update_configs:
     version_requirement_updates: 'increase_versions'
     automerged_updates:
       - match:
-          dependency_type: 'development'
-          update_type: 'all'
-      - match:
-          dependency_type: 'production'
+          dependency_type: 'all'
           update_type: 'all' # 開発中なのでdepsもauto-mergeする
     commit_message:
       prefix: 'chore(deps)'
