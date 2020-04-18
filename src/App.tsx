@@ -11,6 +11,8 @@ const lapConfigs = [
   { title: 'お湯が沸くまで', duration: 3 * 1000 },
   { title: 'カップラーメンができるまで', duration: 5 * 1000 },
   { title: 'お昼休みが終わるまで', duration: 10 * 1000 },
+  { title: '定時まで', duration: 10 * 1000 },
+  { title: '就寝まで', duration: 10 * 1000 },
 ];
 const lapDurations = lapConfigs.map((lapConfig) => lapConfig.duration);
 
