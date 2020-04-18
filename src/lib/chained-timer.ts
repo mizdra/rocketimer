@@ -50,6 +50,8 @@ export class ChainedTimer {
   currentLapIndex: number;
   #timerId: number | null;
 
+  offset: number;
+
   /**
    * @param lapDurations ラップごとのカウントダウン時間
    */
@@ -69,6 +71,8 @@ export class ChainedTimer {
     this.currentLapIndex = INITIAL_CURRENT_LAP_INDEX;
     this.currentLapRemain = lapDurations[0];
     this.#timerId = INITIAL_TIMER_ID;
+
+    this.offset = 0;
   }
 
   /** カウントダウンを開始する. */
@@ -78,7 +82,8 @@ export class ChainedTimer {
 
     const updateStateBy = (currentTime: number) => {
       const lastLapIndex = this.#lapDurations.length - 1;
-      const elapsed = currentTime - this.#startTime;
+      // eslint-disable-next-line prettier/prettier
+      const elapsed = currentTime - this.#startTime + this.offset;
 
       const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
 
@@ -108,8 +113,9 @@ export class ChainedTimer {
 
     this.status = 'countdowning';
     this.#startTime = now;
-    this.currentLapIndex = 0;
-    this.currentLapRemain = this.#lapDurations[0];
+    const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, this.offset);
+    this.currentLapIndex = currentLapIndex;
+    this.currentLapRemain = currentLapRemain;
     this.#timerId = this.#tickController.requestTick(updateDuration);
   }
 
@@ -122,6 +128,11 @@ export class ChainedTimer {
     this.currentLapIndex = INITIAL_CURRENT_LAP_INDEX;
     this.currentLapRemain = this.#lapDurations[0];
     this.#timerId = INITIAL_TIMER_ID;
+  }
+
+  /** オフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
+  setOffset(offset: number) {
+    this.offset = offset;
   }
 
   /**

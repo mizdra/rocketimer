@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import { useChainedTimer } from './hook/use-chained-timer';
 import { TimerCard } from './component/TimeCard';
@@ -17,10 +17,34 @@ const lapConfigs = [
 const lapDurations = lapConfigs.map((lapConfig) => lapConfig.duration);
 
 export function App(_props: AppProps) {
-  const { status, currentLapRemain, currentLapIndex, totalElapsed, lapEndTimes, start, reset } = useChainedTimer(
-    lapDurations,
-  );
+  const {
+    status,
+    currentLapRemain,
+    currentLapIndex,
+    totalElapsed,
+    offset,
+    lapEndTimes,
+    start,
+    reset,
+    setOffset,
+  } = useChainedTimer(lapDurations);
   const currentLapTitle = useMemo(() => lapConfigs[currentLapIndex].title, [currentLapIndex]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      console.log(`Pressed ${e.key} key`);
+      if (e.key === 'ArrowRight' || e.key === 'Right') {
+        setOffset(offset + 1000);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'Left') {
+        setOffset(offset - 1000);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => {
+      window.removeEventListener('keydown', handler);
+    };
+  }, [offset, setOffset]);
 
   return (
     <Container maxWidth="lg">
