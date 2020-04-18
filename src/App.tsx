@@ -12,17 +12,17 @@ const lapConfigs = [
   { title: 'カップラーメンができるまで', duration: 5 * 1000 },
   { title: 'お昼休みが終わるまで', duration: 10 * 1000 },
   { title: '定時まで', duration: 10 * 1000 },
-  { title: '就寝まで', duration: 10 * 1000 },
+  { title: '就寝まで', duration: 10000000 * 1000 },
 ];
 const lapDurations = lapConfigs.map((lapConfig) => lapConfig.duration);
 
 export function App(_props: AppProps) {
-  const { currentLapRemain, currentLapIndex, status, start, reset } = useChainedTimer(lapDurations);
+  const { status, currentLapRemain, currentLapIndex, totalElapsed, start, reset } = useChainedTimer(lapDurations);
   const currentLapTitle = useMemo(() => lapConfigs[currentLapIndex].title, [currentLapIndex]);
 
   return (
     <Container maxWidth="lg">
-      <Timeline lapConfigs={lapConfigs} currentLapRemain={currentLapRemain} currentLapIndex={currentLapIndex} />
+      <Timeline lapConfigs={lapConfigs} totalElapsed={totalElapsed} />
       <TimerCard title={currentLapTitle} duration={currentLapRemain} />
       <TimerController status={status} onStart={start} onStop={reset} />
     </Container>

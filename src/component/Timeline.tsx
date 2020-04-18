@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Timeline as VisTimeline, TimelineOptions } from 'vis-timeline/esnext';
 
 const VIS_TIMELINE_OPTIONS: TimelineOptions = {
@@ -22,11 +22,10 @@ export type TimelineProps = {
     title: string;
     duration: number;
   }[];
-  currentLapRemain: number;
-  currentLapIndex: number;
+  totalElapsed: number;
 };
 
-export function Timeline({ lapConfigs, currentLapRemain, currentLapIndex }: TimelineProps) {
+export function Timeline({ lapConfigs, totalElapsed }: TimelineProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [timeline, setTimeline] = useState<VisTimeline | null>(null);
 
@@ -55,15 +54,6 @@ export function Timeline({ lapConfigs, currentLapRemain, currentLapIndex }: Time
       timeline?.destroy();
     };
   }, [lapConfigs]);
-
-  const totalElapsed = useMemo(() => {
-    let elapsed = 0;
-    for (let i = 0; i < currentLapIndex; i++) {
-      elapsed += lapConfigs[i].duration;
-    }
-    elapsed += lapConfigs[currentLapIndex].duration - currentLapRemain;
-    return elapsed;
-  }, [currentLapRemain, currentLapIndex, lapConfigs]);
 
   useEffect(() => {
     if (timeline === null) return;
