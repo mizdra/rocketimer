@@ -17,12 +17,14 @@ const lapConfigs = [
 const lapDurations = lapConfigs.map((lapConfig) => lapConfig.duration);
 
 export function App(_props: AppProps) {
-  const { status, currentLapRemain, currentLapIndex, totalElapsed, start, reset } = useChainedTimer(lapDurations);
+  const { status, currentLapRemain, currentLapIndex, totalElapsed, lapEndTimes, start, reset } = useChainedTimer(
+    lapDurations,
+  );
   const currentLapTitle = useMemo(() => lapConfigs[currentLapIndex].title, [currentLapIndex]);
 
   return (
     <Container maxWidth="lg">
-      <Timeline lapConfigs={lapConfigs} totalElapsed={totalElapsed} />
+      <Timeline totalElapsed={totalElapsed} lapEndTimes={lapEndTimes} />
       <TimerCard title={currentLapTitle} duration={currentLapRemain} />
       <TimerController status={status} onStart={start} onStop={reset} />
     </Container>

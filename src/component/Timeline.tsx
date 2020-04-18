@@ -18,14 +18,11 @@ const VIS_TIMELINE_OPTIONS: TimelineOptions = {
 };
 
 export type TimelineProps = {
-  lapConfigs: {
-    title: string;
-    duration: number;
-  }[];
   totalElapsed: number;
+  lapEndTimes: number[];
 };
 
-export function Timeline({ lapConfigs, totalElapsed }: TimelineProps) {
+export function Timeline({ totalElapsed, lapEndTimes }: TimelineProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [timeline, setTimeline] = useState<VisTimeline | null>(null);
 
@@ -33,11 +30,9 @@ export function Timeline({ lapConfigs, totalElapsed }: TimelineProps) {
     if (ref.current === null) return;
 
     const timeline = new VisTimeline(ref.current, [], VIS_TIMELINE_OPTIONS);
-    let sum = 0;
-    for (let i = 0; i < lapConfigs.length; i++) {
-      sum += lapConfigs[i].duration;
-      timeline.addCustomTime(sum, `lap-${i}-end-time`);
-    }
+    lapEndTimes.forEach((lapEndTime, i) => {
+      timeline.addCustomTime(lapEndTime, `lap-${i}-end-time`);
+    });
     timeline.addCustomTime(0, 'elapsed');
 
     timeline.on('rangechange', (args: any) => {
@@ -53,7 +48,7 @@ export function Timeline({ lapConfigs, totalElapsed }: TimelineProps) {
     return () => {
       timeline?.destroy();
     };
-  }, [lapConfigs]);
+  }, [lapEndTimes]);
 
   useEffect(() => {
     if (timeline === null) return;
