@@ -44,9 +44,9 @@ export class ChainedTimer {
   /** タイマーがカウントダウン中か, 停止しているかを返す */
   status: ChainedTimerStatus;
   #startTime: number;
-  /** カウントダウン中のラップのインデックス. 停止中は最後のラップのインデックスが設定される. */
+  /** カウントダウン中のラップの残り時間. 値は `tick` イベントに合わせて更新される. */
   currentLapRemain: number;
-  /** カウントダウン中のラップの残り時間. 値は `tick` イベントに合わせて更新される. 停止中は `0` が設定される. */
+  /** カウントダウン中のラップのインデックス. 停止中は最後のラップのインデックスが設定される. */
   currentLapIndex: number;
   #timerId: number | null;
 
