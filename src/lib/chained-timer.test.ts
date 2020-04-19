@@ -28,7 +28,7 @@ describe('Timer', () => {
   describe('#constructor', () => {
     test('インスタンスが作成できる', () => {
       const { timer } = createTimer([1000, 2000, 3000], 0);
-      expect(timer.status).toBe('stopped');
+      expect(timer.status).toBe('initial');
       expect(timer.currentLapRemain).toBe(1000);
       expect(timer.currentLapIndex).toBe(0);
       expect(timer.offset).toBe(0);
@@ -60,8 +60,8 @@ describe('Timer', () => {
       context = createTimer([1000, 2000], 500);
     });
     describe('#status', () => {
-      test('カウントダウン中ではない', () => {
-        expect(context.timer.status).toBe('stopped');
+      test('`initial` を返す', () => {
+        expect(context.timer.status).toBe('initial');
       });
     });
     describe('#currentLapRemain', () => {
@@ -91,7 +91,7 @@ describe('Timer', () => {
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.status).toBe('initial');
         expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
         expect(context.timer.offset).toBe(500);
@@ -176,7 +176,7 @@ describe('Timer', () => {
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.status).toBe('initial');
         expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
         expect(context.timer.offset).toBe(500);
@@ -261,7 +261,7 @@ describe('Timer', () => {
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.status).toBe('initial');
         expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
         expect(context.timer.offset).toBe(500);
@@ -300,7 +300,7 @@ describe('Timer', () => {
     });
     describe('#status', () => {
       test('カウントダウン終了', () => {
-        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.status).toBe('ended');
       });
     });
     describe('#currentLapRemain', () => {
@@ -330,7 +330,7 @@ describe('Timer', () => {
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.status).toBe('initial');
         expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
         expect(context.timer.offset).toBe(500);

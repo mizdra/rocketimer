@@ -11,8 +11,8 @@ export type TimerControllerProps = {
 export function TimerController({ status, onStart, onStop }: TimerControllerProps) {
   return (
     <div>
-      <Button key="1" onClick={status === 'stopped' ? onStart : onStop}>
-        {status === 'stopped' ? '開始' : '停止'}
+      <Button key="1" onClick={status !== 'countdowning' ? onStart : onStop}>
+        {status !== 'countdowning' ? '開始' : '停止'}
       </Button>
     </div>
   );
