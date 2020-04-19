@@ -67,10 +67,13 @@ export class ChainedTimer {
     this.#timeController = timeController;
     this.#tickController = tickController;
 
+    const elapsed = offset;
+    const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
+
     this.status = INITIAL_STATUS;
     this.#startTime = INITIAL_START_TIME;
-    this.currentLapIndex = INITIAL_CURRENT_LAP_INDEX;
-    this.currentLapRemain = lapDurations[0];
+    this.currentLapIndex = currentLapIndex;
+    this.currentLapRemain = currentLapRemain;
     this.#timerId = INITIAL_TIMER_ID;
 
     this.offset = offset;
