@@ -56,12 +56,18 @@ describe('Timer', () => {
         expect(context.timer.currentLapIndex).toBe(0);
       });
     });
+    describe('#offset', () => {
+      test('指定したオフセットが設定されている', () => {
+        expect(context.timer.offset).toBe(0);
+      });
+    });
     describe('#start', () => {
       test('カウントダウンを開始できる', () => {
         context.timer.start();
         expect(context.timer.status).toBe('countdowning');
         expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('#reset', () => {
@@ -70,6 +76,7 @@ describe('Timer', () => {
         expect(context.timer.status).toBe('stopped');
         expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('@tick', () => {
@@ -102,6 +109,11 @@ describe('Timer', () => {
         expect(context.timer.currentLapIndex).toBe(0);
       });
     });
+    describe('#offset', () => {
+      test('指定したオフセットが設定されている', () => {
+        expect(context.timer.offset).toBe(0);
+      });
+    });
     describe('#start', () => {
       test('例外が発生する', () => {
         expect(() => {
@@ -110,6 +122,7 @@ describe('Timer', () => {
         expect(context.timer.status).toBe('countdowning');
         expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('#reset', () => {
@@ -118,6 +131,7 @@ describe('Timer', () => {
         expect(context.timer.status).toBe('stopped');
         expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('@tick', () => {
@@ -150,6 +164,11 @@ describe('Timer', () => {
         expect(context.timer.currentLapIndex).toBe(1);
       });
     });
+    describe('#offset', () => {
+      test('指定したオフセットが設定されている', () => {
+        expect(context.timer.offset).toBe(0);
+      });
+    });
     describe('#start', () => {
       test('例外が発生する', () => {
         expect(() => {
@@ -158,6 +177,7 @@ describe('Timer', () => {
         expect(context.timer.status).toBe('countdowning');
         expect(context.timer.currentLapRemain).toBe(1500);
         expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('#reset', () => {
@@ -166,6 +186,7 @@ describe('Timer', () => {
         expect(context.timer.status).toBe('stopped');
         expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('@tick', () => {
@@ -198,12 +219,18 @@ describe('Timer', () => {
         expect(context.timer.currentLapIndex).toBe(1);
       });
     });
+    describe('#offset', () => {
+      test('指定したオフセットが設定されている', () => {
+        expect(context.timer.offset).toBe(0);
+      });
+    });
     describe('#start', () => {
       test('カウントダウンを開始できる', () => {
         context.timer.start();
         expect(context.timer.status).toBe('countdowning');
         expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('#reset', () => {
@@ -212,6 +239,7 @@ describe('Timer', () => {
         expect(context.timer.status).toBe('stopped');
         expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(0);
       });
     });
     describe('@tick', () => {
