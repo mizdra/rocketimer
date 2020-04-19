@@ -97,6 +97,36 @@ describe('Timer', () => {
         expect(context.timer.offset).toBe(500);
       });
     });
+    describe('#setOffset', () => {
+      test('オフセットを変更できる', () => {
+        context.timer.setOffset(100);
+        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.currentLapRemain).toBe(900);
+        expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(100);
+      });
+      test('大きなオフセットを指定すると最初のラップが飛ばされることがある', () => {
+        context.timer.setOffset(1000);
+        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.currentLapRemain).toBe(2000);
+        expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(1000);
+      });
+      test('非常に大きなオフセットを指定するとカウント時間が 0 秒の状態になることがある', () => {
+        context.timer.setOffset(3000);
+        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.currentLapRemain).toBe(0);
+        expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(3000);
+      });
+      test('ラップ 0 の時に大きな負のオフセットを指定するとラップのカウント時間よりも残り時間が大きくなることがある', () => {
+        context.timer.setOffset(-1000);
+        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.currentLapRemain).toBe(2000);
+        expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(-1000);
+      });
+    });
     describe('@tick', () => {
       test('どれだけ待っても発火しない', () => {
         expect(context.listener.mock.calls.length).toBe(0);
@@ -150,6 +180,36 @@ describe('Timer', () => {
         expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
         expect(context.timer.offset).toBe(500);
+      });
+    });
+    describe('#setOffset', () => {
+      test('オフセットを変更できる', () => {
+        context.timer.setOffset(100);
+        expect(context.timer.status).toBe('countdowning');
+        expect(context.timer.currentLapRemain).toBe(900);
+        expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(100);
+      });
+      test('大きなオフセットを指定すると最初のラップが飛ばされることがある', () => {
+        context.timer.setOffset(1000);
+        expect(context.timer.status).toBe('countdowning');
+        expect(context.timer.currentLapRemain).toBe(2000);
+        expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(1000);
+      });
+      test('非常に大きなオフセットを指定するとタイマーが終了することがある', () => {
+        context.timer.setOffset(3000);
+        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.currentLapRemain).toBe(0);
+        expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(3000);
+      });
+      test('ラップ 0 の時に大きな負のオフセットを指定するとラップのカウント時間よりも残り時間が大きくなることがある', () => {
+        context.timer.setOffset(-1000);
+        expect(context.timer.status).toBe('countdowning');
+        expect(context.timer.currentLapRemain).toBe(2000);
+        expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(-1000);
       });
     });
     describe('@tick', () => {
@@ -207,6 +267,22 @@ describe('Timer', () => {
         expect(context.timer.offset).toBe(500);
       });
     });
+    describe('#setOffset', () => {
+      test('オフセットを変更できる', () => {
+        context.timer.setOffset(100);
+        expect(context.timer.status).toBe('countdowning');
+        expect(context.timer.currentLapRemain).toBe(1400);
+        expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(100);
+      });
+      test('大きな負のオフセットを指定すると前のラップに戻ることがある', () => {
+        context.timer.setOffset(-1000);
+        expect(context.timer.status).toBe('countdowning');
+        expect(context.timer.currentLapRemain).toBe(500);
+        expect(context.timer.currentLapIndex).toBe(0);
+        expect(context.timer.offset).toBe(-1000);
+      });
+    });
     describe('@tick', () => {
       test('TickController#advanceTick を呼び出す度に発火する', () => {
         expect(context.listener.mock.calls.length).toBe(1);
@@ -258,6 +334,22 @@ describe('Timer', () => {
         expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
         expect(context.timer.offset).toBe(500);
+      });
+    });
+    describe('#setOffset', () => {
+      test('オフセットを変更できる', () => {
+        context.timer.setOffset(100);
+        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.currentLapRemain).toBe(0);
+        expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(100);
+      });
+      test('大きな負のオフセットを指定してもカウントダウン中の状態には戻らない', () => {
+        context.timer.setOffset(-1000);
+        expect(context.timer.status).toBe('stopped');
+        expect(context.timer.currentLapRemain).toBe(0);
+        expect(context.timer.currentLapIndex).toBe(1);
+        expect(context.timer.offset).toBe(-1000);
       });
     });
     describe('@tick', () => {
