@@ -57,6 +57,7 @@ export class ChainedTimer {
    */
   constructor(
     lapDurations: number[],
+    offset = 0,
     timeController: TimeController = new PerformanceTimeController(),
     tickController: TickController = new AnimationFrameTickController(),
   ) {
@@ -72,7 +73,7 @@ export class ChainedTimer {
     this.currentLapRemain = lapDurations[0];
     this.#timerId = INITIAL_TIMER_ID;
 
-    this.offset = 0;
+    this.offset = offset;
   }
 
   /** カウントダウンを開始する. */

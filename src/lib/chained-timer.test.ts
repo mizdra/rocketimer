@@ -2,23 +2,23 @@ import { ChainedTimer } from './chained-timer';
 import { TestableTimeController } from './timer/time-controller';
 import { TestableTickController } from './timer/tick-controller';
 
-function createTimer(lapDurations: number[]) {
+function createTimer(lapDurations: number[], offset: number) {
   const timeController = new TestableTimeController();
   const tickController = new TestableTickController(timeController);
-  const timer = new ChainedTimer(lapDurations, timeController, tickController);
+  const timer = new ChainedTimer(lapDurations, offset, timeController, tickController);
   const listener = jest.fn();
   timer.addListener('tick', listener);
   return { timeController, tickController, timer, listener };
 }
 
-function createStartedTimer(lapDurations: number[]) {
-  const { timeController, tickController, timer, listener } = createTimer(lapDurations);
+function createStartedTimer(lapDurations: number[], offset: number) {
+  const { timeController, tickController, timer, listener } = createTimer(lapDurations, offset);
   timer.start();
   return { timeController, tickController, timer, listener };
 }
 
-function createElapsedTimer(lapDurations: number[], elapsed: number) {
-  const { timeController, tickController, timer, listener } = createStartedTimer(lapDurations);
+function createElapsedTimer(lapDurations: number[], offset: number, elapsed: number) {
+  const { timeController, tickController, timer, listener } = createStartedTimer(lapDurations, offset);
   timeController.advanceTimeBy(elapsed);
   tickController.advanceTick();
   return { timeController, tickController, timer, listener };
@@ -27,11 +27,11 @@ function createElapsedTimer(lapDurations: number[], elapsed: number) {
 describe('Timer', () => {
   describe('#constructor', () => {
     test('インスタンスが作成できる', () => {
-      createTimer([1000, 2000, 3000]);
+      createTimer([1000, 2000, 3000], 0);
     });
     test('ラップ数が 0 のタイマーのインスタンスは作成できない', () => {
       expect(() => {
-        createTimer([]);
+        createTimer([], 0);
       }).toThrow();
     });
   });
@@ -39,7 +39,7 @@ describe('Timer', () => {
   describe('初期状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createTimer([1000, 2000]);
+      context = createTimer([1000, 2000], 0);
     });
     describe('#status', () => {
       test('カウントダウン中ではない', () => {
@@ -85,7 +85,7 @@ describe('Timer', () => {
   describe('タイマーを開始した直後の状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createStartedTimer([1000, 2000]);
+      context = createStartedTimer([1000, 2000], 0);
     });
     describe('#status', () => {
       test('カウントダウン中', () => {
@@ -133,7 +133,7 @@ describe('Timer', () => {
   describe('タイマーを開始してから少し時間が経過した状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createElapsedTimer([1000, 2000], 1500);
+      context = createElapsedTimer([1000, 2000], 0, 1500);
     });
     describe('#status', () => {
       test('カウントダウン中', () => {
@@ -181,7 +181,7 @@ describe('Timer', () => {
   describe('タイマーを開始してから十分時間が経過した状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createElapsedTimer([1000, 2000], 3000);
+      context = createElapsedTimer([1000, 2000], 0, 3000);
     });
     describe('#status', () => {
       test('カウントダウン終了', () => {
