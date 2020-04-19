@@ -44,7 +44,7 @@ describe('Timer', () => {
       expect(timer.currentLapRemain).toBe(500);
       expect(timer.currentLapIndex).toBe(0);
       expect(timer.offset).toBe(500);
-  });
+    });
     test('負のオフセットを指定できる', () => {
       const { timer } = createTimer([1000, 2000, 3000], -500);
       expect(timer.status).toBe('stopped');
@@ -57,7 +57,7 @@ describe('Timer', () => {
   describe('初期状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createTimer([1000, 2000], 0);
+      context = createTimer([1000, 2000], 500);
     });
     describe('#status', () => {
       test('カウントダウン中ではない', () => {
@@ -65,8 +65,8 @@ describe('Timer', () => {
       });
     });
     describe('#currentLapRemain', () => {
-      test('残り時間は最初のラップのカウントダウン時間', () => {
-        expect(context.timer.currentLapRemain).toBe(1000);
+      test('残り時間は最初のラップのカウントダウン時間 - オフセット', () => {
+        expect(context.timer.currentLapRemain).toBe(500);
       });
     });
     describe('#currentLapIndex', () => {
@@ -76,25 +76,25 @@ describe('Timer', () => {
     });
     describe('#offset', () => {
       test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#start', () => {
       test('カウントダウンを開始できる', () => {
         context.timer.start();
         expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(1000);
+        expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
         expect(context.timer.status).toBe('stopped');
-        expect(context.timer.currentLapRemain).toBe(1000);
+        expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('@tick', () => {
@@ -110,7 +110,7 @@ describe('Timer', () => {
   describe('タイマーを開始した直後の状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createStartedTimer([1000, 2000], 0);
+      context = createStartedTimer([1000, 2000], 500);
     });
     describe('#status', () => {
       test('カウントダウン中', () => {
@@ -118,8 +118,8 @@ describe('Timer', () => {
       });
     });
     describe('#currentLapRemain', () => {
-      test('残り時間は最初のラップのカウントダウン時間', () => {
-        expect(context.timer.currentLapRemain).toBe(1000);
+      test('残り時間は最初のラップのカウントダウン時間 - オフセット', () => {
+        expect(context.timer.currentLapRemain).toBe(500);
       });
     });
     describe('#currentLapIndex', () => {
@@ -129,7 +129,7 @@ describe('Timer', () => {
     });
     describe('#offset', () => {
       test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#start', () => {
@@ -138,18 +138,18 @@ describe('Timer', () => {
           context.timer.start();
         }).toThrow();
         expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(1000);
+        expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
         expect(context.timer.status).toBe('stopped');
-        expect(context.timer.currentLapRemain).toBe(1000);
+        expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('@tick', () => {
@@ -165,7 +165,7 @@ describe('Timer', () => {
   describe('タイマーを開始してから少し時間が経過した状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createElapsedTimer([1000, 2000], 0, 1500);
+      context = createElapsedTimer([1000, 2000], 500, 1500);
     });
     describe('#status', () => {
       test('カウントダウン中', () => {
@@ -174,7 +174,7 @@ describe('Timer', () => {
     });
     describe('#currentLapRemain', () => {
       test('残り時間が更新されている', () => {
-        expect(context.timer.currentLapRemain).toBe(1500);
+        expect(context.timer.currentLapRemain).toBe(1000);
       });
     });
     describe('#currentLapIndex', () => {
@@ -184,7 +184,7 @@ describe('Timer', () => {
     });
     describe('#offset', () => {
       test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#start', () => {
@@ -193,18 +193,18 @@ describe('Timer', () => {
           context.timer.start();
         }).toThrow();
         expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(1500);
+        expect(context.timer.currentLapRemain).toBe(1000);
         expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
         expect(context.timer.status).toBe('stopped');
-        expect(context.timer.currentLapRemain).toBe(1000);
+        expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('@tick', () => {
@@ -220,7 +220,7 @@ describe('Timer', () => {
   describe('タイマーを開始してから十分時間が経過した状態', () => {
     let context: ReturnType<typeof createTimer>;
     beforeEach(() => {
-      context = createElapsedTimer([1000, 2000], 0, 3000);
+      context = createElapsedTimer([1000, 2000], 500, 3000);
     });
     describe('#status', () => {
       test('カウントダウン終了', () => {
@@ -239,25 +239,25 @@ describe('Timer', () => {
     });
     describe('#offset', () => {
       test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#start', () => {
       test('カウントダウンを開始できる', () => {
         context.timer.start();
         expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(1000);
+        expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
         expect(context.timer.status).toBe('stopped');
-        expect(context.timer.currentLapRemain).toBe(1000);
+        expect(context.timer.currentLapRemain).toBe(500);
         expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(0);
+        expect(context.timer.offset).toBe(500);
       });
     });
     describe('@tick', () => {
