@@ -77,19 +77,32 @@ export class ChainedTimer {
     this.offset = offset;
   }
 
-  private updateStateByCurrentTime(currentTime: number) {
-    if (this.status === 'ended') return;
-
+  private syncStateWithCurrentTime(currentTime: number) {
     const lastLapIndex = this.#lapDurations.length - 1;
-    const elapsed = currentTime - this.#startTime + this.offset;
 
-    const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
-    this.currentLapIndex = currentLapIndex;
-    this.currentLapRemain = currentLapRemain;
-
-    if (this.status === 'initial') return;
-    if (currentLapIndex === lastLapIndex && currentLapRemain === 0) {
-      this.status = 'ended';
+    if (this.status === 'ended') {
+      // 終了状態: どれだけ時間が経過しても終了状態のまま
+      // noop
+    } else if (this.status === 'initial') {
+      // タイマー開始前の状態: オフセットに応じて状態が変化する可能性がある
+      const elapsed = this.offset;
+      const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
+      this.currentLapIndex = currentLapIndex;
+      this.currentLapRemain = currentLapRemain;
+    } else {
+      // カウントダウン中: 最後のラップをカウントダウン中で残り時間が 0 なら終了状態へと移行する
+      const elapsed = currentTime - this.#startTime + this.offset;
+      const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
+      this.currentLapIndex = currentLapIndex;
+      this.currentLapRemain = currentLapRemain;
+      this.status = currentLapIndex === lastLapIndex && currentLapRemain === 0 ? 'ended' : 'countdowning';
+      if (currentLapIndex === lastLapIndex && currentLapRemain === 0) {
+        this.status = 'ended';
+        if (this.#timerId !== null) {
+          this.#tickController.cancelTick(this.#timerId);
+          this.#timerId = null;
+        }
+      }
     }
   }
 
@@ -99,25 +112,20 @@ export class ChainedTimer {
     if (this.status === 'countdowning') throw new Error('カウントダウン中は ChainedTimer#start を呼び出せません.');
 
     const onTick = (timestamp: number) => {
-      this.updateStateByCurrentTime(timestamp);
+      this.#timerId = this.#tickController.requestTick(onTick);
+      this.syncStateWithCurrentTime(timestamp);
       this.#emitter.emit('tick');
-
-      if (this.status === 'countdowning') {
-        this.#timerId = this.#tickController.requestTick(onTick);
-      } else {
-        this.#timerId = null;
-      }
     };
 
     this.#startTime = now;
     this.status = 'countdowning';
-    this.updateStateByCurrentTime(now);
     this.#timerId = this.#tickController.requestTick(onTick);
+    this.syncStateWithCurrentTime(now);
   }
 
   /** カウントダウンを強制的に停止し, 初期状態に戻す. これにより, `tick` イベントの呼び出しが停止する. */
   reset() {
-    if (this.#timerId) this.#tickController.cancelTick(this.#timerId);
+    if (this.#timerId !== null) this.#tickController.cancelTick(this.#timerId);
 
     const elapsed = this.offset;
     const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
@@ -132,7 +140,7 @@ export class ChainedTimer {
   /** オフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
   setOffset(offset: number) {
     this.offset = offset;
-    this.updateStateByCurrentTime(this.#timeController.getTime());
+    this.syncStateWithCurrentTime(this.#timeController.getTime());
   }
 
   /**
