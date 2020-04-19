@@ -78,21 +78,18 @@ export class ChainedTimer {
   }
 
   private updateStateByCurrentTime(currentTime: number) {
+    if (this.status === 'ended') return;
+
     const lastLapIndex = this.#lapDurations.length - 1;
     const elapsed = currentTime - this.#startTime + this.offset;
 
     const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
+    this.currentLapIndex = currentLapIndex;
+    this.currentLapRemain = currentLapRemain;
 
+    if (this.status === 'initial') return;
     if (currentLapIndex === lastLapIndex && currentLapRemain === 0) {
       this.status = 'ended';
-      // this.#startTime = this.#startTime;
-      this.currentLapIndex = lastLapIndex;
-      this.currentLapRemain = currentLapRemain;
-    } else {
-      this.status = 'countdowning';
-      // this.#startTime = this.#startTime;
-      this.currentLapIndex = currentLapIndex;
-      this.currentLapRemain = currentLapRemain;
     }
   }
 
@@ -113,6 +110,7 @@ export class ChainedTimer {
     };
 
     this.#startTime = now;
+    this.status = 'countdowning';
     this.updateStateByCurrentTime(now);
     this.#timerId = this.#tickController.requestTick(onTick);
   }
@@ -134,6 +132,7 @@ export class ChainedTimer {
   /** オフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
   setOffset(offset: number) {
     this.offset = offset;
+    this.updateStateByCurrentTime(this.#timeController.getTime());
   }
 
   /**
