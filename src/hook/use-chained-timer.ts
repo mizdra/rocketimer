@@ -28,6 +28,7 @@ export type UseChainedTimerResult = ChainedTimerState & {
   lapEndTimes: number[];
   start: () => void;
   reset: () => void;
+  setOffset: (newOffset: number) => void;
 };
 
 type ChainedTimerState = {
@@ -36,6 +37,7 @@ type ChainedTimerState = {
   currentLapIndex: number;
   /** タイマーを開始してから現在までの経過時間. 値は `tick` イベントに合わせて更新される. */
   totalElapsed: number;
+  offset: number;
 };
 
 export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
@@ -50,6 +52,7 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
     currentLapRemain: timer.currentLapRemain,
     currentLapIndex: timer.currentLapIndex,
     totalElapsed: calcTotalElapsed(lapDurations, timer.currentLapRemain, timer.currentLapIndex),
+    offset: timer.offset,
   });
   const syncStateWithTimer = useCallback(() => {
     const { status, currentLapRemain, currentLapIndex } = timer;
@@ -58,6 +61,7 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
       currentLapRemain: currentLapRemain,
       currentLapIndex: currentLapIndex,
       totalElapsed: calcTotalElapsed(lapDurations, currentLapRemain, currentLapIndex),
+      offset: timer.offset,
     });
   }, [lapDurations, timer]);
 
@@ -69,11 +73,18 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
     timer.reset();
     syncStateWithTimer();
   }, [syncStateWithTimer, timer]);
+  const setOffset = useCallback(
+    (newOffset: number) => {
+      timer.setOffset(newOffset);
+      syncStateWithTimer();
+    },
+    [syncStateWithTimer, timer],
+  );
 
   useEffect(() => {
     const unsubscribe = timer.addListener('tick', syncStateWithTimer);
     return unsubscribe;
   }, [syncStateWithTimer, timer]);
 
-  return { ...state, lapEndTimes, start, reset };
+  return { ...state, lapEndTimes, start, reset, setOffset };
 }
