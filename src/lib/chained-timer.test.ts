@@ -27,12 +27,30 @@ function createElapsedTimer(lapDurations: number[], offset: number, elapsed: num
 describe('Timer', () => {
   describe('#constructor', () => {
     test('インスタンスが作成できる', () => {
-      createTimer([1000, 2000, 3000], 0);
+      const { timer } = createTimer([1000, 2000, 3000], 0);
+      expect(timer.status).toBe('stopped');
+      expect(timer.currentLapRemain).toBe(1000);
+      expect(timer.currentLapIndex).toBe(0);
+      expect(timer.offset).toBe(0);
     });
     test('ラップ数が 0 のタイマーのインスタンスは作成できない', () => {
       expect(() => {
         createTimer([], 0);
       }).toThrow();
+    });
+    test('オフセットを指定できる', () => {
+      const { timer } = createTimer([1000, 2000, 3000], 500);
+      expect(timer.status).toBe('stopped');
+      expect(timer.currentLapRemain).toBe(500);
+      expect(timer.currentLapIndex).toBe(0);
+      expect(timer.offset).toBe(500);
+  });
+    test('負のオフセットを指定できる', () => {
+      const { timer } = createTimer([1000, 2000, 3000], -500);
+      expect(timer.status).toBe('stopped');
+      expect(timer.currentLapRemain).toBe(1500);
+      expect(timer.currentLapIndex).toBe(0);
+      expect(timer.offset).toBe(-500);
     });
   });
 
