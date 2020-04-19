@@ -77,6 +77,12 @@ export class ChainedTimer {
     this.offset = offset;
   }
 
+  /**
+   * 現在時刻を元にタイマーの状態を更新する.
+   * 更新されるプロパティは `status`, `currentLapIndex`, `currentLapRemain`, `#timerId` の4つ.
+   * また, このメソッドの呼び出しによってタイマーが終了状態へと移行した場合は, その時点以降の
+   * 予約されているタイマーの更新を全てキャンセルする.
+   * */
   private syncStateWithCurrentTime(currentTime: number) {
     const lastLapIndex = this.#lapDurations.length - 1;
 
