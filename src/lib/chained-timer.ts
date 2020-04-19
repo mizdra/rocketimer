@@ -2,13 +2,13 @@ import EventEmitter from 'eventemitter3';
 import { TimeController, PerformanceTimeController } from './timer/time-controller';
 import { TickController, AnimationFrameTickController } from './timer/tick-controller';
 
-const INITIAL_STATUS = 'stopped';
+const INITIAL_STATUS = 'initial';
 const INITIAL_START_TIME = 0;
 const INITIAL_CURRENT_LAP_INDEX = 0;
 // const INITIAL_CURRENT_LAP_REMAIN = 0;
 const INITIAL_TIMER_ID = null;
 
-export type ChainedTimerStatus = 'countdowning' | 'stopped';
+export type ChainedTimerStatus = 'initial' | 'countdowning' | 'ended';
 
 export type EventTypes = {
   /** カウントダウン中のタイマーが更新された時に発火するイベント. */
@@ -83,7 +83,7 @@ export class ChainedTimer {
       const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
 
       if (currentLapIndex === lastLapIndex && currentLapRemain === 0) {
-        this.status = 'stopped';
+        this.status = 'ended';
         // this.#startTime = this.#startTime;
         this.currentLapIndex = lastLapIndex;
         this.currentLapRemain = currentLapRemain;
