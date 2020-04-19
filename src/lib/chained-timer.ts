@@ -2,13 +2,13 @@ import EventEmitter from 'eventemitter3';
 import { TimeController, PerformanceTimeController } from './timer/time-controller';
 import { TickController, AnimationFrameTickController } from './timer/tick-controller';
 
-const INITIAL_STATUS = 'stopped';
+const INITIAL_STATUS = 'initial';
 const INITIAL_START_TIME = 0;
 const INITIAL_CURRENT_LAP_INDEX = 0;
 // const INITIAL_CURRENT_LAP_REMAIN = 0;
 const INITIAL_TIMER_ID = null;
 
-export type ChainedTimerStatus = 'countdowning' | 'stopped';
+export type ChainedTimerStatus = 'initial' | 'countdowning' | 'ended';
 
 export type EventTypes = {
   /** カウントダウン中のタイマーが更新された時に発火するイベント. */
@@ -71,46 +71,44 @@ export class ChainedTimer {
     this.#timerId = INITIAL_TIMER_ID;
   }
 
+  private updateStateByCurrentTime(currentTime: number) {
+    const lastLapIndex = this.#lapDurations.length - 1;
+    const elapsed = currentTime - this.#startTime;
+
+    const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
+
+    if (currentLapIndex === lastLapIndex && currentLapRemain === 0) {
+      this.status = 'ended';
+      // this.#startTime = this.#startTime;
+      this.currentLapIndex = lastLapIndex;
+      this.currentLapRemain = currentLapRemain;
+    } else {
+      this.status = 'countdowning';
+      // this.#startTime = this.#startTime;
+      this.currentLapIndex = currentLapIndex;
+      this.currentLapRemain = currentLapRemain;
+    }
+  }
+
   /** カウントダウンを開始する. */
   start() {
     const now = this.#timeController.getTime();
     if (this.status === 'countdowning') throw new Error('カウントダウン中は ChainedTimer#start を呼び出せません.');
 
-    const updateStateBy = (currentTime: number) => {
-      const lastLapIndex = this.#lapDurations.length - 1;
-      const elapsed = currentTime - this.#startTime;
-
-      const { currentLapIndex, currentLapRemain } = getCurrentLap(this.#lapDurations, elapsed);
-
-      if (currentLapIndex === lastLapIndex && currentLapRemain === 0) {
-        this.status = 'stopped';
-        // this.#startTime = this.#startTime;
-        this.currentLapIndex = lastLapIndex;
-        this.currentLapRemain = currentLapRemain;
-      } else {
-        this.status = 'countdowning';
-        // this.#startTime = this.#startTime;
-        this.currentLapIndex = currentLapIndex;
-        this.currentLapRemain = currentLapRemain;
-      }
-    };
-
-    const updateDuration = (timestamp: number) => {
-      updateStateBy(timestamp);
+    const onTick = (timestamp: number) => {
+      this.updateStateByCurrentTime(timestamp);
       this.#emitter.emit('tick');
 
       if (this.status === 'countdowning') {
-        this.#timerId = this.#tickController.requestTick(updateDuration);
+        this.#timerId = this.#tickController.requestTick(onTick);
       } else {
         this.#timerId = null;
       }
     };
 
-    this.status = 'countdowning';
     this.#startTime = now;
-    this.currentLapIndex = 0;
-    this.currentLapRemain = this.#lapDurations[0];
-    this.#timerId = this.#tickController.requestTick(updateDuration);
+    this.updateStateByCurrentTime(now);
+    this.#timerId = this.#tickController.requestTick(onTick);
   }
 
   /** カウントダウンを強制的に停止し, 初期状態に戻す. これにより, `tick` イベントの呼び出しが停止する. */
