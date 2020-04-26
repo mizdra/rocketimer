@@ -4,6 +4,7 @@ import { useChainedTimer } from './hook/use-chained-timer';
 import { TimerCard } from './component/TimeCard';
 import { TimerController } from './component/TimerController';
 import { Timeline } from './component/Timeline';
+import { LapForm } from './component/LapForm';
 
 export type AppProps = {};
 
@@ -32,7 +33,7 @@ export function App(_props: AppProps) {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      console.log(`Pressed ${e.key} key`);
+      // console.log(`Pressed ${e.key} key`);
       if (e.key === 'ArrowRight' || e.key === 'Right') {
         setOffset(offset + 1000);
       }
@@ -47,7 +48,8 @@ export function App(_props: AppProps) {
   }, [offset, setOffset]);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" style={{ padding: 30 }}>
+      <LapForm />
       <Timeline totalElapsed={totalElapsed} lapEndTimes={lapEndTimes} />
       <TimerCard title={currentLapTitle} duration={currentLapRemain} />
       <TimerController status={status} onStart={start} onStop={reset} />
