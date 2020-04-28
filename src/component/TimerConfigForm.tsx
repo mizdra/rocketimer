@@ -13,24 +13,24 @@ export type TimerConfig = {
   }[];
 };
 
-type InnnerFormData = {
+type FormData = {
   laps: {
     title: string;
     duration: string;
   }[];
 };
 
-export type LapFormProps = {
+export type TimerConfigFormProps = {
   onSave: (timerConfig: TimerConfig) => void;
 };
 
-export function LapForm({ onSave }: LapFormProps) {
-  const { control, register, handleSubmit } = useForm<InnnerFormData>({
+export function TimerConfigForm({ onSave }: TimerConfigFormProps) {
+  const { control, register, handleSubmit } = useForm<FormData>({
     defaultValues: {
       laps: [{ title: '', duration: '' }],
     },
   });
-  const { fields, append, remove } = useFieldArray<InnnerFormData['laps'][0]>({
+  const { fields, append, remove } = useFieldArray<FormData['laps'][0]>({
     control,
     name: 'laps',
   });
@@ -40,9 +40,9 @@ export function LapForm({ onSave }: LapFormProps) {
   }, [append]);
 
   const onSubmit = useCallback(
-    (innerFormData: InnnerFormData) => {
+    (data: FormData) => {
       onSave({
-        laps: innerFormData.laps.slice(0, -1).map((lapConfig) => ({
+        laps: data.laps.slice(0, -1).map((lapConfig) => ({
           title: lapConfig.title,
           // 秒をミリ秒に直す
           duration: +lapConfig.duration * 1000,

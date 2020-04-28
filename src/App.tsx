@@ -4,7 +4,7 @@ import { useChainedTimer } from './hook/use-chained-timer';
 import { TimerCard } from './component/TimeCard';
 import { TimerController } from './component/TimerController';
 import { Timeline } from './component/Timeline';
-import { LapForm, TimerConfig } from './component/LapForm';
+import { TimerConfigForm, TimerConfig } from './component/TimerConfigForm';
 
 const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
   { title: 'お湯が沸くまで', duration: 3 * 1000 },
@@ -53,7 +53,7 @@ export function App(_props: AppProps) {
 
   return (
     <Container maxWidth="lg" style={{ padding: 30 }}>
-      <LapForm onSave={handleConfigSave} />
+      <TimerConfigForm onSave={handleConfigSave} />
       <Timeline totalElapsed={totalElapsed} lapEndTimes={lapEndTimes} />
       <TimerCard title={currentLapTitle} duration={currentLapRemain} />
       <TimerController status={status} onStart={start} onStop={reset} />
