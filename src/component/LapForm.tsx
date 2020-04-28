@@ -25,7 +25,7 @@ export type LapFormProps = {
 };
 
 export function LapForm({ onSave }: LapFormProps) {
-  const { control, register, handleSubmit, errors } = useForm<InnnerFormData>({
+  const { control, register, handleSubmit } = useForm<InnnerFormData>({
     defaultValues: {
       lapConfigs: [{ title: '', duration: '' }],
     },
@@ -44,13 +44,12 @@ export function LapForm({ onSave }: LapFormProps) {
       const outerFormData: OuterFormData = {
         lapConfigs: innerFormData.lapConfigs.slice(0, -1).map((lapConfig) => ({
           title: lapConfig.title,
-          duration: +lapConfig.duration,
+          duration: +lapConfig.duration * 1000,
         })),
       };
       onSave?.(outerFormData);
-      console.log(outerFormData, errors);
     },
-    [errors, onSave],
+    [onSave],
   );
 
   const items = fields.map((field, index) => {

@@ -65,6 +65,10 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
     });
   }, [lapDurations, timer]);
 
+  useEffect(() => {
+    syncStateWithTimer();
+  }, [lapDurations, syncStateWithTimer]);
+
   const start = useCallback(() => {
     timer.start();
     syncStateWithTimer();
@@ -84,7 +88,7 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
   useEffect(() => {
     const unsubscribe = timer.addListener('tick', syncStateWithTimer);
     return unsubscribe;
-  }, [syncStateWithTimer, timer]);
+  }, [lapDurations, syncStateWithTimer, timer]);
 
   return { ...state, lapEndTimes, start, reset, setOffset };
 }
