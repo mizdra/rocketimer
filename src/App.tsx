@@ -4,9 +4,9 @@ import { useChainedTimer } from './hook/use-chained-timer';
 import { TimerCard } from './component/TimeCard';
 import { TimerController } from './component/TimerController';
 import { Timeline } from './component/Timeline';
-import { LapForm, OuterFormData } from './component/LapForm';
+import { LapForm, TimerConfig } from './component/LapForm';
 
-const DEFAULT_LAP_CONFIGS: OuterFormData['lapConfigs'] = [
+const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
   { title: 'お湯が沸くまで', duration: 3 * 1000 },
   { title: 'カップラーメンができるまで', duration: 5 * 1000 },
   { title: 'お昼休みが終わるまで', duration: 10 * 1000 },
@@ -17,7 +17,7 @@ const DEFAULT_LAP_CONFIGS: OuterFormData['lapConfigs'] = [
 export type AppProps = {};
 
 export function App(_props: AppProps) {
-  const [lapConfigs, setLapConfigs] = useState<OuterFormData['lapConfigs']>(DEFAULT_LAP_CONFIGS);
+  const [lapConfigs, setLapConfigs] = useState<TimerConfig['laps']>(DEFAULT_LAP_CONFIGS);
   const lapDurations = useMemo(() => lapConfigs.map((lapConfig) => lapConfig.duration), [lapConfigs]);
   const {
     status,
@@ -47,8 +47,8 @@ export function App(_props: AppProps) {
     };
   }, [offset, setOffset]);
 
-  const handleConfigSave = useCallback((config: OuterFormData) => {
-    setLapConfigs(config.lapConfigs);
+  const handleConfigSave = useCallback((config: TimerConfig) => {
+    setLapConfigs(config.laps);
   }, []);
 
   return (

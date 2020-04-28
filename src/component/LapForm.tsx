@@ -6,33 +6,33 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
-export type OuterFormData = {
-  lapConfigs: {
+export type TimerConfig = {
+  laps: {
     title: string;
     duration: number;
   }[];
 };
 
 type InnnerFormData = {
-  lapConfigs: {
+  laps: {
     title: string;
     duration: string;
   }[];
 };
 
 export type LapFormProps = {
-  onSave?: (formData: OuterFormData) => void;
+  onSave: (timerConfig: TimerConfig) => void;
 };
 
 export function LapForm({ onSave }: LapFormProps) {
   const { control, register, handleSubmit } = useForm<InnnerFormData>({
     defaultValues: {
-      lapConfigs: [{ title: '', duration: '' }],
+      laps: [{ title: '', duration: '' }],
     },
   });
-  const { fields, append, remove } = useFieldArray<InnnerFormData['lapConfigs'][0]>({
+  const { fields, append, remove } = useFieldArray<InnnerFormData['laps'][0]>({
     control,
-    name: 'lapConfigs',
+    name: 'laps',
   });
 
   const handleAddField = useCallback(() => {
@@ -41,13 +41,13 @@ export function LapForm({ onSave }: LapFormProps) {
 
   const onSubmit = useCallback(
     (innerFormData: InnnerFormData) => {
-      const outerFormData: OuterFormData = {
-        lapConfigs: innerFormData.lapConfigs.slice(0, -1).map((lapConfig) => ({
+      onSave({
+        laps: innerFormData.laps.slice(0, -1).map((lapConfig) => ({
           title: lapConfig.title,
+          // 秒をミリ秒に直す
           duration: +lapConfig.duration * 1000,
         })),
-      };
-      onSave?.(outerFormData);
+      });
     },
     [onSave],
   );
@@ -57,7 +57,7 @@ export function LapForm({ onSave }: LapFormProps) {
     return (
       <div key={field.id}>
         <TextField
-          name={`lapConfigs[${index}].title`}
+          name={`laps[${index}].title`}
           inputRef={register()}
           label="タイトル"
           variant="outlined"
@@ -66,7 +66,7 @@ export function LapForm({ onSave }: LapFormProps) {
           onChange={isLastField ? handleAddField : undefined}
         />
         <TextField
-          name={`lapConfigs[${index}].duration`}
+          name={`laps[${index}].duration`}
           inputRef={register()}
           label="待機時間"
           variant="outlined"
