@@ -1,6 +1,10 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import { ChainedTimer, ChainedTimerStatus } from '../lib/chained-timer';
 
+/**
+ * タイマーの開始時刻を基準とした各ラップが終了するまでの所要時間を返す.
+ * @example `lapDurations` が `[1, 2, 3]` の時, `[1, 3, 6]` を返す.
+ * */
 function calcLapEndTimes(lapDurations: number[]): number[] {
   const lapEndTimes = new Array<number>(lapDurations.length);
   let acc = 0;
@@ -11,6 +15,7 @@ function calcLapEndTimes(lapDurations: number[]): number[] {
   return lapEndTimes;
 }
 
+/** 総経過時間を算出する */
 function calcTotalElapsed(lapDurations: number[], currentLapRemain: number, currentLapIndex: number): number {
   let elapsed = 0;
   for (let i = 0; i < currentLapIndex; i++) {
@@ -47,6 +52,7 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
     return { timer, lapEndTimes };
   }, [lapDurations]);
 
+  // 状態と状態更新用の util 関数を定義
   const [state, setState] = useState<ChainedTimerState>({
     status: timer.status,
     currentLapRemain: timer.currentLapRemain,
@@ -65,10 +71,7 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
     });
   }, [lapDurations, timer]);
 
-  useEffect(() => {
-    syncStateWithTimer();
-  }, [lapDurations, syncStateWithTimer]);
-
+  // タイマーを操作するAPIを定義
   const start = useCallback(() => {
     timer.start();
     syncStateWithTimer();
@@ -85,6 +88,12 @@ export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
     [syncStateWithTimer, timer],
   );
 
+  // lapDurations が変更されたら state も更新する
+  useEffect(() => {
+    syncStateWithTimer();
+  }, [lapDurations, syncStateWithTimer]);
+
+  // tick イベントが発火したら state を更新する
   useEffect(() => {
     const unsubscribe = timer.addListener('tick', syncStateWithTimer);
     return unsubscribe;

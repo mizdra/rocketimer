@@ -6,16 +6,18 @@ import { TimerController } from './component/TimerController';
 import { Timeline } from './component/Timeline';
 import { LapForm, OuterFormData } from './component/LapForm';
 
+const DEFAULT_LAP_CONFIGS: OuterFormData['lapConfigs'] = [
+  { title: 'お湯が沸くまで', duration: 3 * 1000 },
+  { title: 'カップラーメンができるまで', duration: 5 * 1000 },
+  { title: 'お昼休みが終わるまで', duration: 10 * 1000 },
+  { title: '定時まで', duration: 10 * 1000 },
+  { title: '就寝まで', duration: 10000000 * 1000 },
+];
+
 export type AppProps = {};
 
 export function App(_props: AppProps) {
-  const [lapConfigs, setLapConfigs] = useState<OuterFormData['lapConfigs']>([
-    { title: 'お湯が沸くまで', duration: 3 * 1000 },
-    { title: 'カップラーメンができるまで', duration: 5 * 1000 },
-    { title: 'お昼休みが終わるまで', duration: 10 * 1000 },
-    { title: '定時まで', duration: 10 * 1000 },
-    { title: '就寝まで', duration: 10000000 * 1000 },
-  ]);
+  const [lapConfigs, setLapConfigs] = useState<OuterFormData['lapConfigs']>(DEFAULT_LAP_CONFIGS);
   const lapDurations = useMemo(() => lapConfigs.map((lapConfig) => lapConfig.duration), [lapConfigs]);
   const {
     status,
