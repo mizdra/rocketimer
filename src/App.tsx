@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useCallback, useState } from 'react';
 import Container from '@material-ui/core/Container';
-import { useChainedTimer } from './hook/use-chained-timer';
+import { useCascadeTimer } from './hook/use-cascade-timer';
 import { TimerRemainDisplay } from './component/TimerRemainDisplay';
 import { TimerController } from './component/TimerController';
 import { TimerTimeline } from './component/TimerTimeline';
@@ -29,7 +29,7 @@ export function App(_props: AppProps) {
     start,
     reset,
     setOffset,
-  } = useChainedTimer(lapDurations);
+  } = useCascadeTimer(lapDurations);
   const currentLapTitle = useMemo(() => lapConfigs[currentLapIndex].title, [currentLapIndex, lapConfigs]);
 
   useEffect(() => {

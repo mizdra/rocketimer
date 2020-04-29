@@ -6,7 +6,7 @@ const INITIAL_STATUS = 'initial';
 const INITIAL_START_TIME = 0;
 const INITIAL_TIMER_ID = null;
 
-export type ChainedTimerStatus = 'initial' | 'countdowning' | 'ended';
+export type CascadeTimerStatus = 'initial' | 'countdowning' | 'ended';
 
 export type EventTypes = {
   /** カウントダウン中のタイマーが更新された時に発火するイベント. */
@@ -33,14 +33,14 @@ function getCurrentLap(lapDurations: number[], elapsed: number) {
 }
 
 /** 高FPSで動作するよう設計された多段カウントダウンタイマー */
-export class ChainedTimer {
+export class CascadeTimer {
   readonly #lapDurations: number[];
   readonly #emitter: EventEmitter<EventTypes>;
   readonly #timeController: TimeController;
   readonly #tickController: TickController;
 
   /** タイマーがカウントダウン中か, 停止しているかを返す */
-  status: ChainedTimerStatus;
+  status: CascadeTimerStatus;
   #startTime: number;
   /** カウントダウン中のラップの残り時間. 値は `tick` イベントに合わせて更新される. */
   currentLapRemain: number;
@@ -115,7 +115,7 @@ export class ChainedTimer {
   /** カウントダウンを開始する. */
   start() {
     const now = this.#timeController.getTime();
-    if (this.status === 'countdowning') throw new Error('カウントダウン中は ChainedTimer#start を呼び出せません.');
+    if (this.status === 'countdowning') throw new Error('カウントダウン中は CascadeTimer#start を呼び出せません.');
 
     const onTick = (timestamp: number) => {
       this.#timerId = this.#tickController.requestTick(onTick);
