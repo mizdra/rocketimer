@@ -1,9 +1,9 @@
 import React, { useMemo, useEffect, useCallback, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import { useChainedTimer } from './hook/use-chained-timer';
-import { TimerCard } from './component/TimeCard';
+import { TimerRemainDisplay } from './component/TimerRemainDisplay';
 import { TimerController } from './component/TimerController';
-import { Timeline } from './component/Timeline';
+import { TimerTimeline } from './component/TimerTimeline';
 import { TimerConfigForm, TimerConfig } from './component/TimerConfigForm';
 
 const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
@@ -54,8 +54,8 @@ export function App(_props: AppProps) {
   return (
     <Container maxWidth="lg" style={{ padding: 30 }}>
       <TimerConfigForm onSave={handleConfigSave} />
-      <Timeline totalElapsed={totalElapsed} lapEndTimes={lapEndTimes} />
-      <TimerCard title={currentLapTitle} duration={currentLapRemain} />
+      <TimerTimeline totalElapsed={totalElapsed} lapEndTimes={lapEndTimes} />
+      <TimerRemainDisplay title={currentLapTitle} remain={currentLapRemain} />
       <TimerController status={status} onStart={start} onStop={reset} />
     </Container>
   );

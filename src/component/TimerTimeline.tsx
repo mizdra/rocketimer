@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Timeline as VisTimeline, TimelineOptions } from 'vis-timeline/esnext';
+import { Timeline, TimelineOptions } from 'vis-timeline/esnext';
 
-const VIS_TIMELINE_OPTIONS: TimelineOptions = {
+const TIMELINE_OPTIONS: TimelineOptions = {
   // 初回は 0 〜 30秒の区間を表示する
   start: 0,
   end: 30 * 1000,
@@ -17,19 +17,19 @@ const VIS_TIMELINE_OPTIONS: TimelineOptions = {
   zoomMin: 10 * 1000, // 10秒まで拡大できる
 };
 
-export type TimelineProps = {
+export type TimerTimelineProps = {
   totalElapsed: number;
   lapEndTimes: number[];
 };
 
-export function Timeline({ totalElapsed, lapEndTimes }: TimelineProps) {
+export function TimerTimeline({ totalElapsed, lapEndTimes }: TimerTimelineProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [timeline, setTimeline] = useState<VisTimeline | null>(null);
+  const [timeline, setTimeline] = useState<Timeline | null>(null);
 
   useEffect(() => {
     if (ref.current === null) return;
 
-    const timeline = new VisTimeline(ref.current, [], VIS_TIMELINE_OPTIONS);
+    const timeline = new Timeline(ref.current, [], TIMELINE_OPTIONS);
     lapEndTimes.forEach((lapEndTime, i) => {
       timeline.addCustomTime(lapEndTime, `lap-${i}-end-time`);
     });
