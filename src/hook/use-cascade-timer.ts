@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import { ChainedTimer, ChainedTimerStatus } from '../lib/chained-timer';
+import { CascadeTimer, CascadeTimerStatus } from '../lib/timer/cascade-timer';
 
 /**
  * タイマーの開始時刻を基準とした各ラップが終了するまでの所要時間を返す.
@@ -25,7 +25,7 @@ function calcTotalElapsed(lapDurations: number[], currentLapRemain: number, curr
   return elapsed;
 }
 
-export type UseChainedTimerResult = ChainedTimerState & {
+export type UseCascadeTimerResult = CascadeTimerState & {
   /**
    * タイマーの開始時刻を基準とした各ラップが終了するまでの所要時間.
    * @example `lapDurations` が `[1, 2, 3]` の時, `lapEndTimes` は `[1, 3, 6]` となる.
@@ -36,8 +36,8 @@ export type UseChainedTimerResult = ChainedTimerState & {
   setOffset: (newOffset: number) => void;
 };
 
-type ChainedTimerState = {
-  status: ChainedTimerStatus;
+type CascadeTimerState = {
+  status: CascadeTimerStatus;
   currentLapRemain: number;
   currentLapIndex: number;
   /** タイマーを開始してから現在までの経過時間. 値は `tick` イベントに合わせて更新される. */
@@ -45,15 +45,15 @@ type ChainedTimerState = {
   offset: number;
 };
 
-export function useChainedTimer(lapDurations: number[]): UseChainedTimerResult {
+export function useCascadeTimer(lapDurations: number[]): UseCascadeTimerResult {
   const { timer, lapEndTimes } = useMemo(() => {
-    const timer = new ChainedTimer(lapDurations);
+    const timer = new CascadeTimer(lapDurations);
     const lapEndTimes = calcLapEndTimes(lapDurations);
     return { timer, lapEndTimes };
   }, [lapDurations]);
 
   // 状態と状態更新用の util 関数を定義
-  const [state, setState] = useState<ChainedTimerState>({
+  const [state, setState] = useState<CascadeTimerState>({
     status: timer.status,
     currentLapRemain: timer.currentLapRemain,
     currentLapIndex: timer.currentLapIndex,

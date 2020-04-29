@@ -17,19 +17,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export type TimerCardProps = {
+export type TimerRemainDisplayProps = {
   title: string;
-  duration: number;
+  remain: number;
 };
 
-export function TimerCard({ title, duration }: TimerCardProps) {
+export function TimerRemainDisplay({ title, remain }: TimerRemainDisplayProps) {
   const classes = useStyles();
   return (
     <Card>
       <CardContent>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.time}>
-          <DurationView value={duration} />
+          <DurationView value={remain} />
         </div>
       </CardContent>
     </Card>

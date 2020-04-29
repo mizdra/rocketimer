@@ -1,11 +1,11 @@
-import { ChainedTimer } from './chained-timer';
-import { TestableTimeController } from './timer/time-controller';
-import { TestableTickController } from './timer/tick-controller';
+import { CascadeTimer } from '../lib/timer/cascade-timer';
+import { TestableTimeController } from '../lib/timer/time-controller';
+import { TestableTickController } from '../lib/timer/tick-controller';
 
 function createTimer(lapDurations: number[], offset: number) {
   const timeController = new TestableTimeController();
   const tickController = new TestableTickController(timeController);
-  const timer = new ChainedTimer(lapDurations, offset, timeController, tickController);
+  const timer = new CascadeTimer(lapDurations, offset, timeController, tickController);
   const listener = jest.fn();
   timer.addListener('tick', listener);
   return { timeController, tickController, timer, listener };

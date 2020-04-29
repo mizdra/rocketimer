@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { ChainedTimerStatus } from '../lib/chained-timer';
+import { CascadeTimerStatus } from '../lib/timer/cascade-timer';
 
 export type TimerControllerProps = {
-  status: ChainedTimerStatus;
+  status: CascadeTimerStatus;
   onStart: () => void;
   onStop: () => void;
 };
