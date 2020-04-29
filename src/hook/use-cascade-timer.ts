@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import { CascadeTimer, CascadeTimerStatus } from '../lib/timer/cascade-timer';
+import { CascadeTimer, CascadeTimerStatus } from '../lib/cascade-timer';
 
 /**
  * タイマーの開始時刻を基準とした各ラップが終了するまでの所要時間を返す.
