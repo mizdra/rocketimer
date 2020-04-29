@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
-import { TimeController, PerformanceTimeController } from './timer/time-controller';
-import { TickController, AnimationFrameTickController } from './timer/tick-controller';
+import { TimeController, PerformanceTimeController } from './time-controller';
+import { TickController, AnimationFrameTickController } from './tick-controller';
 
 const INITIAL_STATUS = 'initial';
 const INITIAL_START_TIME = 0;
