@@ -1,10 +1,12 @@
-import React, { useMemo, useEffect, useCallback, useState } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import { useCascadeTimer } from './hook/use-cascade-timer';
 import { TimerRemainDisplay } from './component/TimerRemainDisplay';
 import { TimerController } from './component/TimerController';
 import { TimerTimeline } from './component/TimerTimeline';
 import { TimerConfigForm, TimerConfig } from './component/TimerConfigForm';
+import { useOffsetChangeShortcut } from './hook/use-offset-change-shortcut';
+import { useSoundEffect } from './hook/use-sound-effect';
 
 const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
   { title: 'お湯が沸くまで', duration: 3 * 1000 },
@@ -32,20 +34,9 @@ export function App(_props: AppProps) {
   } = useCascadeTimer(lapDurations);
   const currentLapTitle = useMemo(() => lapConfigs[currentLapIndex].title, [currentLapIndex, lapConfigs]);
 
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === 'Right') {
-        setOffset(offset + 1000);
-      }
-      if (e.key === 'ArrowLeft' || e.key === 'Left') {
-        setOffset(offset - 1000);
-      }
-    };
-    window.addEventListener('keydown', handler);
-    return () => {
-      window.removeEventListener('keydown', handler);
-    };
-  }, [offset, setOffset]);
+  useOffsetChangeShortcut(offset, setOffset);
+
+  useSoundEffect(status, currentLapRemain, currentLapIndex);
 
   const handleConfigSave = useCallback((config: TimerConfig) => {
     setLapConfigs(config.laps);
