@@ -18,8 +18,8 @@ export type CascadeTimerState = {
 };
 
 export type EventTypes = {
-  /** タイマーの状態が更新された時に発火するイベント. */
-  statechange: [CascadeTimerState];
+  /** カウントダウン中のタイマーが更新された時に発火するイベント. */
+  tick: [];
 };
 
 export type UnsubscribeFn = () => void;
@@ -117,14 +117,13 @@ export class CascadeTimer {
 
       this.#status = newStatus;
       this.#lastTickTime = timestamp;
-      this.#emitter.emit('statechange', this.getState());
+      this.#emitter.emit('tick');
     };
 
     this.#status = 'countdowning';
     this.#startTime = startTime ?? now;
     this.#lastTickTime = startTime ?? now;
     this.#timerId = this.#tickController.requestTick(onTick);
-    this.#emitter.emit('statechange', this.getState());
   }
 
   /** カウントダウンを強制的に停止し, 初期状態に戻す. これにより, `tick` イベントの呼び出しが停止する. */
@@ -135,7 +134,6 @@ export class CascadeTimer {
     this.#startTime = INITIAL_START_TIME;
     this.#lastTickTime = INITIAL_LAST_TICK_TIME;
     this.#timerId = INITIAL_TIMER_ID;
-    this.#emitter.emit('statechange', this.getState());
   }
 
   /**
