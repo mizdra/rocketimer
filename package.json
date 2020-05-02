@@ -12,7 +12,7 @@
     "check": "run-p -l -c 'check:tsc --pretty' 'check:eslint --color' check:prettier 'check:jest --colors'",
     "check:tsc": "tsc --noEmit",
     "check:eslint": "eslint 'src/**/*.{ts,tsx}'",
-    "check:prettier": "prettier --check --ignore-path .gitignore .",
+    "check:prettier": "prettier --check .",
     "check:jest": "jest"
   },
   "dependencies": {
