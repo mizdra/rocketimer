@@ -1,6 +1,6 @@
-import { CascadeTimer } from '../lib/timer/cascade-timer';
-import { TestableTimeController } from '../lib/timer/time-controller';
-import { TestableTickController } from '../lib/timer/tick-controller';
+import { CascadeTimer } from './cascade-timer';
+import { TestableTimeController } from './time-controller';
+import { TestableTickController } from './tick-controller';
 
 function createTimer(lapDurations: number[], offset: number) {
   const timeController = new TestableTimeController();
