@@ -3,6 +3,7 @@ import { TimeController, PerformanceTimeController } from './time-controller';
 import { TickController, AnimationFrameTickController } from './tick-controller';
 
 const INITIAL_START_TIME = 0;
+const INITIAL_LAST_TICK_TIME = 0;
 const INITIAL_TIMER_ID = null;
 
 export type CascadeTimerStatus = 'initial' | 'countdowning' | 'ended';
@@ -47,7 +48,9 @@ export class CascadeTimer {
   readonly #timeController: TimeController;
   readonly #tickController: TickController;
 
+  #status: CascadeTimerStatus;
   #startTime: number;
+  #lastTickTime: number;
   #timerId: number | null;
 
   /**
@@ -64,8 +67,30 @@ export class CascadeTimer {
     this.#timeController = timeController;
     this.#tickController = tickController;
 
+    this.#status = 'initial';
     this.#startTime = INITIAL_START_TIME;
+    this.#lastTickTime = INITIAL_LAST_TICK_TIME;
     this.#timerId = INITIAL_TIMER_ID;
+  }
+
+  /** タイマーの状態を返す. */
+  getState(): CascadeTimerState {
+    if (this.#status === 'initial') {
+      return {
+        status: 'initial',
+        ...createCurrentLapState(this.#lapDurations, 0),
+      };
+    }
+    if (this.#status === 'countdowning') {
+      return {
+        status: 'countdowning',
+        ...createCurrentLapState(this.#lapDurations, this.#lastTickTime - this.#startTime),
+      };
+    }
+    return {
+      status: 'ended',
+      ...createCurrentLapState(this.#lapDurations, Number.MAX_SAFE_INTEGER),
+    };
   }
 
   /**
@@ -82,39 +107,35 @@ export class CascadeTimer {
     const onTick = (timestamp: number) => {
       const elapsed = timestamp - this.#startTime;
       const { currentLapIndex, currentLapRemain } = createCurrentLapState(this.#lapDurations, elapsed);
+      const newStatus = currentLapIndex === lastLapIndex && currentLapRemain === 0 ? 'ended' : 'countdowning';
 
-      const status = currentLapIndex === lastLapIndex && currentLapRemain === 0 ? 'ended' : 'countdowning';
-      if (status === 'countdowning') {
+      if (newStatus === 'countdowning') {
         this.#timerId = this.#tickController.requestTick(onTick);
       } else {
         this.#timerId = null;
       }
 
-      this.#emitter.emit('statechange', {
-        status,
-        currentLapIndex,
-        currentLapRemain,
-      });
+      this.#status = newStatus;
+      this.#lastTickTime = timestamp;
+      this.#emitter.emit('statechange', this.getState());
     };
 
+    this.#status = 'countdowning';
     this.#startTime = startTime ?? now;
+    this.#lastTickTime = startTime ?? now;
     this.#timerId = this.#tickController.requestTick(onTick);
-    this.#emitter.emit('statechange', {
-      status: 'countdowning',
-      ...createCurrentLapState(this.#lapDurations, now - this.#startTime),
-    });
+    this.#emitter.emit('statechange', this.getState());
   }
 
   /** カウントダウンを強制的に停止し, 初期状態に戻す. これにより, `tick` イベントの呼び出しが停止する. */
   reset() {
     if (this.#timerId !== null) this.#tickController.cancelTick(this.#timerId);
-    this.#startTime = INITIAL_START_TIME;
-    this.#timerId = INITIAL_TIMER_ID;
 
-    this.#emitter.emit('statechange', {
-      status: 'initial',
-      ...createCurrentLapState(this.#lapDurations, 0),
-    });
+    this.#status = 'initial';
+    this.#startTime = INITIAL_START_TIME;
+    this.#lastTickTime = INITIAL_LAST_TICK_TIME;
+    this.#timerId = INITIAL_TIMER_ID;
+    this.#emitter.emit('statechange', this.getState());
   }
 
   /**
