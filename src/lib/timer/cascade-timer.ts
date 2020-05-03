@@ -15,6 +15,8 @@ export type CascadeTimerState = {
   currentLapRemain: number;
   /** カウントダウン中のラップのインデックス. 停止中は最後のラップのインデックスが設定される. */
   currentLapIndex: number;
+  /** 残り時間のオフセット. `-1000` の場合は 1 秒遅れてカウントダウンされる. */
+  offset: number;
 };
 
 export type EventTypes = {
@@ -51,6 +53,7 @@ export class CascadeTimer {
   #status: CascadeTimerStatus;
   #startTime: number;
   #lastTickTime: number;
+  #offset: number;
   #timerId: number | null;
 
   /**
@@ -58,6 +61,7 @@ export class CascadeTimer {
    */
   constructor(
     lapDurations: number[],
+    offset = 0,
     timeController: TimeController = new PerformanceTimeController(),
     tickController: TickController = new AnimationFrameTickController(),
   ) {
@@ -70,6 +74,7 @@ export class CascadeTimer {
     this.#status = 'initial';
     this.#startTime = INITIAL_START_TIME;
     this.#lastTickTime = INITIAL_LAST_TICK_TIME;
+    this.#offset = offset;
     this.#timerId = INITIAL_TIMER_ID;
   }
 
@@ -78,18 +83,21 @@ export class CascadeTimer {
     if (this.#status === 'initial') {
       return {
         status: 'initial',
-        ...createCurrentLapState(this.#lapDurations, 0),
+        ...createCurrentLapState(this.#lapDurations, this.#offset),
+        offset: this.#offset,
       };
     }
     if (this.#status === 'countdowning') {
       return {
         status: 'countdowning',
-        ...createCurrentLapState(this.#lapDurations, this.#lastTickTime - this.#startTime),
+        ...createCurrentLapState(this.#lapDurations, this.#lastTickTime - this.#startTime + this.#offset),
+        offset: this.#offset,
       };
     }
     return {
       status: 'ended',
       ...createCurrentLapState(this.#lapDurations, Number.MAX_SAFE_INTEGER),
+      offset: this.#offset,
     };
   }
 
@@ -105,7 +113,7 @@ export class CascadeTimer {
 
     const lastLapIndex = this.#lapDurations.length - 1;
     const onTick = (timestamp: number) => {
-      const elapsed = timestamp - this.#startTime;
+      const elapsed = timestamp - this.#startTime + this.#offset;
       const { currentLapIndex, currentLapRemain } = createCurrentLapState(this.#lapDurations, elapsed);
       const newStatus = currentLapIndex === lastLapIndex && currentLapRemain === 0 ? 'ended' : 'countdowning';
 
@@ -134,6 +142,11 @@ export class CascadeTimer {
     this.#startTime = INITIAL_START_TIME;
     this.#lastTickTime = INITIAL_LAST_TICK_TIME;
     this.#timerId = INITIAL_TIMER_ID;
+  }
+
+  /** オフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
+  setOffset(offset: number) {
+    this.#offset = offset;
   }
 
   /**
