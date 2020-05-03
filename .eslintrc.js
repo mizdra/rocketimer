@@ -46,21 +46,34 @@ module.exports = {
     // typescript
     '@typescript-eslint/adjacent-overload-signatures': 2,
     // opinionated
-    '@typescript-eslint/no-inferrable-types': 2,
-    '@typescript-eslint/no-namespace': [2, { allowDeclarations: true }],
-    '@typescript-eslint/triple-slash-reference': 2,
-    '@typescript-eslint/no-var-requires': 2,
-    '@typescript-eslint/type-annotation-spacing': 2,
-    '@typescript-eslint/no-for-in-array': 2,
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
-    'no-unused-vars': 0,
-    // ESLintの no-unused-vars は正確ではないので, tsc の noUnused* オプションで代用する
-    // ref: https://github.com/typescript-eslint/typescript-eslint/pull/688
-    // '@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-require-imports': 2,
     '@typescript-eslint/array-type': 2,
+    // require type information
+    '@typescript-eslint/await-thenable': 2,
     // opinionated
     '@typescript-eslint/consistent-type-assertions': 2,
+    // require type information
+    '@typescript-eslint/no-for-in-array': 2,
+    // require type information
+    '@typescript-eslint/no-implied-eval': 2,
+    // require type information
+    '@typescript-eslint/no-misused-promises': 2,
+    '@typescript-eslint/no-namespace': [2, { allowDeclarations: true }],
+    '@typescript-eslint/no-require-imports': 2,
+    // @typescript-eslint の no-unused-vars-experimental は正確ではないので, tsc の noUnused* オプションで代用する
+    // ref: https://github.com/typescript-eslint/typescript-eslint/issues/1856
+    'no-unused-vars': 0,
+    '@typescript-eslint/no-unused-vars-experimental': 0,
+    // opinionated, require type information
+    '@typescript-eslint/prefer-regexp-exec': 2,
+    // opinionated, require type information
+    '@typescript-eslint/promise-function-async': 2,
+    // require type information
+    '@typescript-eslint/require-array-sort-compare': 2,
+    // opinionated, require type information
+    '@typescript-eslint/switch-exhaustiveness-check': 2,
+    '@typescript-eslint/triple-slash-reference': 2,
+    // require type information
+    '@typescript-eslint/unbound-method': 2,
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-array-constructor.md
     'no-array-constructor': 0,
     '@typescript-eslint/no-array-constructor': 2,
