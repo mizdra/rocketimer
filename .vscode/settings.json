@@ -5,8 +5,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.prettier": true
-  },
-  // `/module.ts` の util を `/module/*.ts` に置くディレクトリ構造を採用しているため,
-  // 本体と util の対応が分かりやすいよう, ディレクトリとファイルを混ぜてソートする
-  "explorer.sortOrder": "mixed"
+  }
 }
