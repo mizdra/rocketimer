@@ -59,26 +59,16 @@ describe('Timer', () => {
     beforeEach(() => {
       context = createTimer([1000, 2000], 500);
     });
-    describe('#status', () => {
-      test('`initial` を返す', () => {
-        expect(context.timer.status).toBe('initial');
+    describe('#getState', () => {
+      test('現在のタイマーの状態を返す', () => {
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
       });
     });
-    describe('#currentLapRemain', () => {
-      test('残り時間は最初のラップのカウントダウン時間 - オフセット', () => {
-        expect(context.timer.currentLapRemain).toBe(500);
       });
-    });
-    describe('#currentLapIndex', () => {
-      test('最初のラップのインデックスが設定されている', () => {
-        expect(context.timer.currentLapIndex).toBe(0);
-      });
-    });
-    describe('#offset', () => {
-      test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(500);
-      });
-    });
     describe('#start', () => {
       test('カウントダウンを開始できる', () => {
         context.timer.start();
@@ -142,24 +132,14 @@ describe('Timer', () => {
     beforeEach(() => {
       context = createStartedTimer([1000, 2000], 500);
     });
-    describe('#status', () => {
-      test('カウントダウン中', () => {
-        expect(context.timer.status).toBe('countdowning');
-      });
+    describe('#getState', () => {
+      test('現在のタイマーの状態を返す', () => {
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
     });
-    describe('#currentLapRemain', () => {
-      test('残り時間は最初のラップのカウントダウン時間 - オフセット', () => {
-        expect(context.timer.currentLapRemain).toBe(500);
-      });
-    });
-    describe('#currentLapIndex', () => {
-      test('最初のラップのインデックスが設定されている', () => {
-        expect(context.timer.currentLapIndex).toBe(0);
-      });
-    });
-    describe('#offset', () => {
-      test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#start', () => {
@@ -227,24 +207,14 @@ describe('Timer', () => {
     beforeEach(() => {
       context = createElapsedTimer([1000, 2000], 500, 1500);
     });
-    describe('#status', () => {
-      test('カウントダウン中', () => {
-        expect(context.timer.status).toBe('countdowning');
-      });
+    describe('#getState', () => {
+      test('現在のタイマーの状態を返す', () => {
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 1000,
+          currentLapIndex: 1,
+          offset: 500,
     });
-    describe('#currentLapRemain', () => {
-      test('残り時間が更新されている', () => {
-        expect(context.timer.currentLapRemain).toBe(1000);
-      });
-    });
-    describe('#currentLapIndex', () => {
-      test('現在のラップのインデックスが更新されている', () => {
-        expect(context.timer.currentLapIndex).toBe(1);
-      });
-    });
-    describe('#offset', () => {
-      test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#start', () => {
@@ -298,24 +268,14 @@ describe('Timer', () => {
     beforeEach(() => {
       context = createElapsedTimer([1000, 2000], 500, 3000);
     });
-    describe('#status', () => {
-      test('カウントダウン終了', () => {
-        expect(context.timer.status).toBe('ended');
-      });
+    describe('#getState', () => {
+      test('現在のタイマーの状態を返す', () => {
+        expect(context.timer.getState()).toEqual({
+          status: 'ended',
+          currentLapRemain: 0,
+          currentLapIndex: 1,
+          offset: 500,
     });
-    describe('#currentLapRemain', () => {
-      test('残り時間は 0 になる', () => {
-        expect(context.timer.currentLapRemain).toBe(0);
-      });
-    });
-    describe('#currentLapIndex', () => {
-      test('現在のラップのインデックスは最終ラップのインデックスになる', () => {
-        expect(context.timer.currentLapIndex).toBe(1);
-      });
-    });
-    describe('#offset', () => {
-      test('指定したオフセットが設定されている', () => {
-        expect(context.timer.offset).toBe(500);
       });
     });
     describe('#start', () => {
