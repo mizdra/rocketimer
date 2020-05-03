@@ -1,12 +1,12 @@
 import React, { useMemo, useCallback, useState } from 'react';
 import Container from '@material-ui/core/Container';
-import { useCascadeTimer } from './hook/use-cascade-timer';
-import { TimerRemainDisplay } from './component/TimerRemainDisplay';
-import { TimerController } from './component/TimerController';
-import { TimerTimeline } from './component/TimerTimeline';
-import { TimerConfigForm, TimerConfig } from './component/TimerConfigForm';
-import { useOffsetChangeShortcut } from './hook/use-offset-change-shortcut';
-import { useSoundEffect } from './hook/use-sound-effect';
+import { useCascadeTimer } from './hook/timer/use-cascade-timer';
+import { TimerRemainDisplay } from './component/molecules/timer/TimerRemainDisplay';
+import { TimerController } from './component/molecules/timer/TimerController';
+import { TimerTimeline } from './component/molecules/timer/TimerTimeline';
+import { TimerConfigForm, TimerConfig } from './component/molecules/timer/TimerConfigForm';
+import { useOffsetChangeShortcut } from './hook/timer/use-offset-change-shortcut';
+import { useSoundEffect } from './hook/timer/use-sound-effect';
 
 const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
   { title: 'お湯が沸くまで', duration: 3 * 1000 },
