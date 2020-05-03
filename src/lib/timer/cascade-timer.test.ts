@@ -1,27 +1,24 @@
 import { CascadeTimer } from './cascade-timer';
-import { TestableTimeController } from './time-controller';
-import { TestableTickController } from './tick-controller';
+import { TestableTimerController } from './timer-controller';
 
 function createTimer(lapDurations: number[], offset: number) {
-  const timeController = new TestableTimeController();
-  const tickController = new TestableTickController(timeController);
-  const timer = new CascadeTimer(lapDurations, offset, timeController, tickController);
+  const controller = new TestableTimerController();
+  const timer = new CascadeTimer(lapDurations, offset, controller);
   const listener = jest.fn();
   timer.addListener('tick', listener);
-  return { timeController, tickController, timer, listener };
+  return { controller, timer, listener };
 }
 
 function createStartedTimer(lapDurations: number[], offset: number) {
-  const { timeController, tickController, timer, listener } = createTimer(lapDurations, offset);
+  const { controller, timer, listener } = createTimer(lapDurations, offset);
   timer.start();
-  return { timeController, tickController, timer, listener };
+  return { controller, timer, listener };
 }
 
 function createElapsedTimer(lapDurations: number[], offset: number, elapsed: number) {
-  const { timeController, tickController, timer, listener } = createStartedTimer(lapDurations, offset);
-  timeController.advanceTimeBy(elapsed);
-  tickController.advanceTick();
-  return { timeController, tickController, timer, listener };
+  const { controller, timer, listener } = createStartedTimer(lapDurations, offset);
+  controller.advanceBy(elapsed);
+  return { controller, timer, listener };
 }
 
 describe('Timer', () => {
@@ -138,8 +135,7 @@ describe('Timer', () => {
     describe('@tick', () => {
       test('どれだけ待っても発火しない', () => {
         expect(context.listener.mock.calls.length).toBe(0);
-        context.timeController.advanceTimeBy(1);
-        context.tickController.advanceTick();
+        context.controller.advanceBy(1);
         expect(context.listener.mock.calls.length).toBe(0);
       });
     });
@@ -223,10 +219,9 @@ describe('Timer', () => {
       });
     });
     describe('@tick', () => {
-      test('TickController#advanceTick を呼び出す度に発火する', () => {
+      test('時刻の更新に合わせて発火する', () => {
         expect(context.listener.mock.calls.length).toBe(0);
-        context.timeController.advanceTimeBy(1);
-        context.tickController.advanceTick();
+        context.controller.advanceBy(1);
         expect(context.listener.mock.calls.length).toBe(1);
       });
     });
@@ -292,10 +287,9 @@ describe('Timer', () => {
       });
     });
     describe('@tick', () => {
-      test('TickController#advanceTick を呼び出す度に発火する', () => {
+      test('時刻の更新に合わせて発火する', () => {
         expect(context.listener.mock.calls.length).toBe(1);
-        context.timeController.advanceTimeBy(1);
-        context.tickController.advanceTick();
+        context.controller.advanceBy(1);
         expect(context.listener.mock.calls.length).toBe(2);
       });
     });
@@ -361,8 +355,7 @@ describe('Timer', () => {
     describe('@tick', () => {
       test('どれだけ待っても発火しない', () => {
         expect(context.listener.mock.calls.length).toBe(1);
-        context.timeController.advanceTimeBy(1);
-        context.tickController.advanceTick();
+        context.controller.advanceBy(1);
         expect(context.listener.mock.calls.length).toBe(1);
       });
     });

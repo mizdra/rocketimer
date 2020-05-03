@@ -1,6 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { TimeController, PerformanceTimeController } from './time-controller';
-import { TickController, AnimationFrameTickController } from './tick-controller';
+import { OptimizedTimerController, TimerController } from './timer-controller';
 
 const INITIAL_START_TIME = 0;
 const INITIAL_LAST_TICK_TIME = 0;
@@ -47,8 +46,7 @@ function createCurrentLapState(lapDurations: number[], elapsed: number) {
 export class CascadeTimer {
   readonly #lapDurations: number[];
   readonly #emitter: EventEmitter<EventTypes>;
-  readonly #timeController: TimeController;
-  readonly #tickController: TickController;
+  readonly #controller: TimerController;
 
   #status: CascadeTimerStatus;
   #startTime: number;
@@ -59,17 +57,11 @@ export class CascadeTimer {
   /**
    * @param lapDurations ラップごとのカウントダウン時間
    */
-  constructor(
-    lapDurations: number[],
-    offset = 0,
-    timeController: TimeController = new PerformanceTimeController(),
-    tickController: TickController = new AnimationFrameTickController(),
-  ) {
+  constructor(lapDurations: number[], offset = 0, controller: TimerController = new OptimizedTimerController()) {
     if (lapDurations.length == 0) throw new Error('インスタンスを作成するには少なくとも 1 つのラップが必要です.');
     this.#lapDurations = lapDurations;
     this.#emitter = new EventEmitter();
-    this.#timeController = timeController;
-    this.#tickController = tickController;
+    this.#controller = controller;
 
     this.#status = 'initial';
     this.#startTime = INITIAL_START_TIME;
@@ -106,7 +98,7 @@ export class CascadeTimer {
    * @param startTime タイマーの開始時刻. 指定しなければ `CascadeTimer#start` を呼び出した時間が用いられる.
    * */
   start(startTime?: number) {
-    const now = this.#timeController.getTime();
+    const now = this.#controller.getTime();
     if (this.#timerId !== INITIAL_TIMER_ID) throw new Error('カウントダウン中は CascadeTimer#start を呼び出せません.');
     if (startTime !== undefined && startTime > now)
       throw new Error('タイマーの開始時間は現在時刻より前でなければなりません.');
@@ -118,7 +110,7 @@ export class CascadeTimer {
       const newStatus = currentLapIndex === lastLapIndex && currentLapRemain === 0 ? 'ended' : 'countdowning';
 
       if (newStatus === 'countdowning') {
-        this.#timerId = this.#tickController.requestTick(onTick);
+        this.#timerId = this.#controller.requestTick(onTick);
       } else {
         this.#timerId = null;
       }
@@ -131,12 +123,12 @@ export class CascadeTimer {
     this.#status = 'countdowning';
     this.#startTime = startTime ?? now;
     this.#lastTickTime = startTime ?? now;
-    this.#timerId = this.#tickController.requestTick(onTick);
+    this.#timerId = this.#controller.requestTick(onTick);
   }
 
   /** カウントダウンを強制的に停止し, 初期状態に戻す. これにより, `tick` イベントの呼び出しが停止する. */
   reset() {
-    if (this.#timerId !== null) this.#tickController.cancelTick(this.#timerId);
+    if (this.#timerId !== null) this.#controller.cancelTick(this.#timerId);
 
     this.#status = 'initial';
     this.#startTime = INITIAL_START_TIME;
