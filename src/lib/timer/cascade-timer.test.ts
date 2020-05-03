@@ -203,10 +203,10 @@ describe('Timer', () => {
           offset: 1000,
         });
       });
-      test('非常に大きなオフセットを指定するとタイマーが終了することがある', () => {
+      test('オフセットの変更によりタイマーが終了することはない', () => {
         context.timer.setOffset(3000);
         expect(context.timer.getState()).toEqual({
-          status: 'ended',
+          status: 'countdowning',
           currentLapRemain: 0,
           currentLapIndex: 1,
           offset: 3000,
