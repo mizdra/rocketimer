@@ -53,21 +53,18 @@ export function useCascadeTimer(lapDurations: number[]): UseCascadeTimerResult {
   }, [lapDurations]);
 
   // 状態と状態更新用の util 関数を定義
-  const [state, setState] = useState<CascadeTimerState>({
-    status: timer.status,
-    currentLapRemain: timer.currentLapRemain,
-    currentLapIndex: timer.currentLapIndex,
-    totalElapsed: calcTotalElapsed(lapDurations, timer.currentLapRemain, timer.currentLapIndex),
-    offset: timer.offset,
+  const [state, setState] = useState<CascadeTimerState>(() => {
+    const state = timer.getState();
+    return {
+      ...state,
+      totalElapsed: calcTotalElapsed(lapDurations, state.currentLapRemain, state.currentLapIndex),
+    };
   });
   const syncStateWithTimer = useCallback(() => {
-    const { status, currentLapRemain, currentLapIndex } = timer;
+    const state = timer.getState();
     setState({
-      status: status,
-      currentLapRemain: currentLapRemain,
-      currentLapIndex: currentLapIndex,
-      totalElapsed: calcTotalElapsed(lapDurations, currentLapRemain, currentLapIndex),
-      offset: timer.offset,
+      ...state,
+      totalElapsed: calcTotalElapsed(lapDurations, state.currentLapRemain, state.currentLapIndex),
     });
   }, [lapDurations, timer]);
 
