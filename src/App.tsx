@@ -21,22 +21,11 @@ export type AppProps = {};
 export function App(_props: AppProps) {
   const [lapConfigs, setLapConfigs] = useState<TimerConfig['laps']>(DEFAULT_LAP_CONFIGS);
   const lapDurations = useMemo(() => lapConfigs.map((lapConfig) => lapConfig.duration), [lapConfigs]);
-  const {
-    status,
-    currentLapRemain,
-    currentLapIndex,
-    totalElapsed,
-    offset,
-    lapEndTimes,
-    start,
-    reset,
-    setOffset,
-  } = useCascadeTimer(lapDurations);
-  const currentLapTitle = useMemo(() => lapConfigs[currentLapIndex].title, [currentLapIndex, lapConfigs]);
+  const timer = useCascadeTimer(lapDurations);
+  const currentLapTitle = useMemo(() => lapConfigs[timer.currentLapIndex].title, [timer.currentLapIndex, lapConfigs]);
 
-  useOffsetChangeShortcut(offset, setOffset);
-
-  useSoundEffect(status, currentLapRemain, currentLapIndex);
+  useOffsetChangeShortcut(timer);
+  useSoundEffect(timer);
 
   const handleConfigSave = useCallback((config: TimerConfig) => {
     setLapConfigs(config.laps);
@@ -45,9 +34,9 @@ export function App(_props: AppProps) {
   return (
     <Container maxWidth="lg" style={{ padding: 30 }}>
       <TimerConfigForm onSave={handleConfigSave} />
-      <TimerTimeline totalElapsed={totalElapsed} lapEndTimes={lapEndTimes} />
-      <TimerRemainDisplay title={currentLapTitle} remain={currentLapRemain} />
-      <TimerController status={status} onStart={start} onStop={reset} />
+      <TimerTimeline totalElapsed={timer.totalElapsed} lapEndTimes={timer.lapEndTimes} />
+      <TimerRemainDisplay title={currentLapTitle} remain={timer.currentLapRemain} />
+      <TimerController status={timer.status} onStart={timer.start} onStop={timer.reset} />
     </Container>
   );
 }

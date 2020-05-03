@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
+import { UseCascadeTimerResult } from './use-cascade-timer';
 
-export function useOffsetChangeShortcut(offset: number, setOffset: (newOffset: number) => void) {
+export function useOffsetChangeShortcut(timer: UseCascadeTimerResult) {
+  const { offset, setOffset } = timer;
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'Right') {
