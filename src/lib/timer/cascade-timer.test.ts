@@ -28,10 +28,12 @@ describe('Timer', () => {
   describe('#constructor', () => {
     test('インスタンスが作成できる', () => {
       const { timer } = createTimer([1000, 2000, 3000], 0);
-      expect(timer.status).toBe('initial');
-      expect(timer.currentLapRemain).toBe(1000);
-      expect(timer.currentLapIndex).toBe(0);
-      expect(timer.offset).toBe(0);
+      expect(timer.getState()).toEqual({
+        status: 'initial',
+        currentLapRemain: 1000,
+        currentLapIndex: 0,
+        offset: 0,
+      });
     });
     test('ラップ数が 0 のタイマーのインスタンスは作成できない', () => {
       expect(() => {
@@ -40,17 +42,21 @@ describe('Timer', () => {
     });
     test('オフセットを指定できる', () => {
       const { timer } = createTimer([1000, 2000, 3000], 500);
-      expect(timer.status).toBe('initial');
-      expect(timer.currentLapRemain).toBe(500);
-      expect(timer.currentLapIndex).toBe(0);
-      expect(timer.offset).toBe(500);
+      expect(timer.getState()).toEqual({
+        status: 'initial',
+        currentLapRemain: 500,
+        currentLapIndex: 0,
+        offset: 500,
+      });
     });
     test('負のオフセットを指定できる', () => {
       const { timer } = createTimer([1000, 2000, 3000], -500);
-      expect(timer.status).toBe('initial');
-      expect(timer.currentLapRemain).toBe(1500);
-      expect(timer.currentLapIndex).toBe(0);
-      expect(timer.offset).toBe(-500);
+      expect(timer.getState()).toEqual({
+        status: 'initial',
+        currentLapRemain: 1500,
+        currentLapIndex: 0,
+        offset: -500,
+      });
     });
   });
 
@@ -66,55 +72,67 @@ describe('Timer', () => {
           currentLapRemain: 500,
           currentLapIndex: 0,
           offset: 500,
+        });
       });
     });
-      });
     describe('#start', () => {
       test('カウントダウンを開始できる', () => {
         context.timer.start();
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
+        });
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
+        });
       });
     });
     describe('#setOffset', () => {
       test('オフセットを変更できる', () => {
         context.timer.setOffset(100);
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(900);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(100);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 900,
+          currentLapIndex: 0,
+          offset: 100,
+        });
       });
       test('大きなオフセットを指定すると最初のラップが飛ばされることがある', () => {
         context.timer.setOffset(1000);
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(2000);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(1000);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 2000,
+          currentLapIndex: 1,
+          offset: 1000,
+        });
       });
       test('非常に大きなオフセットを指定するとカウント時間が 0 秒の状態になることがある', () => {
         context.timer.setOffset(3000);
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(0);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(3000);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 0,
+          currentLapIndex: 1,
+          offset: 3000,
+        });
       });
       test('ラップ 0 の時に大きな負のオフセットを指定するとラップのカウント時間よりも残り時間が大きくなることがある', () => {
         context.timer.setOffset(-1000);
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(2000);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(-1000);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 2000,
+          currentLapIndex: 0,
+          offset: -1000,
+        });
       });
     });
     describe('@tick', () => {
@@ -139,7 +157,7 @@ describe('Timer', () => {
           currentLapRemain: 500,
           currentLapIndex: 0,
           offset: 500,
-    });
+        });
       });
     });
     describe('#start', () => {
@@ -147,49 +165,61 @@ describe('Timer', () => {
         expect(() => {
           context.timer.start();
         }).toThrow();
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
+        });
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
+        });
       });
     });
     describe('#setOffset', () => {
       test('オフセットを変更できる', () => {
         context.timer.setOffset(100);
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(900);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(100);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 900,
+          currentLapIndex: 0,
+          offset: 100,
+        });
       });
       test('大きなオフセットを指定すると最初のラップが飛ばされることがある', () => {
         context.timer.setOffset(1000);
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(2000);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(1000);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 2000,
+          currentLapIndex: 1,
+          offset: 1000,
+        });
       });
       test('非常に大きなオフセットを指定するとタイマーが終了することがある', () => {
         context.timer.setOffset(3000);
-        expect(context.timer.status).toBe('ended');
-        expect(context.timer.currentLapRemain).toBe(0);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(3000);
+        expect(context.timer.getState()).toEqual({
+          status: 'ended',
+          currentLapRemain: 0,
+          currentLapIndex: 1,
+          offset: 3000,
+        });
       });
       test('ラップ 0 の時に大きな負のオフセットを指定するとラップのカウント時間よりも残り時間が大きくなることがある', () => {
         context.timer.setOffset(-1000);
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(2000);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(-1000);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 2000,
+          currentLapIndex: 0,
+          offset: -1000,
+        });
       });
     });
     describe('@tick', () => {
@@ -214,7 +244,7 @@ describe('Timer', () => {
           currentLapRemain: 1000,
           currentLapIndex: 1,
           offset: 500,
-    });
+        });
       });
     });
     describe('#start', () => {
@@ -222,35 +252,43 @@ describe('Timer', () => {
         expect(() => {
           context.timer.start();
         }).toThrow();
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(1000);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 1000,
+          currentLapIndex: 1,
+          offset: 500,
+        });
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
+        });
       });
     });
     describe('#setOffset', () => {
       test('オフセットを変更できる', () => {
         context.timer.setOffset(100);
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(1400);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(100);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 1400,
+          currentLapIndex: 1,
+          offset: 100,
+        });
       });
       test('大きな負のオフセットを指定すると前のラップに戻ることがある', () => {
         context.timer.setOffset(-1000);
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(-1000);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: -1000,
+        });
       });
     });
     describe('@tick', () => {
@@ -275,41 +313,49 @@ describe('Timer', () => {
           currentLapRemain: 0,
           currentLapIndex: 1,
           offset: 500,
-    });
+        });
       });
     });
     describe('#start', () => {
       test('カウントダウンを開始できる', () => {
         context.timer.start();
-        expect(context.timer.status).toBe('countdowning');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'countdowning',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
+        });
       });
     });
     describe('#reset', () => {
       test('リセットできる', () => {
         context.timer.reset();
-        expect(context.timer.status).toBe('initial');
-        expect(context.timer.currentLapRemain).toBe(500);
-        expect(context.timer.currentLapIndex).toBe(0);
-        expect(context.timer.offset).toBe(500);
+        expect(context.timer.getState()).toEqual({
+          status: 'initial',
+          currentLapRemain: 500,
+          currentLapIndex: 0,
+          offset: 500,
+        });
       });
     });
     describe('#setOffset', () => {
       test('オフセットを変更できる', () => {
         context.timer.setOffset(100);
-        expect(context.timer.status).toBe('ended');
-        expect(context.timer.currentLapRemain).toBe(0);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(100);
+        expect(context.timer.getState()).toEqual({
+          status: 'ended',
+          currentLapRemain: 0,
+          currentLapIndex: 1,
+          offset: 100,
+        });
       });
       test('大きな負のオフセットを指定してもカウントダウン中の状態には戻らない', () => {
         context.timer.setOffset(-1000);
-        expect(context.timer.status).toBe('ended');
-        expect(context.timer.currentLapRemain).toBe(0);
-        expect(context.timer.currentLapIndex).toBe(1);
-        expect(context.timer.offset).toBe(-1000);
+        expect(context.timer.getState()).toEqual({
+          status: 'ended',
+          currentLapRemain: 0,
+          currentLapIndex: 1,
+          offset: -1000,
+        });
       });
     });
     describe('@tick', () => {
