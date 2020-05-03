@@ -1,8 +1,8 @@
 import { useMemo, useEffect, useCallback } from 'react';
-import { formatDuration } from '../lib/timer/duration';
-import tickTackAudioPath from '../audio/ticktack.mp3';
-import endedAudioPath from '../audio/ended.mp3';
-import { usePrevious } from './use-previous';
+import { formatDuration } from '../../lib/timer/duration';
+import tickTackAudioPath from '../../audio/ticktack.mp3';
+import endedAudioPath from '../../audio/ended.mp3';
+import { usePrevious } from '../use-previous';
 import { UseCascadeTimerResult } from './use-cascade-timer';
 
 function useAudio(path: string) {
