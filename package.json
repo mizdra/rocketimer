@@ -28,7 +28,7 @@
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.5.3",
     "tslib": "^1.11.1",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.1-rc",
     "uuid": "^7.0.3",
     "vis-data": "^6.5.1",
     "vis-timeline": "^7.3.4",
