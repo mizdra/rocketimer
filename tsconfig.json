@@ -18,6 +18,7 @@
 
     /* Strict Type-Checking Options */
     "strict": true,
+    "skipLibCheck": true,
 
     /* Lint Options */
     "noUnusedLocals": true,
