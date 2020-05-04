@@ -5,5 +5,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.prettier": true
-  }
+  },
+  "typescript.tsserver.log": "verbose"
 }
