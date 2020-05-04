@@ -6,6 +6,5 @@
     "source.fixAll.eslint": true,
     "source.fixAll.prettier": true
   },
-  "typescript.tsserver.log": "verbose",
   "typescript.tsdk": "node_modules/typescript/lib"
 }
