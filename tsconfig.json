@@ -5,6 +5,7 @@
     /* Basic Options */
     "target": "esnext", // ES周りは babel に任せる
     "lib": ["esnext", "dom"],
+    "isolatedModules": true, // for isolated file emit (ref: https://github.com/microsoft/TypeScript/wiki/Performance#isolated-file-emit)
 
     /* Module Options */
     "module": "esnext", // モジュール周りは tsc 側で弄らず webpack に任せる
