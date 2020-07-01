@@ -30,7 +30,7 @@
     "tslib": "^1.11.1",
     "typescript": "^3.9.1-rc",
     "uuid": "^7.0.3",
-    "vis-data": "^6.5.1",
+    "vis-data": "^6.6.1",
     "vis-timeline": "^7.3.4",
     "vis-util": "^4.0.0"
   },
