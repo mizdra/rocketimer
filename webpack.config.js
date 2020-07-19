@@ -23,7 +23,7 @@ module.exports = (env, argv) => ({
     path: distPath,
     filename: 'js/[name].[hash].js',
   },
-  devtool: argv.mode === 'development' ? 'inline-source-map' : false,
+  devtool: 'eval-source-map',
 
   module: {
     rules: [
