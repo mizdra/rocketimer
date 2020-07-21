@@ -5,8 +5,6 @@ import { TimerRemainDisplay } from './component/molecules/timer/TimerRemainDispl
 import { TimerController } from './component/molecules/timer/TimerController';
 import { TimerTimeline } from './component/molecules/timer/TimerTimeline';
 import { TimerConfigForm, TimerConfig } from './component/molecules/timer/TimerConfigForm';
-import { useOffsetChangeShortcut } from './hook/timer/use-offset-change-shortcut';
-import { useSoundEffect } from './hook/timer/use-sound-effect';
 import { useSetRecoilState } from 'recoil';
 import { lapConfigsState } from './recoil/cascade-timer';
 
@@ -15,9 +13,6 @@ export type AppProps = {};
 export function App(_props: AppProps) {
   const timer = useCascadeTimer();
   const setLapConfigs = useSetRecoilState(lapConfigsState);
-
-  useOffsetChangeShortcut(timer);
-  useSoundEffect();
 
   const handleConfigSave = useCallback(
     (config: TimerConfig) => {
@@ -30,7 +25,7 @@ export function App(_props: AppProps) {
     <Container maxWidth="lg" style={{ padding: 30 }}>
       <TimerConfigForm onSave={handleConfigSave} />
       <TimerTimeline />
-      <TimerRemainDisplay />
+      <TimerRemainDisplay setOffset={timer.setOffset} />
       <TimerController onStart={timer.start} onStop={timer.reset} />
     </Container>
   );

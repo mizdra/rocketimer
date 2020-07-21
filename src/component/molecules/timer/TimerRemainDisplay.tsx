@@ -6,6 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DurationView } from './TimerRemainDisplay/DurationView';
 import { useRecoilValue } from 'recoil';
 import { currentLapRemainState, currentLapTitleState } from '../../../recoil/cascade-timer';
+import { useOffsetChangeShortcut } from '../../../hook/timer/use-offset-change-shortcut';
+import { useSoundEffect } from '../../../hook/timer/use-sound-effect';
+import { UseCascadeTimerResult } from '../../../hook/timer/use-cascade-timer';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -19,9 +22,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function TimerRemainDisplay() {
+export function TimerRemainDisplay(props: { setOffset: UseCascadeTimerResult['setOffset'] }) {
   const currentLapTitle = useRecoilValue(currentLapTitleState);
   const currentLapRemain = useRecoilValue(currentLapRemainState);
+
+  useOffsetChangeShortcut(props.setOffset);
+  useSoundEffect();
 
   const classes = useStyles();
   return (
