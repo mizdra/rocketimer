@@ -3,7 +3,8 @@ import { formatDuration } from '../../lib/timer/duration';
 import tickTackAudioPath from '../../audio/ticktack.mp3';
 import endedAudioPath from '../../audio/ended.mp3';
 import { usePrevious } from '../use-previous';
-import { UseCascadeTimerResult } from './use-cascade-timer';
+import { useRecoilValue } from 'recoil';
+import { statusState, currentLapRemainState, currentLapIndexState } from '../../recoil/cascade-timer';
 
 function useAudio(path: string) {
   const audio = useMemo(() => new Audio(path), [path]);
@@ -14,8 +15,10 @@ function useAudio(path: string) {
 }
 
 /** 秒の位が変わる時と残り時間が 0 になった時に音を鳴らす */
-export function useSoundEffect(timer: UseCascadeTimerResult) {
-  const { status, currentLapRemain, currentLapIndex } = timer;
+export function useSoundEffect() {
+  const status = useRecoilValue(statusState);
+  const currentLapRemain = useRecoilValue(currentLapRemainState);
+  const currentLapIndex = useRecoilValue(currentLapIndexState);
 
   const { play: playTickTack } = useAudio(tickTackAudioPath);
   const { play: playEndedAudio } = useAudio(endedAudioPath);

@@ -17,7 +17,7 @@ export function App(_props: AppProps) {
   const setLapConfigs = useSetRecoilState(lapConfigsState);
 
   useOffsetChangeShortcut(timer);
-  useSoundEffect(timer);
+  useSoundEffect();
 
   const handleConfigSave = useCallback(
     (config: TimerConfig) => {
