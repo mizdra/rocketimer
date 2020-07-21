@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { CascadeTimer } from '../../lib/timer/cascade-timer';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue, useRecoilCallback } from 'recoil';
 import {
   statusState,
   currentLapRemainState,
@@ -16,11 +16,6 @@ export type UseCascadeTimerResult = {
 };
 
 export function useCascadeTimer(): UseCascadeTimerResult {
-  const setStatus = useSetRecoilState(statusState);
-  const setCurrentLapRemain = useSetRecoilState(currentLapRemainState);
-  const setCurrentLapIndex = useSetRecoilState(currentLapIndexState);
-  const setOffset = useSetRecoilState(offsetState);
-
   const lapDurations = useRecoilValue(lapDurationsState);
 
   const timer = useMemo(() => {
@@ -29,13 +24,16 @@ export function useCascadeTimer(): UseCascadeTimerResult {
   }, [lapDurations]);
 
   // 状態更新用の util 関数を定義
-  const syncStateWithTimer = useCallback(() => {
-    const state = timer.getState();
-    setStatus(state.status);
-    setCurrentLapRemain(state.currentLapRemain);
-    setCurrentLapIndex(state.currentLapIndex);
-    setOffset(state.offset);
-  }, [setCurrentLapIndex, setCurrentLapRemain, setOffset, setStatus, timer]);
+  const syncStateWithTimer = useRecoilCallback(
+    ({ set }) => () => {
+      const state = timer.getState();
+      set(statusState, state.status);
+      set(currentLapRemainState, state.currentLapRemain);
+      set(currentLapIndexState, state.currentLapIndex);
+      set(offsetState, state.offset);
+    },
+    [timer],
+  );
 
   // タイマーを操作するAPIを定義
   const start = useCallback(() => {
