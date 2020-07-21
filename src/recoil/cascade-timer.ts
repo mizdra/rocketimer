@@ -39,9 +39,12 @@ export const lapConfigsState = atom<TimerConfig['laps']>({
   default: DEFAULT_LAP_CONFIGS,
 });
 
-export const lapDurationsState = atom<number[]>({
+export const lapDurationsState = selector<number[]>({
   key: 'cascade-timer/lapDurationsState',
-  default: [],
+  get: ({ get }) => {
+    const lapConfigs = get(lapConfigsState);
+    return lapConfigs.map((lapConfig) => lapConfig.duration);
+  },
 });
 
 export const statusState = atom<CascadeTimerStatus>({
