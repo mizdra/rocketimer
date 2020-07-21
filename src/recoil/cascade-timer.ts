@@ -1,5 +1,14 @@
 import { atom, selector } from 'recoil';
 import { CascadeTimerStatus } from '../lib/timer/cascade-timer';
+import { TimerConfig } from '../component/molecules/timer/TimerConfigForm';
+
+const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
+  { title: 'お湯が沸くまで', duration: 3 * 1000 },
+  { title: 'カップラーメンができるまで', duration: 5 * 1000 },
+  { title: 'お昼休みが終わるまで', duration: 10 * 1000 },
+  { title: '定時まで', duration: 10 * 1000 },
+  { title: '就寝まで', duration: 10000000 * 1000 },
+];
 
 /**
  * タイマーの開始時刻を基準とした各ラップが終了するまでの所要時間を返す.
@@ -24,6 +33,12 @@ function calcTotalElapsed(lapDurations: number[], currentLapRemain: number, curr
   elapsed += lapDurations[currentLapIndex] - currentLapRemain;
   return elapsed;
 }
+
+export const lapConfigsState = atom<TimerConfig['laps']>({
+  key: 'cascade-timer/lapConfigsState',
+  default: DEFAULT_LAP_CONFIGS,
+});
+
 export const lapDurationsState = atom<number[]>({
   key: 'cascade-timer/lapDurationsState',
   default: [],
@@ -69,5 +84,14 @@ export const lapEndTimesState = selector<number[]>({
   get: ({ get }) => {
     const lapDurations = get(lapDurationsState);
     return calcLapEndTimes(lapDurations);
+  },
+});
+
+export const currentLapTitleState = selector<string>({
+  key: 'cascade-timer/currentLapTitleState',
+  get: ({ get }) => {
+    const lapConfigs = get(lapConfigsState);
+    const currentLapIndex = get(currentLapIndexState);
+    return lapConfigs[currentLapIndex].title;
   },
 });

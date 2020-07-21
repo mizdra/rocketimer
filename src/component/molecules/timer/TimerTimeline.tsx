@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Timeline, TimelineOptions } from 'vis-timeline/esnext';
+import { useRecoilValue } from 'recoil';
+import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 
 const TIMELINE_OPTIONS: TimelineOptions = {
   // 初回は 0 〜 30秒の区間を表示する
@@ -17,14 +19,12 @@ const TIMELINE_OPTIONS: TimelineOptions = {
   zoomMin: 10 * 1000, // 10秒まで拡大できる
 };
 
-export type TimerTimelineProps = {
-  totalElapsed: number;
-  lapEndTimes: number[];
-};
-
-export function TimerTimeline({ totalElapsed, lapEndTimes }: TimerTimelineProps) {
+export function TimerTimeline() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [timeline, setTimeline] = useState<Timeline | null>(null);
+
+  const totalElapsed = useRecoilValue(totalElapsedState);
+  const lapEndTimes = useRecoilValue(lapEndTimesState);
 
   useEffect(() => {
     if (ref.current === null) return;

@@ -4,6 +4,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { DurationView } from './TimerRemainDisplay/DurationView';
+import { useRecoilValue } from 'recoil';
+import { currentLapRemainState, currentLapTitleState } from '../../../recoil/cascade-timer';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -17,19 +19,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export type TimerRemainDisplayProps = {
-  title: string;
-  remain: number;
-};
+export function TimerRemainDisplay() {
+  const currentLapTitle = useRecoilValue(currentLapTitleState);
+  const currentLapRemain = useRecoilValue(currentLapRemainState);
 
-export function TimerRemainDisplay({ title, remain }: TimerRemainDisplayProps) {
   const classes = useStyles();
   return (
     <Card>
       <CardContent>
-        <Typography className={classes.title}>{title}</Typography>
+        <Typography className={classes.title}>{currentLapTitle}</Typography>
         <div className={classes.time}>
-          <DurationView value={remain} />
+          <DurationView value={currentLapRemain} />
         </div>
       </CardContent>
     </Card>
