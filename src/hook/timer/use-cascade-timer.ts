@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { CascadeTimer } from '../../lib/timer/cascade-timer';
-import { useSetRecoilState, useRecoilValue, useRecoilCallback } from 'recoil';
+import { useRecoilValue, useRecoilCallback } from 'recoil';
 import {
   statusState,
   currentLapRemainState,
