@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const rootPath = resolve(__dirname, '.');
 const libPath = resolve(__dirname, './lib');
@@ -24,6 +25,14 @@ module.exports = (env, argv) => ({
     filename: 'js/[name].[hash].js',
   },
   devtool: 'eval-source-map',
+
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: { mangle: false },
+      }),
+    ],
+  },
 
   module: {
     rules: [
