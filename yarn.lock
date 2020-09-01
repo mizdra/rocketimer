@@ -9277,10 +9277,10 @@ vis-timeline@^7.3.4:
   resolved "https://registry.yarnpkg.com/vis-timeline/-/vis-timeline-7.3.4.tgz#b8db26267c0fb97d9c9055c53831cf4068c6dbe2"
   integrity sha512-NWO2aMtdekyLqUu9/34Uqj5vRQnhYqHSmNMB4siqq1TySPRNSD/nZtYHSYWF+iGLshJmOaaJ0si/PrHsdAyYkQ==
 
-vis-util@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/vis-util/-/vis-util-4.0.0.tgz#a9900cffb0bbcef3ce88d5834f82b03808101e10"
-  integrity sha512-HLInh9yhJe3AH8I9tgWna304jYABa47Y9kO4M0QKtgSLnVgz7xK0952HFCeGMBJWMXr9XXWporoz/XqND15ukQ==
+vis-util@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/vis-util/-/vis-util-4.3.4.tgz#02319fbd909f82782b96a36d1224f1beea67f8b2"
+  integrity sha512-hJIZNrwf4ML7FYjs+m+zjJfaNvhjk3/1hbMdQZVnwwpOFJS/8dMG8rdbOHXcKoIEM6U5VOh3HNpaDXxGkOZGpw==
 
 vm-browserify@^1.0.1:
   version "1.1.2"

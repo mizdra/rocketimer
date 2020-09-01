@@ -32,7 +32,7 @@
     "uuid": "^7.0.3",
     "vis-data": "^6.6.1",
     "vis-timeline": "^7.3.4",
-    "vis-util": "^4.0.0"
+    "vis-util": "^4.3.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
