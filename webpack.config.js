@@ -70,7 +70,6 @@ module.exports = (env, argv) => ({
         {
           from: staticPath,
           to: '.',
-          ignore: ['.*'],
         },
       ],
     }),
