@@ -25,6 +25,7 @@ export type TimerConfigFormProps = {
 };
 
 export function TimerConfigForm({ onSave }: TimerConfigFormProps) {
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { control, register, handleSubmit } = useForm<FormData>({
     defaultValues: {
       laps: [{ title: '', duration: '' }],
