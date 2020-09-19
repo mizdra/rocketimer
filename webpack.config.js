@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const rootPath = resolve(__dirname, '.');
 const libPath = resolve(__dirname, './lib');
@@ -23,7 +24,15 @@ module.exports = (env, argv) => ({
     path: distPath,
     filename: 'js/[name].[hash].js',
   },
-  devtool: argv.mode === 'development' ? 'inline-source-map' : false,
+  devtool: 'eval-source-map',
+
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: { mangle: false },
+      }),
+    ],
+  },
 
   module: {
     rules: [
@@ -44,6 +53,10 @@ module.exports = (env, argv) => ({
 
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.json'],
+    alias: {
+      'react-dom$': 'react-dom/profiling',
+      'scheduler/tracing': 'scheduler/tracing-profiling',
+    },
   },
 
   plugins: [
