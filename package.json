@@ -29,7 +29,7 @@
     "react-hook-form": "^6.7.0",
     "recoil": "^0.0.10",
     "tslib": "^2.0.1",
-    "typescript": "^3.9.1-rc",
+    "typescript": "^4.0.3",
     "uuid": "^7.0.3",
     "vis-data": "^6.6.1",
     "vis-timeline": "^7.3.4",
