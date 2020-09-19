@@ -65,13 +65,14 @@ module.exports = (env, argv) => ({
       template: resolve(rootPath, './index.html'),
       inject: true,
     }),
-    new CopyWebpackPlugin([
-      {
-        from: staticPath,
-        to: '.',
-        ignore: ['.*'],
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: staticPath,
+          to: '.',
+        },
+      ],
+    }),
     new SWPrecacheWebpackPlugin({
       cacheId: 'rocketimer',
       filename: 'service-worker.js',
