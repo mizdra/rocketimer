@@ -13,8 +13,9 @@
     "check:tsc": "tsc --noEmit",
     "check:eslint": "eslint 'src/**/*.{ts,tsx}'",
     "check:prettier": "prettier --check .",
-    "check:jest": "jest --testPathIgnorePatterns performance",
-    "check:jest:perf": "perf -c='jest' -r='src/performance'"
+    "test": "run-p -l -c test:*",
+    "test:jest": "jest --testPathIgnorePatterns performance",
+    "test:perf": "perf -c='jest' -r='src/performance'"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
