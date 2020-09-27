@@ -10,12 +10,9 @@ import {
   HORIZON_LINE_Y,
   STAGE_HEIGHT,
 } from '../../../lib/timeline';
+import { range } from '../../../lib/array';
 
 export type TimerTimelineProps = {};
-
-function range(start: number, end: number): number[] {
-  return [...Array(end - start).keys()].map((i) => start + i);
-}
 
 type Lines = {
   gridLines: Konva.Line[];
