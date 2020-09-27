@@ -149,7 +149,12 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const scale = calcTimelineScale(zoom);
     const range = calcTimelineRange(scale.msByPx, totalElapsed, stageWidth);
 
-    const { grids: gridConfigs, lapEndLines: lapEndLineConfigs } = calcFloatingObjects(scale, range, lapEndTimes);
+    const { grids: gridConfigs, lapEndLines: lapEndLineConfigs } = calcFloatingObjects(
+      scale.gridStepTime,
+      range.minTime,
+      range.maxTime,
+      lapEndTimes,
+    );
 
     gridLines.forEach((gridLine, i) => {
       const gridLabel = gridLabels[i];
