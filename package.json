@@ -13,7 +13,7 @@
     "check:tsc": "tsc --noEmit",
     "check:eslint": "eslint 'src/**/*.{ts,tsx}'",
     "check:prettier": "prettier --check .",
-    "test": "run-p -l -c test:*",
+    "test": "run-s -l test:*",
     "test:jest": "jest --testPathIgnorePatterns performance",
     "test:perf": "jest --runTestsByPath ./src/performance/App.test.tsx"
   },
