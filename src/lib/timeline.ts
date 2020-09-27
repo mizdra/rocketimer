@@ -34,8 +34,8 @@ function calcScale(zoom: Ms): Scale {
   return { msByPx, gridStepUnit: 'second', gridStepTime: 1 * SECOND };
 }
 
-function calcRange(msByPx: number, elapsed: Ms, stageWidth: Px): Range {
-  const minTime = elapsed - CURRENT_LINE_X * msByPx;
+function calcRange(msByPx: number, totalElapsed: Ms, stageWidth: Px): Range {
+  const minTime = totalElapsed - CURRENT_LINE_X * msByPx;
   const maxTime = minTime + stageWidth * msByPx;
   return { minTime, maxTime };
 }
@@ -62,38 +62,40 @@ function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
   return ((gridLineTime / SECOND) % 60) + 's';
 }
 
-function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
-  return CURRENT_LINE_X + (time - elapsed) / msByPx;
+function timeToX(msByPx: number, totalElapsed: Ms, time: Ms) {
+  return CURRENT_LINE_X + (time - totalElapsed) / msByPx;
 }
 
-function calcGridParamsForKonva(msByPx: number, elapsed: number, gridStepUnit: string, gridTime: Ms) {
+function calcGridParamsForKonva(msByPx: number, totalElapsed: number, gridStepUnit: string, gridTime: Ms) {
   return {
     line: {
-      x: timeToX(msByPx, elapsed, gridTime),
+      x: timeToX(msByPx, totalElapsed, gridTime),
     },
     label: {
-      x: timeToX(msByPx, elapsed, gridTime) + 5,
+      x: timeToX(msByPx, totalElapsed, gridTime) + 5,
       text: calcGridLabel(gridStepUnit, gridTime),
     },
   };
 }
 
-function calcLapEndParamsForKonva(msByPx: number, elapsed: number, lapEndLineTime: Ms) {
+function calcLapEndParamsForKonva(msByPx: number, totalElapsed: number, lapEndLineTime: Ms) {
   return {
-    x: timeToX(msByPx, elapsed, lapEndLineTime),
+    x: timeToX(msByPx, totalElapsed, lapEndLineTime),
   };
 }
 
-export function calcParamsForKonva(stageWidth: Px, zoom: number, elapsed: Ms, lapEndTimes: Ms[]) {
+export function calcParamsForKonva(stageWidth: Px, zoom: number, totalElapsed: Ms, lapEndTimes: Ms[]) {
   const { msByPx, gridStepUnit, gridStepTime } = calcScale(zoom);
-  const { minTime, maxTime } = calcRange(msByPx, elapsed, stageWidth);
+  const { minTime, maxTime } = calcRange(msByPx, totalElapsed, stageWidth);
 
   const gridTimes = calcGridTime(minTime, maxTime, gridStepTime);
   const lapEndLineTimes = calcLadEndLineTime(minTime, maxTime, lapEndTimes);
 
-  const gridParamsList = gridTimes.map((gridTime) => calcGridParamsForKonva(msByPx, elapsed, gridStepUnit, gridTime));
+  const gridParamsList = gridTimes.map((gridTime) =>
+    calcGridParamsForKonva(msByPx, totalElapsed, gridStepUnit, gridTime),
+  );
   const lapEndParamsList = lapEndLineTimes.map((lapEndLineTime) =>
-    calcLapEndParamsForKonva(msByPx, elapsed, lapEndLineTime),
+    calcLapEndParamsForKonva(msByPx, totalElapsed, lapEndLineTime),
   );
   return { gridParamsList, lapEndParamsList };
 }
