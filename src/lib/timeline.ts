@@ -11,14 +11,6 @@ export const GRID_LABEL_Y: Px = HORIZON_LINE_Y + 8;
 export type Px = number; // pixel
 export type Ms = number; // milli seconds
 
-export type Grid = {
-  time: Ms;
-};
-
-export type LapEndLine = {
-  time: Ms;
-};
-
 export type TimelineScale = {
   msByPx: number;
   gridStepUnit: 'day' | 'hour' | 'minute' | 'second';
@@ -59,21 +51,17 @@ export function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
   return CURRENT_LINE_X + (time - elapsed) / msByPx;
 }
 
-export function calcGrids(minTime: number, maxTime: number, gridStepTime: number) {
+export function calcGridTime(minTime: number, maxTime: number, gridStepTime: number): Ms[] {
   const minGridLineTime = Math.floor(minTime / gridStepTime) * gridStepTime;
 
-  const grids: Grid[] = [];
+  const grids: Ms[] = [];
   for (let gridLineTime = minGridLineTime; gridLineTime <= maxTime; gridLineTime += gridStepTime) {
-    grids.push({
-      time: gridLineTime,
-    });
+    grids.push(gridLineTime);
   }
   return grids;
 }
 
-export function calcLadEndLines(minTime: number, maxTime: number, lapEndTimes: number[]) {
-  const lapEndLines: LapEndLine[] = lapEndTimes
-    .filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime)
-    .map((lapEndTime) => ({ time: lapEndTime }));
+export function calcLadEndLineTime(minTime: number, maxTime: number, lapEndTimes: number[]): Ms[] {
+  const lapEndLines: Ms[] = lapEndTimes.filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime);
   return lapEndLines;
 }

@@ -4,8 +4,8 @@ import { useRecoilValue } from 'recoil';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 import {
   calcGridLabel,
-  calcGrids,
-  calcLadEndLines,
+  calcGridTime,
+  calcLadEndLineTime,
   calcTimelineRange,
   calcTimelineScale,
   CURRENT_LINE_X,
@@ -150,27 +150,27 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const scale = calcTimelineScale(zoom);
     const range = calcTimelineRange(scale.msByPx, totalElapsed, stageWidth);
 
-    const gridConfigs = calcGrids(range.minTime, range.maxTime, scale.gridStepTime);
-    const lapEndLineConfigs = calcLadEndLines(range.minTime, range.maxTime, lapEndTimes);
+    const gridTimes = calcGridTime(range.minTime, range.maxTime, scale.gridStepTime);
+    const lapEndLineTimes = calcLadEndLineTime(range.minTime, range.maxTime, lapEndTimes);
 
     gridLines.forEach((gridLine, i) => {
       const gridLabel = gridLabels[i];
-      const gridConfig = gridConfigs[i];
-      if (gridConfig !== undefined) {
+      const gridTime = gridTimes[i];
+      if (gridTime !== undefined) {
         gridLine.show();
         gridLabel.show();
-        gridLine.x(timeToX(scale.msByPx, totalElapsed, gridConfig.time));
-        gridLabel.x(timeToX(scale.msByPx, totalElapsed, gridConfig.time) + 5);
-        gridLabel.text(calcGridLabel(scale.gridStepUnit, gridConfig.time));
+        gridLine.x(timeToX(scale.msByPx, totalElapsed, gridTime));
+        gridLabel.x(timeToX(scale.msByPx, totalElapsed, gridTime) + 5);
+        gridLabel.text(calcGridLabel(scale.gridStepUnit, gridTime));
       } else {
         gridLine.hide();
         gridLabel.hide();
       }
     });
     lapEndLines.forEach((lapEndLine, i) => {
-      if (i < lapEndLineConfigs.length) {
+      if (i < lapEndLineTimes.length) {
         lapEndLine.show();
-        lapEndLine.x(timeToX(scale.msByPx, totalElapsed, lapEndLineConfigs[i].time));
+        lapEndLine.x(timeToX(scale.msByPx, totalElapsed, lapEndLineTimes[i]));
       } else {
         lapEndLine.hide();
       }
