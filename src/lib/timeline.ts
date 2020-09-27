@@ -63,7 +63,7 @@ function toPx(zoom: number, ms: Ms): Px {
   return ms * msByPx;
 }
 
-export function calcGrids(stageWidth: Px, zoom: Ms, elapsed: Ms): Grid[] {
+export function calcFloatingObjects(stageWidth: Px, zoom: Ms, elapsed: Ms, lapEndTimes: number[]) {
   const gridConfig = calcGridConfig(zoom); // step: 10s
   const { minTime, maxTime } = calcRangeConfig(zoom, elapsed, stageWidth); // 20s, 60s
   const minGridLineTime = Math.floor(minTime / gridConfig.value) * gridConfig.value;
@@ -78,12 +78,9 @@ export function calcGrids(stageWidth: Px, zoom: Ms, elapsed: Ms): Grid[] {
       labelX: lineX + 5,
     });
   }
-  return grids;
-}
 
-export function calcLapEndLines(stageWidth: Px, zoom: Ms, elapsed: Ms, lapEndTimes: number[]): LapEndLine[] {
-  const { minTime, maxTime } = calcRangeConfig(zoom, elapsed, stageWidth);
-  return lapEndTimes
+  const lapEndLines = lapEndTimes
     .filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime)
     .map((lapEndTime) => ({ time: lapEndTime, x: CURRENT_LINE_X + toPx(zoom, lapEndTime - elapsed) }));
+  return { grids, lapEndLines };
 }

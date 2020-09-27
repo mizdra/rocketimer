@@ -2,14 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Konva from 'konva';
 import { useRecoilValue } from 'recoil';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
-import {
-  calcGrids,
-  calcLapEndLines,
-  CURRENT_LINE_X,
-  GRID_LABEL_Y,
-  HORIZON_LINE_Y,
-  STAGE_HEIGHT,
-} from '../../../lib/timeline';
+import { calcFloatingObjects, CURRENT_LINE_X, GRID_LABEL_Y, HORIZON_LINE_Y, STAGE_HEIGHT } from '../../../lib/timeline';
 import { range } from '../../../lib/array';
 
 export type TimerTimelineProps = {};
@@ -141,8 +134,12 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const { gridLines, gridLabels, lapEndLines } = lines;
     const stageWidth = stage.width();
 
-    const gridConfigs = calcGrids(stageWidth, zoom, totalElapsed);
-    const lapEndLineConfigs = calcLapEndLines(stageWidth, zoom, totalElapsed, lapEndTimes);
+    const { grids: gridConfigs, lapEndLines: lapEndLineConfigs } = calcFloatingObjects(
+      stageWidth,
+      zoom,
+      totalElapsed,
+      lapEndTimes,
+    );
 
     gridLines.forEach((gridLine, i) => {
       const gridLabel = gridLabels[i];
