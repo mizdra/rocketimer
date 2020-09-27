@@ -34,21 +34,10 @@ export function calcTimelineScale(zoom: Ms): TimelineScale {
   return { msByPx, gridStepUnit: 'second', gridStepTime: 1 * SECOND };
 }
 
-export function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
-  if (gridStepUnit == 'day') return ((gridLineTime / DAY) % 100) + 'd';
-  if (gridStepUnit == 'hour') return ((gridLineTime / HOUR) % 100) + 'h';
-  if (gridStepUnit == 'minute') return ((gridLineTime / MINUTE) % 60) + 'm';
-  return ((gridLineTime / SECOND) % 60) + 's';
-}
-
 export function calcTimelineRange(msByPx: number, elapsed: Ms, stageWidth: Px): TimelineRange {
   const minTime = elapsed - CURRENT_LINE_X * msByPx;
   const maxTime = minTime + stageWidth * msByPx;
   return { minTime, maxTime };
-}
-
-export function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
-  return CURRENT_LINE_X + (time - elapsed) / msByPx;
 }
 
 export function calcGridTime(minTime: number, maxTime: number, gridStepTime: number): Ms[] {
@@ -64,4 +53,33 @@ export function calcGridTime(minTime: number, maxTime: number, gridStepTime: num
 export function calcLadEndLineTime(minTime: number, maxTime: number, lapEndTimes: number[]): Ms[] {
   const lapEndLines: Ms[] = lapEndTimes.filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime);
   return lapEndLines;
+}
+
+function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
+  if (gridStepUnit == 'day') return ((gridLineTime / DAY) % 100) + 'd';
+  if (gridStepUnit == 'hour') return ((gridLineTime / HOUR) % 100) + 'h';
+  if (gridStepUnit == 'minute') return ((gridLineTime / MINUTE) % 60) + 'm';
+  return ((gridLineTime / SECOND) % 60) + 's';
+}
+
+function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
+  return CURRENT_LINE_X + (time - elapsed) / msByPx;
+}
+
+export function calcGridParamsForKonva(msByPx: number, elapsed: number, gridStepUnit: string, gridTime: Ms) {
+  return {
+    line: {
+      x: timeToX(msByPx, elapsed, gridTime),
+    },
+    label: {
+      x: timeToX(msByPx, elapsed, gridTime) + 5,
+      text: calcGridLabel(gridStepUnit, gridTime),
+    },
+  };
+}
+
+export function calcLapEndParamsForKonva(msByPx: number, elapsed: number, lapEndLineTime: Ms) {
+  return {
+    x: timeToX(msByPx, elapsed, lapEndLineTime),
+  };
 }
