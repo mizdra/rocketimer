@@ -41,7 +41,10 @@ test('should measure re-render time when state is updated with multiple of the s
     //   - そこで累計更新時間が 10 ms 以内になっていることを assert で確かめることとする
     // - react-performance-testing によるテストは仮想 DOM によるテストであり、DOM API のオーバーヘッドが考慮されていない
     //   - そこで上限とする累計更新時間を 10 ms から更に縮めて 8ms とする
-    expect(renderTime.current.TimerTimeline).toBeUpdatedWithin(4);
-    expect(renderTime.current.TimerRemainDisplay).toBeUpdatedWithin(4);
+    // - しかしよくよく考えるとテストは development build で実行される
+    //   - という訳で累計更新時間を 8ms から 16 ms に伸ばす
+    //   - (本当は production build でテストするべきだけど、@testing-library/react が production build でのテストに対応していないので諦めている)
+    expect(renderTime.current.TimerTimeline).toBeUpdatedWithin(8);
+    expect(renderTime.current.TimerRemainDisplay).toBeUpdatedWithin(8);
   });
 });
