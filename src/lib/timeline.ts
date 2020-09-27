@@ -45,10 +45,10 @@ function calcScaleConfig(zoom: Ms): ScaleConfig {
 }
 
 function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
-  if (gridStepUnit == 'day') return (Math.round(gridLineTime / DAY) % 100) + 'd';
-  if (gridStepUnit == 'hour') return (Math.round(gridLineTime / HOUR) % 100) + 'h';
-  if (gridStepUnit == 'minute') return (Math.round(gridLineTime / MINUTE) % 60) + 'm';
-  return (Math.round(gridLineTime / SECOND) % 60) + 's';
+  if (gridStepUnit == 'day') return ((gridLineTime / DAY) % 100) + 'd';
+  if (gridStepUnit == 'hour') return ((gridLineTime / HOUR) % 100) + 'h';
+  if (gridStepUnit == 'minute') return ((gridLineTime / MINUTE) % 60) + 'm';
+  return ((gridLineTime / SECOND) % 60) + 's';
 }
 
 function calcRangeConfig(msByPx: number, elapsed: Ms, stageWidth: Px): { minTime: Ms; maxTime: Ms } {
