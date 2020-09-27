@@ -8969,15 +8969,6 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-performance-testing-cli@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/performance-testing-cli/-/performance-testing-cli-1.1.0.tgz#c6b0852873a993825963c2e918a6d67ce9b0bf10"
-  integrity sha512-wuHnxqEx5gci+OhafVd1XZKyVh2E27D2JRcB/2ZwCRUzhM8+kkXcGG5930iYOhMCy9xceF0/C1s62Q+Pr4kWFg==
-  dependencies:
-    chalk "^4.1.0"
-    micromatch "^4.0.2"
-    yargs "^15.4.1"
-
 picomatch@^2.0.4, picomatch@^2.0.5, picomatch@^2.2.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
@@ -11953,7 +11944,7 @@ yargs@^14.2.0:
     y18n "^4.0.0"
     yargs-parser "^15.0.1"
 
-yargs@^15.1.0, yargs@^15.4.1:
+yargs@^15.1.0:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.4.1.tgz#0d87a16de01aee9d8bec2bfbf74f67851730f4f8"
   integrity sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
