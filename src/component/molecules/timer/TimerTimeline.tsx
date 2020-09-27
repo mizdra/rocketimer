@@ -12,6 +12,7 @@ import {
   HORIZON_LINE_Y,
   SECOND,
   STAGE_HEIGHT,
+  timeToX,
 } from '../../../lib/timeline';
 import { range } from '../../../lib/array';
 
@@ -147,12 +148,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const scale = calcTimelineScale(zoom);
     const range = calcTimelineRange(scale.msByPx, totalElapsed, stageWidth);
 
-    const { grids: gridConfigs, lapEndLines: lapEndLineConfigs } = calcFloatingObjects(
-      scale,
-      range,
-      totalElapsed,
-      lapEndTimes,
-    );
+    const { grids: gridConfigs, lapEndLines: lapEndLineConfigs } = calcFloatingObjects(scale, range, lapEndTimes);
 
     gridLines.forEach((gridLine, i) => {
       const gridLabel = gridLabels[i];
@@ -160,8 +156,8 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
       if (gridConfig !== undefined) {
         gridLine.show();
         gridLabel.show();
-        gridLine.x(gridConfig.lineX);
-        gridLabel.x(gridConfig.labelX);
+        gridLine.x(timeToX(scale.msByPx, totalElapsed, gridConfig.time));
+        gridLabel.x(timeToX(scale.msByPx, totalElapsed, gridConfig.time) + 5);
         gridLabel.text(gridConfig.labelText);
       } else {
         gridLine.hide();
@@ -171,7 +167,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     lapEndLines.forEach((lapEndLine, i) => {
       if (i < lapEndLineConfigs.length) {
         lapEndLine.show();
-        lapEndLine.x(lapEndLineConfigs[i].x);
+        lapEndLine.x(timeToX(scale.msByPx, totalElapsed, lapEndLineConfigs[i].time));
       } else {
         lapEndLine.hide();
       }

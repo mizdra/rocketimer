@@ -13,14 +13,11 @@ export type Ms = number; // milli seconds
 
 export type Grid = {
   time: Ms;
-  lineX: Px;
-  labelX: Px;
   labelText: string;
 };
 
 export type LapEndLine = {
   time: Ms;
-  x: Px;
 };
 
 export type TimelineScale = {
@@ -59,28 +56,25 @@ export function calcTimelineRange(msByPx: number, elapsed: Ms, stageWidth: Px): 
   return { minTime, maxTime };
 }
 
-export function calcFloatingObjects(scale: TimelineScale, range: TimelineRange, elapsed: Ms, lapEndTimes: number[]) {
-  const { msByPx, gridStepUnit, gridStepTime } = scale;
+export function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
+  return CURRENT_LINE_X + (time - elapsed) / msByPx;
+}
+
+export function calcFloatingObjects(scale: TimelineScale, range: TimelineRange, lapEndTimes: number[]) {
+  const { gridStepUnit, gridStepTime } = scale;
   const { minTime, maxTime } = range;
   const minGridLineTime = Math.floor(minTime / gridStepTime) * gridStepTime;
 
-  function timeToX(time: Ms) {
-    return CURRENT_LINE_X + (time - elapsed) / msByPx;
-  }
-
   const grids: Grid[] = [];
   for (let gridLineTime = minGridLineTime; gridLineTime <= maxTime; gridLineTime += gridStepTime) {
-    const lineX = timeToX(gridLineTime);
     grids.push({
       time: gridLineTime,
       labelText: calcGridLabel(gridStepUnit, gridLineTime),
-      lineX: lineX,
-      labelX: lineX + 5,
     });
   }
 
-  const lapEndLines = lapEndTimes
+  const lapEndLines: LapEndLine[] = lapEndTimes
     .filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime)
-    .map((lapEndTime) => ({ time: lapEndTime, x: timeToX(lapEndTime) }));
+    .map((lapEndTime) => ({ time: lapEndTime }));
   return { grids, lapEndLines };
 }
