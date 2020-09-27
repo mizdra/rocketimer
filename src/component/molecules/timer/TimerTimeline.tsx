@@ -15,7 +15,9 @@ import { range } from '../../../lib/array';
 
 export type TimerTimelineProps = {};
 
-type Lines = {
+type KonvaNodes = {
+  stage: Konva.Stage;
+  layer2: Konva.Layer;
   gridLines: Konva.Line[];
   gridLabels: Konva.Text[];
   lapEndLines: Konva.Line[];
@@ -25,9 +27,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
   const totalElapsed = useRecoilValue(totalElapsedState);
   const lapEndTimes = useRecoilValue(lapEndTimesState);
 
-  const [lines, setLines] = useState<Lines | null>(null);
-  const [stage, setStage] = useState<Konva.Stage | null>(null);
-  const [layer2, setLayer2] = useState<Konva.Layer | null>(null);
+  const [konvaNodes, setKonvaNodes] = useState<KonvaNodes | null>(null);
   const [zoom, setZoom] = useState<number>(7.5 * 1000);
 
   useEffect(() => {
@@ -100,9 +100,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     stage.add(layer2);
     stage.add(layer3);
 
-    setStage(stage);
-    setLayer2(layer2);
-    setLines({ gridLines, gridLabels, lapEndLines });
+    setKonvaNodes({ stage, layer2, gridLines, gridLabels, lapEndLines });
 
     stage.on('wheel', (e) => {
       e.evt.preventDefault();
@@ -135,11 +133,11 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
 
   // TODO(performance): useLayoutEffect を使う
   useEffect(() => {
-    if (!lines || !stage || !layer2) return;
+    if (!konvaNodes) return;
+    const { stage, layer2, gridLines, gridLabels, lapEndLines } = konvaNodes;
     if (process.env.NODE_ENV !== 'production') {
       performance.mark('draw:start');
     }
-    const { gridLines, gridLabels, lapEndLines } = lines;
     const stageWidth = stage.width();
 
     const { gridParamsList, lapEndParamsList } = calcParamsForKonva(stageWidth, zoom, totalElapsed, lapEndTimes);
@@ -175,7 +173,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
       performance.mark('draw:end');
       performance.measure('draw', 'draw:start', 'draw:end');
     }
-  }, [lines, lapEndTimes, layer2, stage, totalElapsed, zoom]);
+  }, [lapEndTimes, totalElapsed, zoom, konvaNodes]);
 }
 
 export function TimerTimeline() {
