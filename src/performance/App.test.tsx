@@ -6,6 +6,12 @@ import { App } from '../App';
 import { RecoilRoot } from 'recoil';
 import { TestableTimerController } from '../lib/timer/timer-controller';
 
+beforeAll(() => {
+  window.HTMLMediaElement.prototype.play = async () => {};
+  window.performance.mark = () => {};
+  window.performance.measure = () => {};
+});
+
 test('should measure re-render time when state is updated with multiple of the same component', async () => {
   const { renderTime } = perf<{ TimerTimeline: unknown; TimerRemainDisplay: unknown }>(React);
   const now = Date.now();
