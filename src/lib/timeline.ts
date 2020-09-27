@@ -45,10 +45,10 @@ function calcScaleConfig(zoom: Ms): ScaleConfig {
   return { msByPx, gridStepUnit: 'second', gridStepTime: 1 * SECOND };
 }
 
-function calcGridLabel(gridConfig: ScaleConfig, gridLineTime: Ms): string {
-  if (gridConfig.gridStepUnit == 'day') return (Math.round(gridLineTime / DAY) % 100) + 'd';
-  if (gridConfig.gridStepUnit == 'hour') return (Math.round(gridLineTime / HOUR) % 100) + 'h';
-  if (gridConfig.gridStepUnit == 'minute') return (Math.round(gridLineTime / MINUTE) % 60) + 'm';
+function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
+  if (gridStepUnit == 'day') return (Math.round(gridLineTime / DAY) % 100) + 'd';
+  if (gridStepUnit == 'hour') return (Math.round(gridLineTime / HOUR) % 100) + 'h';
+  if (gridStepUnit == 'minute') return (Math.round(gridLineTime / MINUTE) % 60) + 'm';
   return (Math.round(gridLineTime / SECOND) % 60) + 's';
 }
 
@@ -59,20 +59,20 @@ function calcRangeConfig(msByPx: number, elapsed: Ms, stageWidth: Px): { minTime
 }
 
 export function calcFloatingObjects(stageWidth: Px, zoom: Ms, elapsed: Ms, lapEndTimes: number[]) {
-  const scaleConfig = calcScaleConfig(zoom); // step: 10s
-  const { minTime, maxTime } = calcRangeConfig(scaleConfig.msByPx, elapsed, stageWidth); // 20s, 60s
-  const minGridLineTime = Math.floor(minTime / scaleConfig.gridStepTime) * scaleConfig.gridStepTime;
+  const { msByPx, gridStepUnit, gridStepTime } = calcScaleConfig(zoom);
+  const { minTime, maxTime } = calcRangeConfig(msByPx, elapsed, stageWidth);
+  const minGridLineTime = Math.floor(minTime / gridStepTime) * gridStepTime;
 
   function timeToX(time: Ms) {
-    return CURRENT_LINE_X + (time - elapsed) / scaleConfig.msByPx;
+    return CURRENT_LINE_X + (time - elapsed) / msByPx;
   }
 
   const grids: Grid[] = [];
-  for (let gridLineTime = minGridLineTime; gridLineTime <= maxTime; gridLineTime += scaleConfig.gridStepTime) {
+  for (let gridLineTime = minGridLineTime; gridLineTime <= maxTime; gridLineTime += gridStepTime) {
     const lineX = timeToX(gridLineTime);
     grids.push({
       time: gridLineTime,
-      labelText: calcGridLabel(scaleConfig, gridLineTime),
+      labelText: calcGridLabel(gridStepUnit, gridLineTime),
       lineX: lineX,
       labelX: lineX + 5,
     });
