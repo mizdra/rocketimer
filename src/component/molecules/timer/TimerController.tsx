@@ -12,7 +12,7 @@ export function TimerController({ onStart, onStop }: TimerControllerProps) {
   const status = useRecoilValue(statusState);
   return (
     <div>
-      <Button key="1" onClick={status !== 'countdowning' ? onStart : onStop}>
+      <Button data-testid="start-countdown-button" key="1" onClick={status !== 'countdowning' ? onStart : onStop}>
         {status !== 'countdowning' ? '開始' : '停止'}
       </Button>
     </div>
