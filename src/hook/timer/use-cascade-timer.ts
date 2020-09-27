@@ -8,6 +8,7 @@ import {
   offsetState,
   lapDurationsState,
 } from '../../recoil/cascade-timer';
+import { TimerController } from '../../lib/timer/timer-controller';
 
 export type UseCascadeTimerResult = {
   start: () => void;
@@ -15,13 +16,18 @@ export type UseCascadeTimerResult = {
   setOffset: (newOffset: number) => void;
 };
 
-export function useCascadeTimer(): UseCascadeTimerResult {
+export type Options = {
+  offset?: number;
+  controller?: TimerController;
+};
+
+export function useCascadeTimer(options: Options): UseCascadeTimerResult {
   const lapDurations = useRecoilValue(lapDurationsState);
 
   const timer = useMemo(() => {
-    const timer = new CascadeTimer(lapDurations);
+    const timer = new CascadeTimer(lapDurations, options.offset, options.controller);
     return timer;
-  }, [lapDurations]);
+  }, [lapDurations, options.controller, options.offset]);
 
   // 状態更新用の util 関数を定義
   const syncStateWithTimer = useRecoilCallback(
