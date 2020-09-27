@@ -13,7 +13,6 @@ export type Ms = number; // milli seconds
 
 export type Grid = {
   time: Ms;
-  labelText: string;
 };
 
 export type LapEndLine = {
@@ -43,7 +42,7 @@ export function calcTimelineScale(zoom: Ms): TimelineScale {
   return { msByPx, gridStepUnit: 'second', gridStepTime: 1 * SECOND };
 }
 
-function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
+export function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
   if (gridStepUnit == 'day') return ((gridLineTime / DAY) % 100) + 'd';
   if (gridStepUnit == 'hour') return ((gridLineTime / HOUR) % 100) + 'h';
   if (gridStepUnit == 'minute') return ((gridLineTime / MINUTE) % 60) + 'm';
@@ -61,7 +60,7 @@ export function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
 }
 
 export function calcFloatingObjects(scale: TimelineScale, range: TimelineRange, lapEndTimes: number[]) {
-  const { gridStepUnit, gridStepTime } = scale;
+  const { gridStepTime } = scale;
   const { minTime, maxTime } = range;
   const minGridLineTime = Math.floor(minTime / gridStepTime) * gridStepTime;
 
@@ -69,7 +68,6 @@ export function calcFloatingObjects(scale: TimelineScale, range: TimelineRange, 
   for (let gridLineTime = minGridLineTime; gridLineTime <= maxTime; gridLineTime += gridStepTime) {
     grids.push({
       time: gridLineTime,
-      labelText: calcGridLabel(gridStepUnit, gridLineTime),
     });
   }
 

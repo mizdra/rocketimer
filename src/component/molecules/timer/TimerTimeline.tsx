@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 import {
   calcFloatingObjects,
+  calcGridLabel,
   calcTimelineRange,
   calcTimelineScale,
   CURRENT_LINE_X,
@@ -158,7 +159,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
         gridLabel.show();
         gridLine.x(timeToX(scale.msByPx, totalElapsed, gridConfig.time));
         gridLabel.x(timeToX(scale.msByPx, totalElapsed, gridConfig.time) + 5);
-        gridLabel.text(gridConfig.labelText);
+        gridLabel.text(calcGridLabel(scale.gridStepUnit, gridConfig.time));
       } else {
         gridLine.hide();
         gridLabel.hide();
