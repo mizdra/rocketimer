@@ -6,6 +6,14 @@ import { App } from '../App';
 import { RecoilRoot } from 'recoil';
 import { TestableTimerController } from '../lib/timer/timer-controller';
 
+// タイマーが 60 fps で描画されることをテストする。
+// react-performance-testing を使い、仮想 DOM における描画の処理時間を見て、
+// 60 fps を実現できる時間に収まっているかを assert している。
+// 厳密にはテストを実行する環境のスペックに応じて処理時間は変わってくるので、
+// このテストに通ったからといってユーザ環境でも 60 fps で動作するとは言えない。
+// とはいえ CI によって自動で異常なパフォーマンス劣化を検知できるという
+// メリットがあるので、これで良しとしている。
+
 beforeAll(() => {
   window.HTMLMediaElement.prototype.play = async () => {};
   window.performance.mark = () => {};
