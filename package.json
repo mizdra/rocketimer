@@ -15,7 +15,7 @@
     "check:prettier": "prettier --check .",
     "test": "run-p -l -c test:*",
     "test:jest": "jest --testPathIgnorePatterns performance",
-    "test:perf": "perf -c='jest' -r='src/performance'"
+    "test:perf": "jest --runTestsByPath ./src/performance/App.test.tsx"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
