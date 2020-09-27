@@ -4,6 +4,8 @@ import { useRecoilValue } from 'recoil';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 import {
   calcFloatingObjects,
+  calcTimelineRange,
+  calcTimelineScale,
   CURRENT_LINE_X,
   DAY,
   GRID_LABEL_Y,
@@ -142,9 +144,12 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const { gridLines, gridLabels, lapEndLines } = lines;
     const stageWidth = stage.width();
 
+    const scale = calcTimelineScale(zoom);
+    const range = calcTimelineRange(scale.msByPx, totalElapsed, stageWidth);
+
     const { grids: gridConfigs, lapEndLines: lapEndLineConfigs } = calcFloatingObjects(
-      stageWidth,
-      zoom,
+      scale,
+      range,
       totalElapsed,
       lapEndTimes,
     );
