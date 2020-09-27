@@ -50,27 +50,25 @@ function calcGridLabel(gridConfig: GridConfig, gridLineTime: Ms): string {
   return (Math.round(gridLineTime / SECOND) % 60) + 's';
 }
 
-function calcRangeConfig(zoom: Ms, elapsed: Ms, stageWidth: Px): { minTime: Ms; maxTime: Ms } {
-  const msByPx = 225 / zoom;
-  const minTime = elapsed - CURRENT_LINE_X / msByPx;
-  const maxTime = minTime + stageWidth / msByPx;
+function calcRangeConfig(msByPx: number, elapsed: Ms, stageWidth: Px): { minTime: Ms; maxTime: Ms } {
+  const minTime = elapsed - CURRENT_LINE_X * msByPx;
+  const maxTime = minTime + stageWidth * msByPx;
   return { minTime, maxTime };
 }
 
-// zoom default: 5000
-function toPx(zoom: number, ms: Ms): Px {
-  const msByPx = 225 / zoom;
-  return ms * msByPx;
-}
-
 export function calcFloatingObjects(stageWidth: Px, zoom: Ms, elapsed: Ms, lapEndTimes: number[]) {
+  const msByPx = zoom / 225;
   const gridConfig = calcGridConfig(zoom); // step: 10s
-  const { minTime, maxTime } = calcRangeConfig(zoom, elapsed, stageWidth); // 20s, 60s
+  const { minTime, maxTime } = calcRangeConfig(msByPx, elapsed, stageWidth); // 20s, 60s
   const minGridLineTime = Math.floor(minTime / gridConfig.value) * gridConfig.value;
+
+  function timeToX(time: Ms) {
+    return CURRENT_LINE_X + (time - elapsed) / msByPx;
+  }
 
   const grids: Grid[] = [];
   for (let gridLineTime = minGridLineTime; gridLineTime <= maxTime; gridLineTime += gridConfig.value) {
-    const lineX = CURRENT_LINE_X + toPx(zoom, gridLineTime - elapsed);
+    const lineX = timeToX(gridLineTime);
     grids.push({
       time: gridLineTime,
       labelText: calcGridLabel(gridConfig, gridLineTime),
@@ -81,6 +79,6 @@ export function calcFloatingObjects(stageWidth: Px, zoom: Ms, elapsed: Ms, lapEn
 
   const lapEndLines = lapEndTimes
     .filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime)
-    .map((lapEndTime) => ({ time: lapEndTime, x: CURRENT_LINE_X + toPx(zoom, lapEndTime - elapsed) }));
+    .map((lapEndTime) => ({ time: lapEndTime, x: timeToX(lapEndTime) }));
   return { grids, lapEndLines };
 }
