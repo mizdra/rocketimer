@@ -27,6 +27,8 @@ test('should measure re-render time when state is updated with multiple of the s
   fireEvent.click(screen.getByTestId('start-countdown-button'));
 
   // 500 回 animation frame を発生させる
+  // NOTE: 500 回としているのは GC による停止時間を更新時間に折り込みたいため
+  // TODO: GC が 少なくとも数回発生していることを assert する
   for (let i = 1; i <= 500; i++) {
     timerController.advanceTo(now + i);
   }
