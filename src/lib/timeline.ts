@@ -1,13 +1,12 @@
-const DAY = 1000 * 60 * 60 * 24;
-const HOUR = 1000 * 60 * 60;
-const MINUTE = 1000 * 60;
-const SECOND = 1000;
+export const DAY = 1000 * 60 * 60 * 24;
+export const HOUR = 1000 * 60 * 60;
+export const MINUTE = 1000 * 60;
+export const SECOND = 1000;
 
 export const STAGE_HEIGHT: Px = 56;
 export const HORIZON_LINE_Y: Px = STAGE_HEIGHT - 26;
 export const CURRENT_LINE_X: Px = 40;
 export const GRID_LABEL_Y: Px = HORIZON_LINE_Y + 8;
-export const FACTOR = 10; // px / ms
 
 export type Px = number; // pixel
 export type Ms = number; // milli seconds
@@ -41,7 +40,7 @@ function calcScaleConfig(zoom: Ms): ScaleConfig {
   if (zoom >= MINUTE) return { msByPx, gridStepUnit: 'minute', gridStepTime: 1 * MINUTE };
   if (zoom >= SECOND * 15) return { msByPx, gridStepUnit: 'second', gridStepTime: 15 * SECOND };
   if (zoom >= SECOND * 10) return { msByPx, gridStepUnit: 'second', gridStepTime: 10 * SECOND };
-  if (zoom >= SECOND * 5) return { msByPx, gridStepUnit: 'second', gridStepTime: 5 * SECOND }; // default (5000 <= zoom < 10000)
+  if (zoom >= SECOND * 5) return { msByPx, gridStepUnit: 'second', gridStepTime: 5 * SECOND };
   return { msByPx, gridStepUnit: 'second', gridStepTime: 1 * SECOND };
 }
 

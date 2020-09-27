@@ -2,7 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import Konva from 'konva';
 import { useRecoilValue } from 'recoil';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
-import { calcFloatingObjects, CURRENT_LINE_X, GRID_LABEL_Y, HORIZON_LINE_Y, STAGE_HEIGHT } from '../../../lib/timeline';
+import {
+  calcFloatingObjects,
+  CURRENT_LINE_X,
+  DAY,
+  GRID_LABEL_Y,
+  HORIZON_LINE_Y,
+  SECOND,
+  STAGE_HEIGHT,
+} from '../../../lib/timeline';
 import { range } from '../../../lib/array';
 
 export type TimerTimelineProps = {};
@@ -116,7 +124,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
         // zoom が小さい時は小さい変化幅、大きい時は大きい変化幅になるよう、oldZoom を掛ける
         const zoomDelta = -delta * 0.1 * oldZoom;
         const newZoom = oldZoom + zoomDelta;
-        return Math.max(1 * 1000, Math.min(newZoom, 2 * 1000 * 60 * 60 * 24));
+        return Math.max(1 * SECOND, Math.min(newZoom, 2 * DAY));
       });
     });
 
