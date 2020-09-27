@@ -59,7 +59,7 @@ export function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
   return CURRENT_LINE_X + (time - elapsed) / msByPx;
 }
 
-export function calcFloatingObjects(gridStepTime: number, minTime: number, maxTime: number, lapEndTimes: number[]) {
+export function calcGrids(minTime: number, maxTime: number, gridStepTime: number) {
   const minGridLineTime = Math.floor(minTime / gridStepTime) * gridStepTime;
 
   const grids: Grid[] = [];
@@ -68,9 +68,12 @@ export function calcFloatingObjects(gridStepTime: number, minTime: number, maxTi
       time: gridLineTime,
     });
   }
+  return grids;
+}
 
+export function calcLadEndLines(minTime: number, maxTime: number, lapEndTimes: number[]) {
   const lapEndLines: LapEndLine[] = lapEndTimes
     .filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime)
     .map((lapEndTime) => ({ time: lapEndTime }));
-  return { grids, lapEndLines };
+  return lapEndLines;
 }
