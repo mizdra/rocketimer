@@ -41,10 +41,6 @@ module.exports = (env, argv) => ({
         loader: 'babel-loader',
       },
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
         test: /\.mp3$/i,
         use: ['file-loader'],
       },
