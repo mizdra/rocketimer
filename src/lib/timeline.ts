@@ -23,13 +23,15 @@ export type LapEndLine = {
   x: Px;
 };
 
-export type ScaleConfig = {
+export type TimelineScale = {
   msByPx: number;
   gridStepUnit: 'day' | 'hour' | 'minute' | 'second';
   gridStepTime: Ms;
 };
 
-function calcScaleConfig(zoom: Ms): ScaleConfig {
+export type TimelineRange = { minTime: Ms; maxTime: Ms };
+
+function calcTimelineScale(zoom: Ms): TimelineScale {
   const msByPx = zoom / 225;
   if (zoom >= DAY) return { msByPx, gridStepUnit: 'day', gridStepTime: 1 * DAY };
   if (zoom >= HOUR * 4) return { msByPx, gridStepUnit: 'hour', gridStepTime: 4 * HOUR };
@@ -51,15 +53,15 @@ function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
   return ((gridLineTime / SECOND) % 60) + 's';
 }
 
-function calcRangeConfig(msByPx: number, elapsed: Ms, stageWidth: Px): { minTime: Ms; maxTime: Ms } {
+function calcTimelineRange(msByPx: number, elapsed: Ms, stageWidth: Px): TimelineRange {
   const minTime = elapsed - CURRENT_LINE_X * msByPx;
   const maxTime = minTime + stageWidth * msByPx;
   return { minTime, maxTime };
 }
 
 export function calcFloatingObjects(stageWidth: Px, zoom: Ms, elapsed: Ms, lapEndTimes: number[]) {
-  const { msByPx, gridStepUnit, gridStepTime } = calcScaleConfig(zoom);
-  const { minTime, maxTime } = calcRangeConfig(msByPx, elapsed, stageWidth);
+  const { msByPx, gridStepUnit, gridStepTime } = calcTimelineScale(zoom);
+  const { minTime, maxTime } = calcTimelineRange(msByPx, elapsed, stageWidth);
   const minGridLineTime = Math.floor(minTime / gridStepTime) * gridStepTime;
 
   function timeToX(time: Ms) {
