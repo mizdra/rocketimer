@@ -9,7 +9,7 @@ import {
   GRID_LABEL_Y,
   HORIZON_LINE_Y,
   STAGE_HEIGHT,
-} from '../../../lib/timeline/timeline';
+} from '../../../lib/timeline';
 
 export type TimerTimelineProps = {};
 
