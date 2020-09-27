@@ -19,7 +19,7 @@ export type TimelineScale = {
 
 export type TimelineRange = { minTime: Ms; maxTime: Ms };
 
-export function calcTimelineScale(zoom: Ms): TimelineScale {
+function calcTimelineScale(zoom: Ms): TimelineScale {
   const msByPx = zoom / 225;
   if (zoom >= DAY) return { msByPx, gridStepUnit: 'day', gridStepTime: 1 * DAY };
   if (zoom >= HOUR * 4) return { msByPx, gridStepUnit: 'hour', gridStepTime: 4 * HOUR };
@@ -34,13 +34,13 @@ export function calcTimelineScale(zoom: Ms): TimelineScale {
   return { msByPx, gridStepUnit: 'second', gridStepTime: 1 * SECOND };
 }
 
-export function calcTimelineRange(msByPx: number, elapsed: Ms, stageWidth: Px): TimelineRange {
+function calcTimelineRange(msByPx: number, elapsed: Ms, stageWidth: Px): TimelineRange {
   const minTime = elapsed - CURRENT_LINE_X * msByPx;
   const maxTime = minTime + stageWidth * msByPx;
   return { minTime, maxTime };
 }
 
-export function calcGridTime(minTime: number, maxTime: number, gridStepTime: number): Ms[] {
+function calcGridTime(minTime: number, maxTime: number, gridStepTime: number): Ms[] {
   const minGridLineTime = Math.floor(minTime / gridStepTime) * gridStepTime;
 
   const grids: Ms[] = [];
@@ -50,7 +50,7 @@ export function calcGridTime(minTime: number, maxTime: number, gridStepTime: num
   return grids;
 }
 
-export function calcLadEndLineTime(minTime: number, maxTime: number, lapEndTimes: number[]): Ms[] {
+function calcLadEndLineTime(minTime: number, maxTime: number, lapEndTimes: number[]): Ms[] {
   const lapEndLines: Ms[] = lapEndTimes.filter((lapEndTime) => minTime <= lapEndTime && lapEndTime <= maxTime);
   return lapEndLines;
 }
@@ -66,7 +66,7 @@ function timeToX(msByPx: number, elapsed: Ms, time: Ms) {
   return CURRENT_LINE_X + (time - elapsed) / msByPx;
 }
 
-export function calcGridParamsForKonva(msByPx: number, elapsed: number, gridStepUnit: string, gridTime: Ms) {
+function calcGridParamsForKonva(msByPx: number, elapsed: number, gridStepUnit: string, gridTime: Ms) {
   return {
     line: {
       x: timeToX(msByPx, elapsed, gridTime),
@@ -78,8 +78,22 @@ export function calcGridParamsForKonva(msByPx: number, elapsed: number, gridStep
   };
 }
 
-export function calcLapEndParamsForKonva(msByPx: number, elapsed: number, lapEndLineTime: Ms) {
+function calcLapEndParamsForKonva(msByPx: number, elapsed: number, lapEndLineTime: Ms) {
   return {
     x: timeToX(msByPx, elapsed, lapEndLineTime),
   };
+}
+
+export function calcParamsForKonva(stageWidth: Px, zoom: number, elapsed: Ms, lapEndTimes: Ms[]) {
+  const { msByPx, gridStepUnit, gridStepTime } = calcTimelineScale(zoom);
+  const { minTime, maxTime } = calcTimelineRange(msByPx, elapsed, stageWidth);
+
+  const gridTimes = calcGridTime(minTime, maxTime, gridStepTime);
+  const lapEndLineTimes = calcLadEndLineTime(minTime, maxTime, lapEndTimes);
+
+  const gridParamsList = gridTimes.map((gridTime) => calcGridParamsForKonva(msByPx, elapsed, gridStepUnit, gridTime));
+  const lapEndParamsList = lapEndLineTimes.map((lapEndLineTime) =>
+    calcLapEndParamsForKonva(msByPx, elapsed, lapEndLineTime),
+  );
+  return { gridParamsList, lapEndParamsList };
 }

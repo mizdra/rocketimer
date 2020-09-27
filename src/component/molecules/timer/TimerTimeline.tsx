@@ -3,12 +3,7 @@ import Konva from 'konva';
 import { useRecoilValue } from 'recoil';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 import {
-  calcGridParamsForKonva,
-  calcGridTime,
-  calcLadEndLineTime,
-  calcLapEndParamsForKonva,
-  calcTimelineRange,
-  calcTimelineScale,
+  calcParamsForKonva,
   CURRENT_LINE_X,
   DAY,
   GRID_LABEL_Y,
@@ -147,16 +142,12 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const { gridLines, gridLabels, lapEndLines } = lines;
     const stageWidth = stage.width();
 
-    const scale = calcTimelineScale(zoom);
-    const range = calcTimelineRange(scale.msByPx, totalElapsed, stageWidth);
-
-    const gridTimes = calcGridTime(range.minTime, range.maxTime, scale.gridStepTime);
-    const lapEndLineTimes = calcLadEndLineTime(range.minTime, range.maxTime, lapEndTimes);
+    const { gridParamsList, lapEndParamsList } = calcParamsForKonva(stageWidth, zoom, totalElapsed, lapEndTimes);
 
     gridLines.forEach((gridLine, i) => {
       const gridLabel = gridLabels[i];
-      if (i < gridTimes.length) {
-        const gridParams = calcGridParamsForKonva(scale.msByPx, totalElapsed, scale.gridStepUnit, gridTimes[i]);
+      if (i < gridParamsList.length) {
+        const gridParams = gridParamsList[i];
         gridLine.show();
         gridLabel.show();
         gridLine.x(gridParams.line.x);
@@ -168,8 +159,8 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
       }
     });
     lapEndLines.forEach((lapEndLine, i) => {
-      if (i < lapEndLineTimes.length) {
-        const lapEndParams = calcLapEndParamsForKonva(scale.msByPx, totalElapsed, lapEndLineTimes[i]);
+      if (i < lapEndParamsList.length) {
+        const lapEndParams = lapEndParamsList[i];
         lapEndLine.show();
         lapEndLine.x(lapEndParams.x);
       } else {
