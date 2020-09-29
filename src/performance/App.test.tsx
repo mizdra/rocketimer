@@ -1,5 +1,5 @@
 import React from 'react';
-import { perf, wait } from 'react-performance-testing';
+import { perf, RenderTimeField, wait } from 'react-performance-testing';
 import { render, fireEvent, screen } from '@testing-library/react';
 import 'jest-performance-testing';
 import { App } from '../App';
@@ -21,9 +21,11 @@ beforeAll(() => {
 });
 
 test('should measure re-render time when state is updated with multiple of the same component', async () => {
-  const { renderTime } = perf<{ TimerTimeline: unknown; TimerRemainDisplay: unknown }>(React);
   const now = Date.now();
   const timerController = new TestableTimerController(now);
+
+  // パフォーマンスの測定を開始
+  const { renderTime } = perf<{ TimerTimeline: unknown; TimerRemainDisplay: unknown }>(React);
 
   render(
     <RecoilRoot>
@@ -34,14 +36,39 @@ test('should measure re-render time when state is updated with multiple of the s
   // カウントダウンを開始させる
   fireEvent.click(screen.getByTestId('start-countdown-button'));
 
-  // 500 回 animation frame を発生させる
-  // NOTE: 500 回としているのは GC による停止時間を更新時間に折り込みたいため
+  // JIT の最適化の影響をできるだけ排除するため、暖機運転する
+  for (let i = 0; i < 10 * 60; i++) {
+    timerController.advanceTo(now);
+  }
+
+  let hotTimerTimelineField!: RenderTimeField;
+  let hotTimerRemainDisplayField!: RenderTimeField;
+  await wait(() => {
+    hotTimerTimelineField = renderTime.current.TimerTimeline;
+    hotTimerRemainDisplayField = renderTime.current.TimerRemainDisplay;
+  });
+
+  // GC を強制的に発生させておく
+  global.gc();
+
+  // 360 回 (1分ぶん) animation frame を発生させる
+  // NOTE: 360 回としているのは GC による停止時間を更新時間に折り込みたいため
   // TODO: GC が 少なくとも数回発生していることを assert する
-  for (let i = 1; i <= 500; i++) {
-    timerController.advanceTo(now + i);
+  for (let i = 0; i < 1 * 60 * 60; i++) {
+    timerController.advanceTo(now);
   }
 
   await wait(() => {
+    const targetTimerTimelineField: RenderTimeField = {
+      mount: hotTimerTimelineField.mount,
+      updates: renderTime.current.TimerTimeline.updates.slice(hotTimerTimelineField.updates.length),
+    };
+    const targetTimerRemainDisplayField: RenderTimeField = {
+      mount: hotTimerRemainDisplayField.mount,
+      updates: renderTime.current.TimerRemainDisplay.updates.slice(hotTimerRemainDisplayField.updates.length),
+    };
+    console.log(targetTimerTimelineField);
+    console.log(targetTimerRemainDisplayField);
     // 以下のような方針でテストをする。
     //
     // - 毎フレーム更新されるコンポーネントは TimerTimeline と TimerRemainDisplay の2つだけ
@@ -54,7 +81,7 @@ test('should measure re-render time when state is updated with multiple of the s
     // - しかしよくよく考えるとテストは development build で実行される
     //   - という訳で累計更新時間を 8ms から 16 ms に伸ばす
     //   - (本当は production build でテストするべきだけど、@testing-library/react が production build でのテストに対応していないので諦めている)
-    expect(renderTime.current.TimerTimeline).toBeUpdatedWithin(8);
-    expect(renderTime.current.TimerRemainDisplay).toBeUpdatedWithin(8);
+    expect(targetTimerTimelineField).toBeUpdatedWithin(4);
+    expect(targetTimerRemainDisplayField).toBeUpdatedWithin(4);
   });
 });
