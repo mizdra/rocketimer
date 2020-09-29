@@ -5346,6 +5346,11 @@ global-dirs@^0.1.0:
   dependencies:
     ini "^1.3.4"
 
+global-jsdom@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/global-jsdom/-/global-jsdom-7.0.0.tgz#a46b56ad4a3e398ca4b8b31dbb420cdb5f4b4aee"
+  integrity sha512-1+yYv054WSl0vqweIZnMWwkHVSpffBNajtyRjPf6vqz1jTFANqciBUJ0C3Chg400Dpzo0ljbpZoC8VUtaAsA+Q==
+
 global-modules@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/global-modules/-/global-modules-2.0.0.tgz#997605ad2345f27f51539bea26574421215c7780"
@@ -6886,7 +6891,7 @@ jsc-android@^245459.0.0:
   resolved "https://registry.yarnpkg.com/jsc-android/-/jsc-android-245459.0.0.tgz#e584258dd0b04c9159a27fb104cd5d491fd202c9"
   integrity sha512-wkjURqwaB1daNkDi2OYYbsLnIdC/lUM2nPXQKRs5pqEU9chDg435bjvo+LSaHotDENygHQDHe+ntUkkw2gwMtg==
 
-jsdom@^16.2.2:
+jsdom@^16.2.2, jsdom@^16.4.0:
   version "16.4.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-16.4.0.tgz#36005bde2d136f73eee1a830c6d45e55408edddb"
   integrity sha512-lYMm3wYdgPhrl7pDcRmvzPhhrGVBeVhPIqeHjzeiHN3DFmD1RBpbExbi8vU7BJdH8VAZYovR8DMt0PNNDM7k8w==
