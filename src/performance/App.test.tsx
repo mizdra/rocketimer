@@ -27,7 +27,8 @@ beforeAll(() => {
   window.performance.measure = () => {};
 });
 
-test('タイマーが 60 fps で描画されることをテストする', async () => {
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+describe('タイマーが 60 fps で描画されることをテストする', async () => {
   const now = Date.now();
   const timerController = new TestableTimerController(now);
 
