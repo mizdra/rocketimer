@@ -28,8 +28,7 @@ beforeAll(() => {
 });
 
 test('タイマーが 60 fps で描画されることをテストする', async () => {
-  const now = Date.now();
-  const timerController = new TestableTimerController(now);
+  const timerController = new TestableTimerController();
 
   // パフォーマンスの測定を開始
   const { renderTime } = perf<{ TimerTimeline: unknown; TimerRemainDisplay: unknown }>(React);
@@ -51,7 +50,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
   // そのため、ここでは測定前に 600 回 (10秒分) ほどタイマーを更新しておき、JIT の最適化を誘発させている。
   // ちなみにこれは一般に「暖機運転」と呼ばれている。
   for (let i = 0; i < UPDATE_COUNT_FOR_WARM_UP; i++) {
-    timerController.advanceTo(now);
+    timerController.advanceBy(16);
   }
 
   // 360 回 (1分ぶん) animation frame を発生させる
@@ -70,7 +69,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     if (i % 10 === 0) global.gc();
 
     // タイマーを更新
-    timerController.advanceTo(now);
+    timerController.advanceBy(16);
   }
 
   await wait(() => {
