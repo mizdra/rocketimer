@@ -96,5 +96,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     renderTime.current.TimerRemainDisplay.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
       expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
     });
+
+    // TODO: rhysd/github-action-benchmark 向けにコンポーネントの更新時間をファイルに書き出す
   });
 });
