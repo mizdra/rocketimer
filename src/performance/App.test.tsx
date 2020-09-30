@@ -1,10 +1,16 @@
 import React from 'react';
-import { perf, RenderTimeField, wait } from 'react-performance-testing';
+import { perf, wait } from 'react-performance-testing';
 import { render, fireEvent, screen } from '@testing-library/react';
 import 'jest-performance-testing';
 import { App } from '../App';
 import { RecoilRoot } from 'recoil';
 import { TestableTimerController } from '../lib/timer/timer-controller';
+
+// 測定の際に何回コンポーネントを更新するか
+const UPDATE_COUNT_FOR_MEASUREMENT = 1 * 60 * 60;
+
+// 暖機運転の際に何回コンポーネントを更新するか
+const UPDATE_COUNT_FOR_WARM_UP = 10 * 60;
 
 // タイマーが 60 fps で描画されることをテストする。
 // react-performance-testing を使い、仮想 DOM における描画の処理時間を見て、
@@ -14,13 +20,14 @@ import { TestableTimerController } from '../lib/timer/timer-controller';
 // とはいえ CI によって自動で異常なパフォーマンス劣化を検知できるという
 // メリットがあるので、これで良しとしている。
 
+// jsdom で mock しきれない部分があるので、手動で mock してやる
 beforeAll(() => {
   window.HTMLMediaElement.prototype.play = async () => {};
   window.performance.mark = () => {};
   window.performance.measure = () => {};
 });
 
-test('should measure re-render time when state is updated with multiple of the same component', async () => {
+test('タイマーが 60 fps で描画されることをテストする', async () => {
   const now = Date.now();
   const timerController = new TestableTimerController(now);
 
@@ -43,19 +50,12 @@ test('should measure re-render time when state is updated with multiple of the s
   //
   // そのため、ここでは測定前に 600 回 (10秒分) ほどタイマーを更新しておき、JIT の最適化を誘発させている。
   // ちなみにこれは一般に「暖機運転」と呼ばれている。
-  for (let i = 0; i < 10 * 60; i++) {
+  for (let i = 0; i < UPDATE_COUNT_FOR_WARM_UP; i++) {
     timerController.advanceTo(now);
   }
 
-  let hotTimerTimelineField!: RenderTimeField;
-  let hotTimerRemainDisplayField!: RenderTimeField;
-  await wait(() => {
-    hotTimerTimelineField = renderTime.current.TimerTimeline;
-    hotTimerRemainDisplayField = renderTime.current.TimerRemainDisplay;
-  });
-
   // 360 回 (1分ぶん) animation frame を発生させる
-  for (let i = 0; i < 1 * 60 * 60; i++) {
+  for (let i = 0; i < UPDATE_COUNT_FOR_MEASUREMENT; i++) {
     // NOTE: GC の停止時間が発生すると計測結果に外れ値が現れる可能性がある。計測結果からは
     // GC の停止時間によるものなのか、アプリケーションコードのミスによるものなのか判断が難しく、
     // グラフなどにして測定結果をまとめる際にも扱いづらいという問題がある。
@@ -72,16 +72,6 @@ test('should measure re-render time when state is updated with multiple of the s
   }
 
   await wait(() => {
-    const targetTimerTimelineField: RenderTimeField = {
-      mount: hotTimerTimelineField.mount,
-      updates: renderTime.current.TimerTimeline.updates.slice(hotTimerTimelineField.updates.length),
-    };
-    const targetTimerRemainDisplayField: RenderTimeField = {
-      mount: hotTimerRemainDisplayField.mount,
-      updates: renderTime.current.TimerRemainDisplay.updates.slice(hotTimerRemainDisplayField.updates.length),
-    };
-    console.log(targetTimerTimelineField);
-    console.log(targetTimerRemainDisplayField);
     // 以下のような方針でテストをする。
     //
     // - 毎フレーム更新されるコンポーネントは TimerTimeline と TimerRemainDisplay の2つだけ
@@ -94,7 +84,19 @@ test('should measure re-render time when state is updated with multiple of the s
     // - しかしよくよく考えるとテストは development build で実行される
     //   - という訳で累計更新時間を 8ms から 16 ms に伸ばす
     //   - (本当は production build でテストするべきだけど、@testing-library/react が production build でのテストに対応していないので諦めている)
-    expect(targetTimerTimelineField).toBeUpdatedWithin(4);
-    expect(targetTimerRemainDisplayField).toBeUpdatedWithin(4);
+
+    const LIMIT_UPDATE_TIME = 4;
+
+    // 暖気運転した分の更新時間も含まれているので slice する
+    renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update, i) => {
+      test(`TimerTimeline の ${i} 回目の更新時間は ${LIMIT_UPDATE_TIME} ms 未満でなければならない`, () => {
+        expect(update).toBeLessThan(4);
+      });
+    });
+    renderTime.current.TimerRemainDisplay.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update, i) => {
+      test(`TimerRemainDisplay の ${i} 回目の更新時間は ${LIMIT_UPDATE_TIME} ms 未満でなければならない`, () => {
+        expect(update).toBeLessThan(4);
+      });
+    });
   });
 });
