@@ -65,7 +65,9 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     // コンポーネントの更新前に GC を強制的に発生させておき、コンポーネントの更新時にゴミが
     // ほとんどない状況を作っている。これにより、コンポーネントの更新時にゴミが GC 発生のしきい値を
     // 超えることがなくなり、コンポーネントの更新中に GC が発生しなくなるはず、という期待をしている。
-    global.gc();
+    //
+    // GC はコストの高い操作なのでコンポーネントの更新 10 回につき 1 回くらいの頻度で発生させることにしている。
+    if (i % 10 === 0) global.gc();
 
     // タイマーを更新
     timerController.advanceTo(now);
@@ -90,7 +92,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     // 暖気運転した分の更新時間も含まれているので slice する
     renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
       expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
-      });
+    });
     renderTime.current.TimerRemainDisplay.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
       expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
     });
