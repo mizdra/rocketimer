@@ -27,8 +27,7 @@ beforeAll(() => {
   window.performance.measure = () => {};
 });
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-describe('タイマーが 60 fps で描画されることをテストする', async () => {
+test('タイマーが 60 fps で描画されることをテストする', async () => {
   const now = Date.now();
   const timerController = new TestableTimerController(now);
 
@@ -89,15 +88,11 @@ describe('タイマーが 60 fps で描画されることをテストする', as
     const LIMIT_UPDATE_TIME = 4;
 
     // 暖気運転した分の更新時間も含まれているので slice する
-    renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update, i) => {
-      test(`TimerTimeline の ${i} 回目の更新時間は ${LIMIT_UPDATE_TIME} ms 未満でなければならない`, () => {
-        expect(update).toBeLessThan(4);
+    renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
+      expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
       });
-    });
-    renderTime.current.TimerRemainDisplay.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update, i) => {
-      test(`TimerRemainDisplay の ${i} 回目の更新時間は ${LIMIT_UPDATE_TIME} ms 未満でなければならない`, () => {
-        expect(update).toBeLessThan(4);
-      });
+    renderTime.current.TimerRemainDisplay.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
+      expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
     });
   });
 });
