@@ -7,10 +7,10 @@ import { RecoilRoot } from 'recoil';
 import { TestableTimerController } from '../lib/timer/timer-controller';
 
 // 測定の際に何回コンポーネントを更新するか
-const UPDATE_COUNT_FOR_MEASUREMENT = 1 * 60 * 60;
+const UPDATE_COUNT_FOR_MEASUREMENT = 100;
 
 // 暖機運転の際に何回コンポーネントを更新するか
-const UPDATE_COUNT_FOR_WARM_UP = 10 * 60;
+const UPDATE_COUNT_FOR_WARM_UP = 10 * 60; // 10秒分
 
 // タイマーが 60 fps で描画されることをテストする。
 // react-performance-testing を使い、仮想 DOM における描画の処理時間を見て、
@@ -47,13 +47,13 @@ test('タイマーが 60 fps で描画されることをテストする', async 
   // 更新と次の 10 回の更新とでは差が出てしまう。これはグラフなどにして測定結果をまとめる際にも扱いづらい
   // という問題を引き起こす。
   //
-  // そのため、ここでは測定前に 600 回 (10秒分) ほどタイマーを更新しておき、JIT の最適化を誘発させている。
+  // そのため、ここでは測定前に UPDATE_COUNT_FOR_WARM_UP 回 タイマーを更新しておき、JIT の最適化を誘発させている。
   // ちなみにこれは一般に「暖機運転」と呼ばれている。
   for (let i = 0; i < UPDATE_COUNT_FOR_WARM_UP; i++) {
     timerController.advanceBy(16);
   }
 
-  // 360 回 (1分ぶん) animation frame を発生させる
+  // UPDATE_COUNT_FOR_MEASUREMENT 回 animation frame を発生させる
   for (let i = 0; i < UPDATE_COUNT_FOR_MEASUREMENT; i++) {
     // NOTE: GC の停止時間が発生すると計測結果に外れ値が現れる可能性がある。計測結果からは
     // GC の停止時間によるものなのか、アプリケーションコードのミスによるものなのか判断が難しく、
