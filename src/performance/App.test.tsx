@@ -36,7 +36,13 @@ test('should measure re-render time when state is updated with multiple of the s
   // カウントダウンを開始させる
   fireEvent.click(screen.getByTestId('start-countdown-button'));
 
-  // JIT の最適化の影響をできるだけ排除するため、暖機運転する
+  // NOTE: 一度も実行されたことのないコードは JIT の最適化が施されていないため、最初のうちは実行する度に
+  // コンパイルし直され、次第に実行時間が短くなっていく。その結果、コンポーネントの更新時間が最初の 10 回の
+  // 更新と次の 10 回の更新とでは差が出てしまう。これはグラフなどにして測定結果をまとめる際にも扱いづらい
+  // という問題を引き起こす。
+  //
+  // そのため、ここでは測定前に 600 回 (10秒分) ほどタイマーを更新しておき、JIT の最適化を誘発させている。
+  // ちなみにこれは一般に「暖機運転」と呼ばれている。
   for (let i = 0; i < 10 * 60; i++) {
     timerController.advanceTo(now);
   }
