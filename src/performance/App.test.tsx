@@ -86,7 +86,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     //   - という訳で累計更新時間を 8ms から 16 ms に伸ばす
     //   - (本当は production build でテストするべきだけど、@testing-library/react が production build でのテストに対応していないので諦めている)
 
-    const LIMIT_UPDATE_TIME = 4;
+    const LIMIT_UPDATE_TIME = 8;
 
     // 暖気運転した分の更新時間も含まれているので slice する
     renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
