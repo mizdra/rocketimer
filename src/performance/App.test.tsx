@@ -54,13 +54,20 @@ test('should measure re-render time when state is updated with multiple of the s
     hotTimerRemainDisplayField = renderTime.current.TimerRemainDisplay;
   });
 
-  // GC を強制的に発生させておく
-  global.gc();
-
   // 360 回 (1分ぶん) animation frame を発生させる
-  // NOTE: 360 回としているのは GC による停止時間を更新時間に折り込みたいため
-  // TODO: GC が 少なくとも数回発生していることを assert する
   for (let i = 0; i < 1 * 60 * 60; i++) {
+    // NOTE: GC の停止時間が発生すると計測結果に外れ値が現れる可能性がある。計測結果からは
+    // GC の停止時間によるものなのか、アプリケーションコードのミスによるものなのか判断が難しく、
+    // グラフなどにして測定結果をまとめる際にも扱いづらいという問題がある。
+    //
+    // そこでここではコンポーネントの更新中に GC ができるだけ発生しないような工夫を施している。
+    // 具体的には、メモリ中にある一定量のゴミが溜まったら GC が発生する性質を逆手に取り、
+    // コンポーネントの更新前に GC を強制的に発生させておき、コンポーネントの更新時にゴミが
+    // ほとんどない状況を作っている。これにより、コンポーネントの更新時にゴミが GC 発生のしきい値を
+    // 超えることがなくなり、コンポーネントの更新中に GC が発生しなくなるはず、という期待をしている。
+    global.gc();
+
+    // タイマーを更新
     timerController.advanceTo(now);
   }
 
