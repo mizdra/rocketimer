@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601570756933,
+  "lastUpdate": 1601570918171,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -150,6 +150,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.3701833500001521,
             "range": "±17.27%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "distinct": true,
+          "id": "57915901741f99b1a8d6d919703069de56804d22",
+          "message": "実際の測定結果を見ると波があって 150% だと何もしていない時にもアラートが上がりそうなので、しきい値を上げてみる",
+          "timestamp": "2020-10-02T01:47:54+09:00",
+          "tree_id": "11587997e7932a3076201248c1a64f42711c05c1",
+          "url": "https://github.com/RNGeek/rocketimer/commit/57915901741f99b1a8d6d919703069de56804d22"
+        },
+        "date": 1601570917689,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.1050677700000142,
+            "range": "±5.16%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 0.9809197000000132,
+            "range": "±5.58%",
             "unit": "ms/render",
             "extra": "100 samples"
           }
