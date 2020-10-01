@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601565626577,
+  "lastUpdate": 1601566738728,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -175,6 +175,44 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/RNGeek/rocketimer/commit/359a7282f9cbcd7a646d0ad69148a84dc5cbd557"
         },
         "date": 1601565626111,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "fib(10)",
+            "value": 117,
+            "range": "±0.77%",
+            "unit": "ops/sec",
+            "extra": "75 samples"
+          },
+          {
+            "name": "fib(20)",
+            "value": 14039,
+            "range": "±0.69%",
+            "unit": "ops/sec",
+            "extra": "91 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "distinct": true,
+          "id": "9e026728ae2650dabd29e4d9cb8ea0d3753b3b84",
+          "message": "jest に組み込む",
+          "timestamp": "2020-10-02T00:37:11+09:00",
+          "tree_id": "b45da418ed1f9876c0e3720ecbe12a1ce527f3be",
+          "url": "https://github.com/RNGeek/rocketimer/commit/9e026728ae2650dabd29e4d9cb8ea0d3753b3b84"
+        },
+        "date": 1601566738260,
         "tool": "benchmarkjs",
         "benches": [
           {
