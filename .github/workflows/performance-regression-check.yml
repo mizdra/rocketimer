@@ -33,7 +33,6 @@ jobs:
         with:
           tool: 'benchmarkjs'
           output-file-path: output.txt
-          # external-data-json-path: ./.github-action-benchmark/benchmark-data.json
           # 以前より 150% ほど悪化していたらアラートを上げる
           alert-threshold: '150%'
           # アラートが上がったらワークフローを失敗させる
