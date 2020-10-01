@@ -46,7 +46,6 @@
     "@typescript-eslint/parser": "^4.1.1",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
-    "benchmark": "^2.1.4",
     "canvas": "^2.6.1",
     "copy-webpack-plugin": "^6.1.1",
     "core-js": "^3.6.5",
