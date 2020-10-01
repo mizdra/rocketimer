@@ -7,6 +7,10 @@ import { RecoilRoot } from 'recoil';
 import { TestableTimerController } from '../lib/timer/timer-controller';
 import { promises as fs } from 'fs';
 
+function average(nums: number[]): number {
+  return nums.reduce((a, b) => a + b, 0) / nums.length;
+}
+
 // 測定の際に何回コンポーネントを更新するか
 const UPDATE_COUNT_FOR_MEASUREMENT = 100;
 
@@ -75,12 +79,19 @@ test('タイマーが 60 fps で描画されることをテストする', async 
 
   await wait(() => {}); // 測定結果を集計 (`renderTime.current.*` に測定結果が代入される)
 
+  const updatesForTimerTimeline = renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT);
+  const updatesForTimerRemainDisplay = renderTime.current.TimerRemainDisplay.updates.slice(
+    -UPDATE_COUNT_FOR_MEASUREMENT,
+  );
+
   // github-action-benchmark 向けに結果を書き出す
   await fs.writeFile(
     'output.txt',
     `
-fib(10) x 117 ops/sec ±0.77% (75 runs sampled)
-fib(20) x 14,039 ops/sec ±0.69% (91 runs sampled)
+TimerTimeline x ${average(updatesForTimerTimeline)} ms/times ±0.00% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
+TimerRemainDisplay x ${average(
+      updatesForTimerRemainDisplay,
+    )} ms/times ±0.00% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
   `.trim(),
   );
 
@@ -100,10 +111,10 @@ fib(20) x 14,039 ops/sec ±0.69% (91 runs sampled)
   const LIMIT_UPDATE_TIME = 8;
 
   // 暖気運転した分の更新時間も含まれているので slice する
-  renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
+  updatesForTimerTimeline.forEach((update) => {
     expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
   });
-  renderTime.current.TimerRemainDisplay.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT).forEach((update) => {
+  updatesForTimerRemainDisplay.forEach((update) => {
     expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
   });
 });
