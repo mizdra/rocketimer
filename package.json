@@ -67,7 +67,7 @@
     "terser-webpack-plugin": "^4.2.2",
     "ts-loader": "^8.0.4",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.11",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
   "engines": {
