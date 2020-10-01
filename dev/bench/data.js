@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601562637618,
+  "lastUpdate": 1601563317036,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -76,6 +76,44 @@ window.BENCHMARK_DATA = {
             "range": "±1.01%",
             "unit": "ops/sec",
             "extra": "89 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "distinct": true,
+          "id": "5eac3a6444def97a2c2e5f9c95cf10a7593648c8",
+          "message": "30くらいにする",
+          "timestamp": "2020-10-01T23:41:08+09:00",
+          "tree_id": "a558abbf3d569ecec1e619b196e31bf4b1d811ee",
+          "url": "https://github.com/RNGeek/rocketimer/commit/5eac3a6444def97a2c2e5f9c95cf10a7593648c8"
+        },
+        "date": 1601563316640,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "fib(10)",
+            "value": 71.04,
+            "range": "±1.11%",
+            "unit": "ops/sec",
+            "extra": "72 samples"
+          },
+          {
+            "name": "fib(20)",
+            "value": 8657,
+            "range": "±0.89%",
+            "unit": "ops/sec",
+            "extra": "93 samples"
           }
         ]
       }
