@@ -1,0 +1,64 @@
+name: Performance regression check
+on: [push]
+
+jobs:
+  fps:
+    name: Performance regression check for FPS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-node-
+
+      - name: yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      # ベンチマークを実行し、github-action-benchmark 向けに結果をファイルに書き出しておく
+      - name: npm run benchmark
+        run: node benchmark/fib.js | tee output.txt
+      # 以前のベンチマーク結果をキャッシュから取得
+      - name: Download previous benchmark data
+        uses: actions/cache@v2
+        with:
+          path: ./.github-action-benchmark-original
+          key: ${{ runner.os }}-benchmark
+
+      - name: Copy previous benchmark data
+        run: |
+          mkdir -p .github-action-benchmark-original
+          cp -r .github-action-benchmark-original/ .github-action-benchmark
+
+      # github-action-benchmark を実行
+      - name: Store benchmark result
+        uses: rhysd/github-action-benchmark@v1
+        with:
+          tool: 'benchmarkjs'
+          output-file-path: output.txt
+          external-data-json-path: ./.github-action-benchmark/benchmark-data.json
+          # 以前より 150% ほど悪化していたらアラートを上げる
+          alert-threshold: '150%'
+          # アラートが上がったらワークフローを失敗させる
+          fail-on-alert: true
+          # commit が push される度にベンチマーク結果を commit comment でお知らせする
+          comment-always: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy previous benchmark data
+        run: cp -r .github-action-benchmark/ .github-action-benchmark-original
+        if: github.ref == 'refs/heads/add-github-action-benchmark'
+      # GitHub Pages に結果を push する
+      - name: Push benchmark result
+        run: |
+          git branch -a
+          git push 'https://mizdra:${{ secrets.GITHUB_TOKEN }}@github.com/RNGeek/rocketimer.git' gh-pages:gh-pages
+        if: github.ref == 'refs/heads/add-github-action-benchmark'
+      # Upload the updated cache file for the next job by actions/cache
