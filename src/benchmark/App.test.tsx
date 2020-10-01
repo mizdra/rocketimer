@@ -6,6 +6,7 @@ import { App } from '../App';
 import { RecoilRoot } from 'recoil';
 import { TestableTimerController } from '../lib/timer/timer-controller';
 import { promises as fs } from 'fs';
+import { inspect } from 'util';
 
 // !!! The following code is copied from benchmark.js !!!
 // this code is lisenced by LICENSE.BENCHMARKJS
@@ -126,10 +127,13 @@ test('タイマーが 60 fps で描画されることをテストする', async 
 
   await wait(() => {}); // 測定結果を集計 (`renderTime.current.*` に測定結果が代入される)
 
+  // それぞれのコンポーネントの更新時間一覧を取得
+  // NOTE: 暖気運転した分の更新時間も含まれているので slice する
   const updatesForTimerTimeline = renderTime.current.TimerTimeline.updates.slice(-UPDATE_COUNT_FOR_MEASUREMENT);
   const updatesForTimerRemainDisplay = renderTime.current.TimerRemainDisplay.updates.slice(
     -UPDATE_COUNT_FOR_MEASUREMENT,
   );
+
   const statForTimerTimeline = getStatistics(updatesForTimerTimeline);
   const statForTimerRemainDisplay = getStatistics(updatesForTimerRemainDisplay);
 
@@ -159,13 +163,22 @@ TimerRemainDisplay x ${statForTimerRemainDisplay.mean} ms/render ±${statForTime
   //   - という訳で累計更新時間を 8ms から 16 ms に伸ばす
   //   - (本当は production build でテストするべきだけど、@testing-library/react が production build でのテストに対応していないので諦めている)
 
-  const LIMIT_UPDATE_TIME = 8;
-
-  // 暖気運転した分の更新時間も含まれているので slice する
-  updatesForTimerTimeline.forEach((update) => {
-    expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
-  });
-  updatesForTimerRemainDisplay.forEach((update) => {
-    expect(update).toBeLessThan(LIMIT_UPDATE_TIME);
-  });
+  console.log(
+    inspect(
+      {
+        statForTimerTimeline,
+        updatesForTimerTimeline,
+      },
+      { maxArrayLength: null },
+    ),
+  );
+  console.log(
+    inspect(
+      {
+        statForTimerRemainDisplay,
+        updatesForTimerRemainDisplay,
+      },
+      { maxArrayLength: null },
+    ),
+  );
 });
