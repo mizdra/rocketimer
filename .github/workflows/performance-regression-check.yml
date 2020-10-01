@@ -23,8 +23,8 @@ jobs:
         run: yarn install
 
       # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
-      - name: yarn run test:perf
-        run: yarn run test:perf
+      - name: yarn run benchmark
+        run: yarn run benchmark
         continue-on-error: true
 
       # github-action-benchmark を実行
