@@ -32,8 +32,8 @@ jobs:
         with:
           tool: 'benchmarkjs'
           output-file-path: output.txt
-          # 以前より 150% ほど悪化していたらアラートを上げる
-          alert-threshold: '150%'
+          # 以前より 200% ほど悪化していたらアラートを上げる
+          alert-threshold: '200%'
           # アラートが上がったらワークフローを失敗させる
           fail-on-alert: true
           # commit が push される度にベンチマーク結果を commit comment でお知らせする
