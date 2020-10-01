@@ -22,9 +22,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
-      # ベンチマークを実行し、github-action-benchmark 向けに結果をファイルに書き出しておく
-      - name: npm run benchmark
-        run: node benchmark/fib.js
+      # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
+      - name: yarn run test:perf
+        run: yarn run test:perf
+        continue-on-error: true
 
       # github-action-benchmark を実行
       - name: Store benchmark result
