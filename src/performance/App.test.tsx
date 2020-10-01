@@ -88,10 +88,10 @@ test('タイマーが 60 fps で描画されることをテストする', async 
   await fs.writeFile(
     'output.txt',
     `
-TimerTimeline x ${average(updatesForTimerTimeline)} ms/times ±0.00% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
+TimerTimeline x ${average(updatesForTimerTimeline)} ms/render ±0.00% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
 TimerRemainDisplay x ${average(
       updatesForTimerRemainDisplay,
-    )} ms/times ±0.00% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
+    )} ms/render ±0.00% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
   `.trim(),
   );
 
