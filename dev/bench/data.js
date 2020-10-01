@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601570450187,
+  "lastUpdate": 1601570756933,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -112,6 +112,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 0.9647932700000456,
             "range": "±8.19%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "distinct": true,
+          "id": "02161784a0689a7121f2aa2cc825c949eefb5aab",
+          "message": "github-action-benchmark  でアラートも上げてくれるようになったので、jest で assert する必要はなくなった",
+          "timestamp": "2020-10-02T01:45:16+09:00",
+          "tree_id": "8b1a08630e3511219c3feb6d973c2c6c53d6a0fb",
+          "url": "https://github.com/RNGeek/rocketimer/commit/02161784a0689a7121f2aa2cc825c949eefb5aab"
+        },
+        "date": 1601570756447,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.5239222799999335,
+            "range": "±15.68%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.3701833500001521,
+            "range": "±17.27%",
             "unit": "ms/render",
             "extra": "100 samples"
           }
