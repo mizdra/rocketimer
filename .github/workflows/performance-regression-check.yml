@@ -40,5 +40,5 @@ jobs:
           # NOTE: 普段は ON にするとノイズになるのでパフォーマンスチューニングをしたいときだけ ON にする
           # comment-always: true
           # master では GitHub Pages に結果を push する
-          auto-push: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/add-github-action-benchmark' }}
+          auto-push: ${{ github.ref == 'refs/heads/master' }}
           github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
