@@ -9,19 +9,35 @@ import { promises as fs } from 'fs';
 import { inspect } from 'util';
 import { getStatistics } from './statistics.helper';
 
+// タイマーの更新に掛かる時間 (更新時間) を計測するベンチマーク。
+// この測定値を見ることでタイマーが 60 fps で描画されるかどうかを判断する
+// 手がかりとなることを期待している。
+//
+// react-performance-testing を使い、仮想 DOM における描画の処理時間を計測する。
+// 測定結果は github-action-benchmark へと送信されるようになっており、
+// 以前の測定値から一定量悪化する commit を push すると CI が fail し、
+// commit comment が付くようになっている。
+//
+// ## 測定結果の分析における注意点について
+// - 毎フレーム更新されるコンポーネントは TimerTimeline と TimerRemainDisplay の2つだけ
+//   - そのため TimerTimeline と TimerRemainDisplay の更新時間のみを測定している
+// - 60 fps を実現するには 1 フレームあたり 10 ms 秒以内に処理が完了していると良い、とされている
+//   - ref: https://web.dev/rail/#animation:-produce-a-frame-in-10-ms
+// - また react-performance-testing によるテストは仮想 DOM によるテストであり、DOM API のオーバーヘッドが考慮されていない
+// - 加えてテストは development build で実行される
+//   - (本当は production build でテストするべきだけど、@testing-library/react が production build でのテストに対応していないので諦めている)
+// - ... といったように様々な変数が背後にあるため、ユーザ環境ではここで測定値から推測できるパフォーマンスと大きく異なる可能性がある
+//   - このテストに通ったからといってユーザ環境でも 60 fps で動作するとは言えない
+//   - そのためこの測定値を分析する時は、そうした変数が背後にあることを考慮するように
+
+// NOTE: ベンチマークそのものは jest で動かす必要はないのだけど、react-performance-testing を使いたくて、
+// それを手軽に動かせる環境が jest だったので jest で動かしている、という経緯がある。
+
 // 測定の際に何回コンポーネントを更新するか
 const UPDATE_COUNT_FOR_MEASUREMENT = 100;
 
 // 暖機運転の際に何回コンポーネントを更新するか
 const UPDATE_COUNT_FOR_WARM_UP = 10 * 60; // 10秒分
-
-// タイマーが 60 fps で描画されることをテストする。
-// react-performance-testing を使い、仮想 DOM における描画の処理時間を見て、
-// 60 fps を実現できる時間に収まっているかを assert している。
-// 厳密にはテストを実行する環境のスペックに応じて処理時間は変わってくるので、
-// このテストに通ったからといってユーザ環境でも 60 fps で動作するとは言えない。
-// とはいえ CI によって自動で異常なパフォーマンス劣化を検知できるという
-// メリットがあるので、これで良しとしている。
 
 // jsdom で mock しきれない部分があるので、手動で mock してやる
 beforeAll(() => {
@@ -100,19 +116,7 @@ TimerRemainDisplay x ${statForTimerRemainDisplay.mean} ms/render ±${statForTime
   `.trim(),
   );
 
-  // 以下のような方針でテストをする。
-  //
-  // - 毎フレーム更新されるコンポーネントは TimerTimeline と TimerRemainDisplay の2つだけ
-  //   - そのため TimerTimeline と TimerRemainDisplay の更新時間のみを assert する
-  // - 60 fps を実現するには 1 フレームあたり 10 ms 秒以内に処理が完了していると良い、とされている
-  //   - ref: https://web.dev/rail/#animation:-produce-a-frame-in-10-ms
-  //   - そこで累計更新時間が 10 ms 以内になっていることを assert で確かめることとする
-  // - react-performance-testing によるテストは仮想 DOM によるテストであり、DOM API のオーバーヘッドが考慮されていない
-  //   - そこで上限とする累計更新時間を 10 ms から更に縮めて 8ms とする
-  // - しかしよくよく考えるとテストは development build で実行される
-  //   - という訳で累計更新時間を 8ms から 16 ms に伸ばす
-  //   - (本当は production build でテストするべきだけど、@testing-library/react が production build でのテストに対応していないので諦めている)
-
+  // 標準出力にも書き出す
   console.log(
     inspect(
       {
