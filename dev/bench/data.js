@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601655665519,
+  "lastUpdate": 1601658248512,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -340,6 +340,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.039229370000012,
             "range": "±5.24%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "distinct": true,
+          "id": "57dadac70573c1f79b08380d77a2f07ceb929c7c",
+          "message": "コメントをアップデート",
+          "timestamp": "2020-10-03T02:03:16+09:00",
+          "tree_id": "f76eef4e1ee1b0a7c0c694da47ea96df4e1fdccd",
+          "url": "https://github.com/RNGeek/rocketimer/commit/57dadac70573c1f79b08380d77a2f07ceb929c7c"
+        },
+        "date": 1601658247070,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.3243895100000465,
+            "range": "±7.09%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.1782366400000137,
+            "range": "±7.87%",
             "unit": "ms/render",
             "extra": "100 samples"
           }
