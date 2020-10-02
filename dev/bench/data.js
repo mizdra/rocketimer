@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601658292033,
+  "lastUpdate": 1601658683735,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -416,6 +416,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.1841497399998844,
             "range": "±8.36%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "10970955cbdae0cbb80771e18283f8ff09530c6c",
+          "message": "Merge pull request #106 from RNGeek/add-github-action-benchmark\n\ngithub-action-benchmark で FPS の変化を監視する",
+          "timestamp": "2020-10-03T02:09:59+09:00",
+          "tree_id": "24b23a7626d954fde95d223bb062ac311c746f03",
+          "url": "https://github.com/RNGeek/rocketimer/commit/10970955cbdae0cbb80771e18283f8ff09530c6c"
+        },
+        "date": 1601658683265,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.058891120000044,
+            "range": "±13.12%",
+            "unit": "ms/render",
+            "extra": "100 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 0.8867518799999925,
+            "range": "±15.62%",
             "unit": "ms/render",
             "extra": "100 samples"
           }
