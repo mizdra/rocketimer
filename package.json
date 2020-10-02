@@ -14,8 +14,8 @@
     "check:eslint": "eslint 'src/**/*.{ts,tsx}'",
     "check:prettier": "prettier --check .",
     "test": "run-s -l test:*",
-    "test:jest": "jest --testPathIgnorePatterns performance",
-    "test:perf": "node --expose-gc $(npm bin)/jest --runTestsByPath ./src/performance/App.test.tsx"
+    "test:jest": "jest --testPathIgnorePatterns benchmark",
+    "benchmark": "node --expose-gc $(npm bin)/jest --runTestsByPath ./src/benchmark/App.test.tsx"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
