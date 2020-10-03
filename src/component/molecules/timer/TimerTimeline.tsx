@@ -36,18 +36,20 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
 
     // stage
     const stage = new Konva.Stage({
+      listening: false,
       container,
       width: container.clientWidth,
       height: container.clientHeight,
     });
     const stageWidth = stage.width();
 
-    const layer1 = new Konva.Layer();
-    const layer2 = new Konva.Layer();
-    const layer3 = new Konva.Layer();
+    const layer1 = new Konva.Layer({ listening: false });
+    const layer2 = new Konva.Layer({ listening: false });
+    const layer3 = new Konva.Layer({ listening: false });
 
     // xAsis
     const xAxis = new Konva.Line({
+      listening: false,
       stroke: '#bfbfbf',
       strokeWidth: 1,
       points: [0, HORIZON_LINE_Y, stageWidth, HORIZON_LINE_Y],
@@ -56,6 +58,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
 
     // currentTimeBar
     const currentTimeBar = new Konva.Line({
+      listening: false,
       stroke: 'orange',
       strokeWidth: 2,
       points: [CURRENT_LINE_X, 0, CURRENT_LINE_X, STAGE_HEIGHT],
@@ -66,6 +69,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const gridLines = range(0, 30).map(
       () =>
         new Konva.Line({
+          listening: false,
           stroke: '#e5e5e5',
           strokeWidth: 1,
           points: [0, 0, 0, STAGE_HEIGHT],
@@ -77,6 +81,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     const gridLabels = range(0, 30).map(
       () =>
         new Konva.Text({
+          listening: false,
           fill: '#666',
           fontSize: 14,
           fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
@@ -89,6 +94,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     // パフォーマンスの都合上 30 本までとする
     const lapEndLines = range(0, 30).map(() => {
       return new Konva.Line({
+        listening: false,
         stroke: '#6e94ff',
         strokeWidth: 2,
         points: [0, 0, 0, STAGE_HEIGHT],
