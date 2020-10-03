@@ -42,9 +42,9 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     });
     const stageWidth = stage.width();
 
-    const layer1 = new Konva.Layer({ listening: false });
-    const layer2 = new Konva.Layer({ listening: false });
-    const layer3 = new Konva.Layer({ listening: false });
+    const layer1 = new Konva.Layer();
+    const layer2 = new Konva.Layer();
+    const layer3 = new Konva.Layer();
 
     // xAsis
     const xAxis = new Konva.Line({
