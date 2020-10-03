@@ -59,7 +59,7 @@ import { getStatistics } from './statistics.helper';
 const UPDATE_COUNT_FOR_MEASUREMENT = 300;
 
 // 暖機運転の際に何回コンポーネントを更新するか
-const UPDATE_COUNT_FOR_WARM_UP = 5000; // 1分ぶん
+const UPDATE_COUNT_FOR_WARM_UP = 5000;
 
 // jsdom で mock しきれない部分があるので、手動で mock してやる
 beforeAll(() => {
