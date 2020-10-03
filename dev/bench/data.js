@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601658683735,
+  "lastUpdate": 1601705756281,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -456,6 +456,44 @@ window.BENCHMARK_DATA = {
             "range": "±15.62%",
             "unit": "ms/render",
             "extra": "100 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "32a4abfad974c968448e2ac83243553ec15aee29",
+          "message": "Merge pull request #107 from RNGeek/tuning-benchmark\n\nベンチマークの信頼区間がより小さくなるように",
+          "timestamp": "2020-10-03T15:14:50+09:00",
+          "tree_id": "16c196e846ec8a932db23eb29ea7644b248e3713",
+          "url": "https://github.com/RNGeek/rocketimer/commit/32a4abfad974c968448e2ac83243553ec15aee29"
+        },
+        "date": 1601705755854,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.1666319866665495,
+            "range": "±14.35%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 0.9789161033332857,
+            "range": "±17.03%",
+            "unit": "ms/render",
+            "extra": "300 samples"
           }
         ]
       }
