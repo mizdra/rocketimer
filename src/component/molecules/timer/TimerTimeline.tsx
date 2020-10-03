@@ -66,39 +66,43 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     layer3.add(currentTimeBar);
 
     // パフォーマンスの都合上 30 本までとする
-    const gridLines = range(0, 30).map(
-      () =>
-        new Konva.Line({
-          listening: false,
-          stroke: '#e5e5e5',
-          strokeWidth: 1,
-          points: [0, 0, 0, STAGE_HEIGHT],
-        }),
-    );
+    const gridLines = range(0, 30).map(() => {
+      const line = new Konva.Line({
+        listening: false,
+        stroke: '#e5e5e5',
+        strokeWidth: 1,
+        points: [0, 0, 0, STAGE_HEIGHT],
+      });
+      line.transformsEnabled('position');
+      return line;
+    });
     layer2.add(...gridLines);
 
     // パフォーマンスの都合上 30 個までとする
-    const gridLabels = range(0, 30).map(
-      () =>
-        new Konva.Text({
-          listening: false,
-          fill: '#666',
-          fontSize: 14,
-          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-          x: 0,
-          y: GRID_LABEL_Y,
-        }),
-    );
+    const gridLabels = range(0, 30).map(() => {
+      const text = new Konva.Text({
+        listening: false,
+        fill: '#666',
+        fontSize: 14,
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        x: 0,
+        y: GRID_LABEL_Y,
+      });
+      text.transformsEnabled('position');
+      return text;
+    });
     layer2.add(...gridLabels);
 
     // パフォーマンスの都合上 30 本までとする
     const lapEndLines = range(0, 30).map(() => {
-      return new Konva.Line({
+      const line = new Konva.Line({
         listening: false,
         stroke: '#6e94ff',
         strokeWidth: 2,
         points: [0, 0, 0, STAGE_HEIGHT],
       });
+      line.transformsEnabled('position');
+      return line;
     });
     layer2.add(...lapEndLines);
 
