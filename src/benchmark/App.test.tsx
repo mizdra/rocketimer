@@ -57,7 +57,7 @@ import { getStatistics } from './statistics.helper';
 const UPDATE_COUNT_FOR_MEASUREMENT = 100;
 
 // 暖機運転の際に何回コンポーネントを更新するか
-const UPDATE_COUNT_FOR_WARM_UP = 10 * 60; // 10秒分
+const UPDATE_COUNT_FOR_WARM_UP = 5000; // 1分ぶん
 
 // jsdom で mock しきれない部分があるので、手動で mock してやる
 beforeAll(() => {
@@ -106,9 +106,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     // コンポーネントの更新前に GC を強制的に発生させておき、コンポーネントの更新時にゴミが
     // ほとんどない状況を作っている。これにより、コンポーネントの更新時にゴミが GC 発生のしきい値を
     // 超えることがなくなり、コンポーネントの更新中に GC が発生しなくなるはず、という期待をしている。
-    //
-    // GC はコストの高い操作なのでコンポーネントの更新 5 回につき 1 回くらいの頻度で発生させることにしている。
-    if (i % 5 === 0) global.gc();
+    global.gc();
 
     // タイマーを更新
     timerController.advanceBy(16);
