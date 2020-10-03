@@ -110,6 +110,8 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
       layer.children.each((node) => {
         if (node instanceof Konva.Shape) {
           node.transformsEnabled('position');
+          node.hitStrokeWidth(0);
+          node.shadowForStrokeEnabled(false);
         }
       });
     });
