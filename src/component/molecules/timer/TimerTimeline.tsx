@@ -100,6 +100,20 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     stage.add(layer2);
     stage.add(layer3);
 
+    stage.children.each((layer) => {
+      layer.children.each((node) => {
+        if (node instanceof Konva.Shape) {
+          node.transformsEnabled('position');
+          node.hitStrokeWidth(0);
+          node.shadowForStrokeEnabled(false);
+          node.perfectDrawEnabled(false);
+          node.listening(false);
+        }
+      });
+      layer.listening(false);
+    });
+    stage.listening(false);
+
     setKonvaNodes({ stage, layer2, gridLines, gridLabels, lapEndLines });
 
     stage.on('wheel', (e) => {
