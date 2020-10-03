@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601705756281,
+  "lastUpdate": 1601709358564,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -492,6 +492,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 0.9789161033332857,
             "range": "±17.03%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8a6f74436017ada0d819f0b2c6627d80ce5be157",
+          "message": "Merge pull request #108 from RNGeek/tuning-konva\n\nタイムラインのパフォーマンスチューニング",
+          "timestamp": "2020-10-03T16:14:37+09:00",
+          "tree_id": "60dfafdf2d9765a33229c93630b7d3755952111b",
+          "url": "https://github.com/RNGeek/rocketimer/commit/8a6f74436017ada0d819f0b2c6627d80ce5be157"
+        },
+        "date": 1601709356263,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.1326770100000492,
+            "range": "±9.80%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 0.9344494466667432,
+            "range": "±11.80%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
