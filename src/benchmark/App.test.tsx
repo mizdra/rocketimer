@@ -67,7 +67,7 @@ beforeAll(() => {
 });
 
 test('タイマーが 60 fps で描画されることをテストする', async () => {
-  const timerController = new TestableTimerController();
+  const timerController = new TestableTimerController(new Date(2020, 0, 1, 0, 0, 0, 0).getDate());
 
   // パフォーマンスの測定を開始
   const { renderTime } = perf<{ TimerTimeline: unknown; TimerRemainDisplay: unknown }>(React);
@@ -90,6 +90,10 @@ test('タイマーが 60 fps で描画されることをテストする', async 
   for (let i = 0; i < UPDATE_COUNT_FOR_WARM_UP; i++) {
     timerController.advanceBy(16);
   }
+
+  // 挙動を想定しやすいよう、TimerTimeline や TimerRemainDisplay に表示される状態を 2020-11-11 00:00:00 のものに
+  // 再設定してから測定を開始する
+  timerController.advanceTo(new Date(2020, 10, 11, 11, 0, 0, 0).getDate());
 
   // UPDATE_COUNT_FOR_MEASUREMENT 回 animation frame を発生させる
   for (let i = 0; i < UPDATE_COUNT_FOR_MEASUREMENT; i++) {
