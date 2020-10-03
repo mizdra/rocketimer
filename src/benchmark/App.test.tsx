@@ -54,10 +54,12 @@ import { getStatistics } from './statistics.helper';
 // それを手軽に動かせる環境が jest だったので jest で動かしている、という経緯がある。
 
 // 測定の際に何回コンポーネントを更新するか
-const UPDATE_COUNT_FOR_MEASUREMENT = 100;
+// NOTE: 上げれば上げるほど RME が小さくなるが、あんまり大きい数にすると CPU の温度が上がるためか測定結果に
+// 波が出てしまうことが分かったので、ひとまず様子を見て 300 回としている
+const UPDATE_COUNT_FOR_MEASUREMENT = 300;
 
 // 暖機運転の際に何回コンポーネントを更新するか
-const UPDATE_COUNT_FOR_WARM_UP = 10 * 60; // 10秒分
+const UPDATE_COUNT_FOR_WARM_UP = 5000;
 
 // jsdom で mock しきれない部分があるので、手動で mock してやる
 beforeAll(() => {
@@ -67,7 +69,7 @@ beforeAll(() => {
 });
 
 test('タイマーが 60 fps で描画されることをテストする', async () => {
-  const timerController = new TestableTimerController();
+  const timerController = new TestableTimerController(new Date(2020, 0, 1, 0, 0, 0, 0).getDate());
 
   // パフォーマンスの測定を開始
   const { renderTime } = perf<{ TimerTimeline: unknown; TimerRemainDisplay: unknown }>(React);
@@ -91,6 +93,10 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     timerController.advanceBy(16);
   }
 
+  // 挙動を想定しやすいよう、TimerTimeline や TimerRemainDisplay に表示される状態を 2020-11-11 00:00:00 のものに
+  // 再設定してから測定を開始する
+  timerController.advanceTo(new Date(2020, 10, 11, 11, 0, 0, 0).getDate());
+
   // UPDATE_COUNT_FOR_MEASUREMENT 回 animation frame を発生させる
   for (let i = 0; i < UPDATE_COUNT_FOR_MEASUREMENT; i++) {
     // NOTE: GC の停止時間が発生すると計測結果に外れ値が現れる可能性がある。計測結果からは
@@ -102,9 +108,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     // コンポーネントの更新前に GC を強制的に発生させておき、コンポーネントの更新時にゴミが
     // ほとんどない状況を作っている。これにより、コンポーネントの更新時にゴミが GC 発生のしきい値を
     // 超えることがなくなり、コンポーネントの更新中に GC が発生しなくなるはず、という期待をしている。
-    //
-    // GC はコストの高い操作なのでコンポーネントの更新 10 回につき 1 回くらいの頻度で発生させることにしている。
-    if (i % 10 === 0) global.gc();
+    global.gc();
 
     // タイマーを更新
     timerController.advanceBy(16);
