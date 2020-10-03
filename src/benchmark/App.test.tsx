@@ -54,6 +54,8 @@ import { getStatistics } from './statistics.helper';
 // それを手軽に動かせる環境が jest だったので jest で動かしている、という経緯がある。
 
 // 測定の際に何回コンポーネントを更新するか
+// NOTE: 上げれば上げるほど RME が小さくなるが、あんまり大きい数にすると CPU の温度が上がるためか測定結果に
+// 波が出てしまうことが分かったので、ひとまず様子を見て 100 回としている
 const UPDATE_COUNT_FOR_MEASUREMENT = 100;
 
 // 暖機運転の際に何回コンポーネントを更新するか
