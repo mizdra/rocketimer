@@ -110,6 +110,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
           node.listening(false);
         }
       });
+      layer.listening(false);
     });
 
     setKonvaNodes({ stage, layer2, gridLines, gridLabels, lapEndLines });
