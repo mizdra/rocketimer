@@ -112,6 +112,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
           node.transformsEnabled('position');
           node.hitStrokeWidth(0);
           node.shadowForStrokeEnabled(false);
+          node.perfectDrawEnabled(false);
         }
       });
     });
