@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Konva from 'konva';
 import { useRecoilValue } from 'recoil';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
@@ -145,8 +145,8 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     };
   }, [lapEndTimes, ref]);
 
-  // TODO(performance): useLayoutEffect を使う
-  useEffect(() => {
+  // タイムラインはリアルタイム性が求められるので useLayoutEffect を使う
+  useLayoutEffect(() => {
     if (!konvaNodes) return;
     const { stage, layer2, gridLines, gridLabels, lapEndLines } = konvaNodes;
     if (process.env.NODE_ENV !== 'production') {
