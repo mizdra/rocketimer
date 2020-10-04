@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601811594535,
+  "lastUpdate": 1601818125377,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -834,6 +834,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.3721977800000664,
             "range": "±12.34%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "c60a53dba1d6c9bcdb7f9f276fbcd18b79f66440",
+          "message": "chore(deps): update dependency copy-webpack-plugin to ^6.2.0",
+          "timestamp": "2020-10-04T13:26:42Z",
+          "tree_id": "09fa34530330a351e335f3ed7821aff88bfc0914",
+          "url": "https://github.com/RNGeek/rocketimer/commit/c60a53dba1d6c9bcdb7f9f276fbcd18b79f66440"
+        },
+        "date": 1601818124893,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.1806066733330893,
+            "range": "±5.19%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.1048858099999355,
+            "range": "±5.27%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
