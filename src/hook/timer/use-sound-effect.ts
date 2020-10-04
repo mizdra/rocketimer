@@ -33,8 +33,18 @@ export function useSoundEffect() {
       playEndedAudio();
     } else if (status === 'countdowning' && prevCurrentLapIndex !== currentLapIndex) {
       playEndedAudio();
-    } else if (status === 'countdowning' && prevSeconds !== seconds && seconds < 10) {
+    } else if (status === 'countdowning' && prevSeconds !== seconds && currentLapRemain < 10 * 1000) {
       playTickTack();
     }
-  }, [currentLapIndex, playEndedAudio, playTickTack, prevCurrentLapIndex, prevSeconds, prevStatus, seconds, status]);
+  }, [
+    currentLapIndex,
+    currentLapRemain,
+    playEndedAudio,
+    playTickTack,
+    prevCurrentLapIndex,
+    prevSeconds,
+    prevStatus,
+    seconds,
+    status,
+  ]);
 }
