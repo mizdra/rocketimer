@@ -15,6 +15,7 @@
     "check:prettier": "prettier --check .",
     "test": "run-s -l test:*",
     "test:jest": "jest --testPathIgnorePatterns benchmark",
+    "coverage": "yarn run test:jest --coverage",
     "benchmark": "node --expose-gc $(npm bin)/jest --runTestsByPath ./src/benchmark/App.test.tsx"
   },
   "dependencies": {

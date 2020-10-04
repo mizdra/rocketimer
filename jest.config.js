@@ -4,4 +4,5 @@ module.exports = {
   moduleNameMapper: {
     '\\.mp3$': '<rootDir>/__mocks__/fileMock.js',
   },
+  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx,js,jsx}', '!**/*.d.ts'],
 };
