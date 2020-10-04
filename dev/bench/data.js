@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601709358564,
+  "lastUpdate": 1601804190386,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -530,6 +530,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 0.9344494466667432,
             "range": "±11.80%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "30342490+mergecat[bot]@users.noreply.github.com",
+            "name": "mergecat[bot]",
+            "username": "mergecat[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bac1bb00cc7b6a5931c08d70b352769ead11b1a2",
+          "message": "Merge pull request #111 from RNGeek/tuning-update-timing",
+          "timestamp": "2020-10-04T09:35:22Z",
+          "tree_id": "ceb34f92b49e204cafe32cf5bef3c0ffe0c8f8fd",
+          "url": "https://github.com/RNGeek/rocketimer/commit/bac1bb00cc7b6a5931c08d70b352769ead11b1a2"
+        },
+        "date": 1601804189917,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 0.9875061466667163,
+            "range": "±6.38%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 0.933997590000084,
+            "range": "±6.58%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
