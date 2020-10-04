@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601822899104,
+  "lastUpdate": 1601828171002,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -986,6 +986,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.29904241000022,
             "range": "±11.20%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "2db68fd5bf4a2bd09a187c714a2347f239174e33",
+          "message": "chore(deps): update npm to >= 6.14.8",
+          "timestamp": "2020-10-04T16:14:53Z",
+          "tree_id": "b5af02b8dc6d50799113a8cf8200d08ad81265d8",
+          "url": "https://github.com/RNGeek/rocketimer/commit/2db68fd5bf4a2bd09a187c714a2347f239174e33"
+        },
+        "date": 1601828170525,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.0554412899998837,
+            "range": "±10.52%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 0.996081449999953,
+            "range": "±11.08%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
