@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601809946576,
+  "lastUpdate": 1601810425478,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -682,6 +682,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 0.9720889933334426,
             "range": "±10.21%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4712bf8a6778ed6d3b6da8dab33f3662ced69d62",
+          "message": "Merge pull request #114 from RNGeek/add-renovate\n\nrenovate を導入",
+          "timestamp": "2020-10-04T20:19:09+09:00",
+          "tree_id": "55f48153f21546155eadc1ea5d4b1ce9c9338b67",
+          "url": "https://github.com/RNGeek/rocketimer/commit/4712bf8a6778ed6d3b6da8dab33f3662ced69d62"
+        },
+        "date": 1601810425004,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.1799059366664126,
+            "range": "±10.05%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.080009589999839,
+            "range": "±10.07%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
