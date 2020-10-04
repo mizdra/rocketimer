@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601818232028,
+  "lastUpdate": 1601818514946,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -910,6 +910,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 0.9080602866665928,
             "range": "±2.53%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "27856297+dependabot-preview[bot]@users.noreply.github.com",
+            "name": "dependabot-preview[bot]",
+            "username": "dependabot-preview[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7611bee6ae5fd626ece179e0a82375b76cb8a84a",
+          "message": "Merge pull request #120 from RNGeek/dependabot/npm_and_yarn/eslint-plugin-react-7.21.3",
+          "timestamp": "2020-10-04T13:33:18Z",
+          "tree_id": "595486d83549893a46fe5d76e319f802de747e81",
+          "url": "https://github.com/RNGeek/rocketimer/commit/7611bee6ae5fd626ece179e0a82375b76cb8a84a"
+        },
+        "date": 1601818514487,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.1847613633333336,
+            "range": "±14.05%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.0859425766666815,
+            "range": "±13.54%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
