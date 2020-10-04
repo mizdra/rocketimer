@@ -2,6 +2,8 @@
 
 Blazing fast cascade timer.
 
+[![Coverage Status](https://coveralls.io/repos/github/RNGeek/rocketimer/badge.svg)](https://coveralls.io/github/RNGeek/rocketimer)
+
 ## Requirements
 
 - Node.js
