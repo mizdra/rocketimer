@@ -12,6 +12,7 @@ import {
   STAGE_HEIGHT,
 } from '../../../lib/timeline';
 import { range } from '../../../lib/array';
+import useSize from '@react-hook/size';
 
 export type TimerTimelineProps = {};
 
@@ -26,6 +27,7 @@ type KonvaNodes = {
 function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
   const totalElapsed = useRecoilValue(totalElapsedState);
   const lapEndTimes = useRecoilValue(lapEndTimesState);
+  const [containerWidth, containerHeight] = useSize(ref);
 
   const [konvaNodes, setKonvaNodes] = useState<KonvaNodes | null>(null);
   const [zoom, setZoom] = useState<number>(7.5 * 1000);
@@ -37,8 +39,8 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     // stage
     const stage = new Konva.Stage({
       container,
-      width: container.clientWidth,
-      height: container.clientHeight,
+      width: containerWidth,
+      height: containerHeight,
     });
     const stageWidth = stage.width();
 
@@ -143,7 +145,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     return () => {
       stage.destroy();
     };
-  }, [lapEndTimes, ref]);
+  }, [lapEndTimes, ref, containerWidth, containerHeight]);
 
   // タイムラインはリアルタイム性が求められるので useLayoutEffect を使う
   useLayoutEffect(() => {
