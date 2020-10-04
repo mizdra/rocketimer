@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601828171002,
+  "lastUpdate": 1601828791891,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1024,6 +1024,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 0.996081449999953,
             "range": "±11.08%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "53ec858b37c5878c39ccb1d9d4beed0335d628d6",
+          "message": "fix(deps): update dependency konva to ^7.1.3",
+          "timestamp": "2020-10-04T16:24:08Z",
+          "tree_id": "822761e5b555c97afec88b41420c0729b046cc6b",
+          "url": "https://github.com/RNGeek/rocketimer/commit/53ec858b37c5878c39ccb1d9d4beed0335d628d6"
+        },
+        "date": 1601828791411,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.2449455733330856,
+            "range": "±10.60%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.1617268966664294,
+            "range": "±10.36%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
