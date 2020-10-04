@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601818514946,
+  "lastUpdate": 1601822899104,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -948,6 +948,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.0859425766666815,
             "range": "±13.54%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "698d1b6cabf4980752e066048f950dffea95a66a",
+          "message": "chore(deps): update dependency eslint-config-prettier to ^6.12.0",
+          "timestamp": "2020-10-04T14:46:04Z",
+          "tree_id": "db5535ca76ca798129fe7ceb3d9099a51888f08e",
+          "url": "https://github.com/RNGeek/rocketimer/commit/698d1b6cabf4980752e066048f950dffea95a66a"
+        },
+        "date": 1601822898630,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.3840234999998695,
+            "range": "±10.69%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.29904241000022,
+            "range": "±11.20%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
