@@ -39,8 +39,11 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     // stage
     const stage = new Konva.Stage({
       container,
-      width: containerWidth,
-      height: containerHeight,
+      // containerWidth / containerHeight はコンテナのボーダーのサイズ含んでおり、
+      // それを stage のサイズに使ってしまうと stage がコンテナのボーダーと重なってしまうので
+      // container.clientWidth / container.clientHeight を使う
+      width: container.clientWidth,
+      height: container.clientHeight,
     });
     const stageWidth = stage.width();
 
