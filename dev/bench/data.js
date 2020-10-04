@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601811256879,
+  "lastUpdate": 1601811594535,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -796,6 +796,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.1817926033331787,
             "range": "±6.76%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "27856297+dependabot-preview[bot]@users.noreply.github.com",
+            "name": "dependabot-preview[bot]",
+            "username": "dependabot-preview[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "77f87c8d8e959bf1d4796e0d0750b8cf33984296",
+          "message": "Merge pull request #90 from RNGeek/dependabot/npm_and_yarn/webpack-4.44.2",
+          "timestamp": "2020-10-04T11:37:40Z",
+          "tree_id": "be5a2147d2ecf18f83ac17ac9382657546e5ed82",
+          "url": "https://github.com/RNGeek/rocketimer/commit/77f87c8d8e959bf1d4796e0d0750b8cf33984296"
+        },
+        "date": 1601811593882,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.4855891833332013,
+            "range": "±11.94%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.3721977800000664,
+            "range": "±12.34%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
