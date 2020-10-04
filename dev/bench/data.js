@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601806588874,
+  "lastUpdate": 1601809138121,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -606,6 +606,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.198984916666759,
             "range": "±11.55%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5c36f062e8a29faf55311de159512607df5a4830",
+          "message": "Merge pull request #113 from RNGeek/support-test-coverage\n\nテストカバレッジを取る",
+          "timestamp": "2020-10-04T19:57:37+09:00",
+          "tree_id": "38be9a3733841f8ef86747dfd596441c0cdd7256",
+          "url": "https://github.com/RNGeek/rocketimer/commit/5c36f062e8a29faf55311de159512607df5a4830"
+        },
+        "date": 1601809137676,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.357582366666429,
+            "range": "±11.54%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.2785899333331812,
+            "range": "±12.14%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
