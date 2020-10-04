@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601810425478,
+  "lastUpdate": 1601811180496,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -720,6 +720,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.080009589999839,
             "range": "±10.07%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "1392fae3ea8056131b2a9d6b19388342a31cfb41",
+          "message": "Update babel monorepo to ^7.10.4",
+          "timestamp": "2020-10-04T11:30:56Z",
+          "tree_id": "5a5a4c2e663db7ce7c4a1e86756513a6953b9046",
+          "url": "https://github.com/RNGeek/rocketimer/commit/1392fae3ea8056131b2a9d6b19388342a31cfb41"
+        },
+        "date": 1601811179974,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.0157534899998608,
+            "range": "±7.61%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 0.9627998133332403,
+            "range": "±7.91%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
