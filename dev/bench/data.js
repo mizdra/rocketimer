@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601930120220,
+  "lastUpdate": 1601935008478,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1176,6 +1176,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.3495900633333926,
             "range": "±11.63%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "4dcb64f9369bb6192b3a14509f89dd3e15425e1b",
+          "message": "chore(deps): update linters to ^4.4.0",
+          "timestamp": "2020-10-05T21:54:39Z",
+          "tree_id": "fa583e5e18db40418d57ffee147da3c3491261a9",
+          "url": "https://github.com/RNGeek/rocketimer/commit/4dcb64f9369bb6192b3a14509f89dd3e15425e1b"
+        },
+        "date": 1601935008009,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.2873123966668027,
+            "range": "±10.58%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.2327388433332573,
+            "range": "±11.57%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
