@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601894455427,
+  "lastUpdate": 1601930120220,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1138,6 +1138,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.2858801400000024,
             "range": "±7.85%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "945439f07cb91fe440a7334278c593c40af9d256",
+          "message": "chore(deps): update dependency @types/react to ^16.9.51",
+          "timestamp": "2020-10-05T20:33:01Z",
+          "tree_id": "69a1aa4c13dd0c87227024b08a0d3ea0b7c2dcae",
+          "url": "https://github.com/RNGeek/rocketimer/commit/945439f07cb91fe440a7334278c593c40af9d256"
+        },
+        "date": 1601930119726,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.4112061833333671,
+            "range": "±11.53%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.3495900633333926,
+            "range": "±11.63%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
