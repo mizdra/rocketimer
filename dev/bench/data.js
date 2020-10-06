@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601935008478,
+  "lastUpdate": 1601981698272,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1214,6 +1214,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.2327388433332573,
             "range": "±11.57%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "ecc728673a77cfec990727dda3b80fd4b28bcfe0",
+          "message": "fix(deps): update dependency react-hook-form to ^6.9.1",
+          "timestamp": "2020-10-06T10:52:39Z",
+          "tree_id": "75d7d66a65ac2ec3b4eeaa00b173c730253b1c47",
+          "url": "https://github.com/RNGeek/rocketimer/commit/ecc728673a77cfec990727dda3b80fd4b28bcfe0"
+        },
+        "date": 1601981697748,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.3171785299999161,
+            "range": "±8.61%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.2895565499999975,
+            "range": "±10.32%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
