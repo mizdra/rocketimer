@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601981698272,
+  "lastUpdate": 1601988715693,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1252,6 +1252,44 @@ window.BENCHMARK_DATA = {
             "name": "TimerRemainDisplay",
             "value": 1.2895565499999975,
             "range": "±10.32%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "4513d8e85e2dc8294f34e19ada62b25cfed3e7de",
+          "message": "chore(deps): update jest to ^26.5.2",
+          "timestamp": "2020-10-06T12:49:34Z",
+          "tree_id": "ea2f444f6cc01109f403c469e4b9b2d90b509563",
+          "url": "https://github.com/RNGeek/rocketimer/commit/4513d8e85e2dc8294f34e19ada62b25cfed3e7de"
+        },
+        "date": 1601988715218,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "TimerTimeline",
+            "value": 1.3534176633333967,
+            "range": "±7.48%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "TimerRemainDisplay",
+            "value": 1.2512522366666357,
+            "range": "±6.83%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
