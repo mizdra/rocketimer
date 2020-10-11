@@ -1,3 +1,5 @@
+import { promises as fs } from 'fs';
+
 // !!! The following code is copied from benchmark.js !!!
 // this code is lisenced by LICENSE.BENCHMARKJS
 const tTable = {
@@ -34,6 +36,12 @@ const tTable = {
   infinity: 1.96,
 };
 
+type Statistics = {
+  mean: number;
+  rme: number;
+  size: number;
+};
+
 /** 平均値と t 分布に基づく 95% 信頼区間を返す */
 export function getStatistics(samples: number[]) {
   const size = samples.length;
@@ -47,5 +55,15 @@ export function getStatistics(samples: number[]) {
   const moe = sem * critical;
   // t 分布に基づく 95% 信頼区間
   const rme = (moe / mean) * 100 || 0;
-  return { mean, rme };
+  return { mean, rme, size };
+}
+
+/** github-action-benchmark 向けに結果を書き出す */
+export async function saveStatistics(name: string, unit: string, statistics: Statistics) {
+  await fs.appendFile(
+    'output.txt',
+    `
+${name} x ${statistics.mean} ${unit} ±${statistics.rme.toFixed(2)}% (${statistics.size} runs sampled)
+  `.trim() + '\n',
+  );
 }

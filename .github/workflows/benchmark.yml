@@ -1,9 +1,9 @@
-name: Performance regression check
+name: Benchmark test
 on: [push]
 
 jobs:
-  fps:
-    name: Performance regression check for FPS
+  benchmark:
+    name: Benchmark
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,16 +11,17 @@ jobs:
         with:
           node-version: '12.x'
 
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-node-
+      # playwright を github action 上で動かすのに必要
+      - uses: microsoft/playwright-github-action@v1
 
       - name: yarn install
-        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
+
+      # yarn run benchmark:fps のためにサーバを立てておく
+      - name: Start server
+        run: |
+          yarn run build
+          yarn run http-server --silent -p 8080 dist &
 
       # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
       - name: yarn run benchmark

@@ -2,12 +2,11 @@ import React from 'react';
 import { perf, wait } from 'react-performance-testing';
 import { render, fireEvent, screen } from '@testing-library/react';
 import 'jest-performance-testing';
-import { App } from '../App';
+import { App } from '../src/App';
 import { RecoilRoot } from 'recoil';
-import { TestableTimerController } from '../lib/timer/timer-controller';
-import { promises as fs } from 'fs';
-import { inspect } from 'util';
-import { getStatistics } from './statistics.helper';
+import { TestableTimerController } from '../src/lib/timer/timer-controller';
+import { getStatistics, saveStatistics } from './helper/statistics';
+import { log } from './helper/log';
 
 // タイマーの更新に掛かる時間 (更新時間) を計測するベンチマーク。
 // この測定値を見ることでタイマーが 60 fps で描画されるかどうかを判断する
@@ -127,35 +126,10 @@ test('タイマーが 60 fps で描画されることをテストする', async 
   const statForTimerRemainDisplay = getStatistics(updatesForTimerRemainDisplay);
 
   // github-action-benchmark 向けに結果を書き出す
-  await fs.writeFile(
-    'output.txt',
-    `
-TimerTimeline x ${statForTimerTimeline.mean} ms/render ±${statForTimerTimeline.rme.toFixed(
-      2,
-    )}% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
-TimerRemainDisplay x ${statForTimerRemainDisplay.mean} ms/render ±${statForTimerRemainDisplay.rme.toFixed(
-      2,
-    )}% (${UPDATE_COUNT_FOR_MEASUREMENT} runs sampled)
-  `.trim(),
-  );
+  await saveStatistics('Render Time of TimerTimeline', 'ms/render', statForTimerTimeline);
+  await saveStatistics('Render Time of TimerRemainDisplay', 'ms/render', statForTimerRemainDisplay);
 
   // 標準出力にも書き出す
-  console.log(
-    inspect(
-      {
-        statForTimerTimeline,
-        updatesForTimerTimeline,
-      },
-      { maxArrayLength: null },
-    ),
-  );
-  console.log(
-    inspect(
-      {
-        statForTimerRemainDisplay,
-        updatesForTimerRemainDisplay,
-      },
-      { maxArrayLength: null },
-    ),
-  );
+  log({ statForTimerTimeline, updatesForTimerTimeline });
+  log({ statForTimerRemainDisplay, updatesForTimerRemainDisplay });
 });
