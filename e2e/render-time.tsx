@@ -2,12 +2,12 @@ import React from 'react';
 import { perf, wait } from 'react-performance-testing';
 import { render, fireEvent, screen } from '@testing-library/react';
 import 'jest-performance-testing';
-import { App } from '../App';
+import { App } from '../src/App';
 import { RecoilRoot } from 'recoil';
-import { TestableTimerController } from '../lib/timer/timer-controller';
+import { TestableTimerController } from '../src/lib/timer/timer-controller';
 import { promises as fs } from 'fs';
 import { inspect } from 'util';
-import { getStatistics } from './statistics.helper';
+import { getStatistics } from './helper/statistics';
 
 // タイマーの更新に掛かる時間 (更新時間) を計測するベンチマーク。
 // この測定値を見ることでタイマーが 60 fps で描画されるかどうかを判断する
