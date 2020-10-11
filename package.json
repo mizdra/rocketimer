@@ -63,6 +63,7 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.5.0",
+    "http-server": "^0.12.3",
     "jest": "^26.5.2",
     "jest-date-mock": "^1.0.8",
     "jest-performance-testing": "^1.0.0",
