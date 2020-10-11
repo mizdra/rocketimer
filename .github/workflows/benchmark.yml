@@ -32,11 +32,8 @@ jobs:
           yarn run http-server --silent -p 8080 dist &
 
       # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
-      - name: yarn run benchmark:render-time
-        run: yarn run benchmark:render-time
-
-      - name: yarn run benchmark:fps
-        run: yarn run benchmark:fps
+      - name: yarn run benchmark
+        run: yarn run benchmark
 
       # github-action-benchmark を実行
       - name: Store benchmark result

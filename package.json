@@ -20,6 +20,7 @@
     "test": "run-s -l test:*",
     "test:jest": "jest --selectProjects test",
     "coverage": "yarn run test:jest --coverage",
+    "benchmark": "run-s benchmark:*",
     "benchmark:fps": "babel-node --extensions '.ts' benchmark/fps.ts",
     "benchmark:render-time": "node --expose-gc $(npm bin)/jest --selectProjects benchmark --runTestsByPath benchmark/render-time.tsx"
   },
