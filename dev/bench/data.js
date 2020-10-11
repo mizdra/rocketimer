@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1602427650445,
+  "lastUpdate": 1602428841611,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -88,6 +88,51 @@ window.BENCHMARK_DATA = {
             "name": "Render Time of TimerRemainDisplay",
             "value": 1.1035796166667509,
             "range": "±12.43%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "30342490+mergecat[bot]@users.noreply.github.com",
+            "name": "mergecat[bot]",
+            "username": "mergecat[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "20c2fcb337b0f5bf2897bee6f4847379a810a863",
+          "message": "Merge pull request #132 from RNGeek/improve-eslint",
+          "timestamp": "2020-10-11T15:03:42Z",
+          "tree_id": "b3267018b740517f7553f0db6becce253bdab8db",
+          "url": "https://github.com/RNGeek/rocketimer/commit/20c2fcb337b0f5bf2897bee6f4847379a810a863"
+        },
+        "date": 1602428841066,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "FPS during Countdowning",
+            "value": 275.86084944116,
+            "range": "±3.46%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "Render Time of TimerTimeline",
+            "value": 1.463540276666657,
+            "range": "±11.88%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "Render Time of TimerRemainDisplay",
+            "value": 1.272247646666686,
+            "range": "±10.21%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
