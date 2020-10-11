@@ -2,8 +2,8 @@ name: Benchmark test
 on: [push]
 
 jobs:
-  fps:
-    name: Performance regression check for FPS
+  render-time:
+    name: Benchmark for Render Time
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,8 +43,8 @@ jobs:
           auto-push: ${{ github.ref == 'refs/heads/master' }}
           github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
-  benchmark-fps:
-    name: Performance regression check for FPS
+  fps:
+    name: Benchmark for  FPS
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
