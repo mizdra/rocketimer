@@ -11,19 +11,10 @@ jobs:
         with:
           node-version: '12.x'
 
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-node-
-
       # playwright を github action 上で動かすのに必要
       - uses: microsoft/playwright-github-action@v1
 
       - name: yarn install
-        # playwright-github-action を使っている時は yarn install をスキップすると、何故かブラウザのバイナリが無いと言われて落ちてしまう
-        # if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       # yarn run benchmark:fps のためにサーバを立てておく
