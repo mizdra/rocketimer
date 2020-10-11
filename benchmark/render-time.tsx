@@ -126,8 +126,8 @@ test('タイマーが 60 fps で描画されることをテストする', async 
   const statForTimerRemainDisplay = getStatistics(updatesForTimerRemainDisplay);
 
   // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('TimerTimeline', 'ms/render', statForTimerTimeline);
-  await saveStatistics('TimerRemainDisplay', 'ms/render', statForTimerRemainDisplay);
+  await saveStatistics('Render Time of TimerTimeline', 'ms/render', statForTimerTimeline);
+  await saveStatistics('Render Time of TimerRemainDisplay', 'ms/render', statForTimerRemainDisplay);
 
   // 標準出力にも書き出す
   log({ statForTimerTimeline, updatesForTimerTimeline });
