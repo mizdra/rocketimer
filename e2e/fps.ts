@@ -67,7 +67,11 @@ async function measureFPS() {
 }
 
 (async () => {
-  const browser = await chromium.launch({ headless: DEBUG ? false : true });
+  const browser = await chromium.launch({
+    headless: DEBUG ? false : true,
+    // 60 FPS で頭打ちになるとどれくらいパフォーマンスが出るのかよく分からないので上限を取っ払う
+    args: ['--disable-frame-rate-limit'],
+  });
   const page = await browser.newPage();
   await page.goto(SITE_URL, { waitUntil: 'networkidle' });
 
