@@ -61,14 +61,14 @@ async function measureFPS() {
 
   const startButton = document.querySelector<HTMLElement>('[data-testid="start-countdown-button"]')!;
   const fpsMonitor = new FPSMonitor();
-  fpsMonitor.startMeasurement();
+  void fpsMonitor.startMeasurement();
   startButton.click();
   await wait(2 * 1000); // 2 秒間待機
   const count = fpsMonitor.endMeasurement();
   return count;
 }
 
-(async () => {
+void (async () => {
   const browser = await chromium.launch({
     headless: DEBUG ? false : true,
     // 60 FPS で頭打ちになるとどれくらいパフォーマンスが出るのかよく分からないので上限を取っ払う

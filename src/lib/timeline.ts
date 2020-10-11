@@ -56,10 +56,10 @@ function calcLadEndLineTime(minTime: number, maxTime: number, lapEndTimes: numbe
 }
 
 function calcGridLabel(gridStepUnit: string, gridLineTime: Ms): string {
-  if (gridStepUnit == 'day') return ((gridLineTime / DAY) % 100) + 'd';
-  if (gridStepUnit == 'hour') return ((gridLineTime / HOUR) % 100) + 'h';
-  if (gridStepUnit == 'minute') return ((gridLineTime / MINUTE) % 60) + 'm';
-  return ((gridLineTime / SECOND) % 60) + 's';
+  if (gridStepUnit == 'day') return `${(gridLineTime / DAY) % 100}d`;
+  if (gridStepUnit == 'hour') return `${(gridLineTime / HOUR) % 100}h`;
+  if (gridStepUnit == 'minute') return `${(gridLineTime / MINUTE) % 60}m`;
+  return `${(gridLineTime / SECOND) % 60}s`;
 }
 
 function timeToX(msByPx: number, totalElapsed: Ms, time: Ms) {

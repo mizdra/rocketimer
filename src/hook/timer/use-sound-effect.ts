@@ -8,8 +8,8 @@ import { statusState, currentLapRemainState, currentLapIndexState } from '../../
 
 function useAudio(path: string) {
   const audio = useMemo(() => new Audio(path), [path]);
-  const play = useCallback(() => {
-    audio.play();
+  const play = useCallback(async () => {
+    await audio.play();
   }, [audio]);
   return { play };
 }
@@ -30,11 +30,11 @@ export function useSoundEffect() {
 
   useEffect(() => {
     if (prevStatus === 'countdowning' && status === 'ended') {
-      playEndedAudio();
+      void playEndedAudio();
     } else if (status === 'countdowning' && prevCurrentLapIndex !== currentLapIndex) {
-      playEndedAudio();
+      void playEndedAudio();
     } else if (status === 'countdowning' && prevSeconds !== seconds && currentLapRemain < 10 * 1000) {
-      playTickTack();
+      void playTickTack();
     }
   }, [
     currentLapIndex,

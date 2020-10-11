@@ -127,9 +127,11 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
         // !!! The following code is copied from konva.js !!!
         // this code is lisenced by LICENSE.KONVA
         let delta = 0;
-        if ((e.evt as any).wheelDelta) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+        const wheelDelta = (e.evt as any).wheelDelta as number;
+        if (wheelDelta) {
           /* IE/Opera. */
-          delta = (e.evt as any).wheelDelta / 120;
+          delta = wheelDelta / 120;
         } else if (e.evt.detail) {
           /* Mozilla case. */
           // In Mozilla, sign of delta is different than in IE.
