@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": ["e2e/**/*"],
+  "include": ["benchmark/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "lib": ["esnext", "dom"],

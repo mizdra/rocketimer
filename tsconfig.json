@@ -2,5 +2,5 @@
 // ref: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#support-for-solution-style-tsconfigjson-files
 {
   "files": [],
-  "references": [{ "path": "./tsconfig.frontend.json" }, { "path": "./tsconfig.e2e.json" }]
+  "references": [{ "path": "./tsconfig.frontend.json" }, { "path": "./tsconfig.benchmark.json" }]
 }

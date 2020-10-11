@@ -43,7 +43,7 @@ jobs:
           auto-push: ${{ github.ref == 'refs/heads/master' }}
           github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
-  e2e-fps:
+  benchmark-fps:
     name: Performance regression check for FPS
     runs-on: ubuntu-latest
     steps:
@@ -71,8 +71,8 @@ jobs:
         env:
           NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
 
-      - name: yarn run e2e:fps
-        run: yarn run e2e:fps
+      - name: yarn run benchmark:fps
+        run: yarn run benchmark:fps
         env: SITE_URL=${{ steps.waitForNetlifyDeploy.outputs.url }}
 
       # github-action-benchmark を実行
