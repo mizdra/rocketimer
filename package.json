@@ -9,7 +9,7 @@
     "start": "yarn run dev",
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development",
-    "check": "run-p -l -c 'check:tsc --pretty' 'check:eslint --color' check:prettier 'check:jest --colors'",
+    "check": "run-s check:*",
     "check:tsc": "run-s check:tsc:*",
     "check:tsc:frontend": "tsc -p tsconfig.frontend.json --noEmit",
     "check:tsc:benchmark": "tsc -p tsconfig.benchmark.json --noEmit",
