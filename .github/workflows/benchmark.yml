@@ -22,13 +22,11 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
-      - name: Waiting for 200 from Netlify
-        uses: probablyup/wait-for-netlify-action@3.2.0
-        id: waitForNetlifyDeploy
-        with:
-          site_id: 'rocketimer'
-        env:
-          NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+      # yarn run benchmark:fps のためにサーバを立てておく
+      - name: Start server
+        run: |
+          yarn run build
+          yarn run http-server -p 8080 dist &
 
       # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
       - name: yarn run benchmark:render-time
@@ -36,7 +34,6 @@ jobs:
 
       - name: yarn run benchmark:fps
         run: yarn run benchmark:fps
-        env: SITE_URL=${{ steps.waitForNetlifyDeploy.outputs.url }}
 
       # github-action-benchmark を実行
       - name: Store benchmark result
