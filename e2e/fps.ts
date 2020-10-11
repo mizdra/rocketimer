@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
 import { log } from './log.helper';
+import { getStatistics, saveStatistics } from './statistics.helper';
 
 const SITE_URL = process.env.SITE_URL ?? 'http://localhost:8080';
 const DEBUG = process.env.DEBUG === '1' || false; // DEBUG=1 ならデバッグモードにする
@@ -82,7 +83,12 @@ async function measureFPS() {
     log('measurement: ', measurement);
     measurements.push(measurement);
   }
-  log('measurements: ', measurements);
+
+  const statForFPS = getStatistics(measurements.map((measurement) => measurement.fps));
+
+  // github-action-benchmark 向けに結果を書き出す
+  await saveStatistics('FPS', 'fps', statForFPS);
+  log('statForFPS: ', statForFPS);
 
   await browser.close();
 })();
