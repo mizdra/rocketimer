@@ -18,11 +18,11 @@
     "check:eslint:benchmark": "eslint 'benchmark/**/*.{ts,tsx}'",
     "check:prettier": "prettier --check .",
     "test": "run-s -l test:*",
-    "test:jest": "jest --selectProjects test",
+    "test:jest": "jest -c jest.frontend.js",
     "coverage": "yarn run test:jest --coverage",
     "benchmark": "run-s benchmark:*",
     "benchmark:fps": "babel-node --extensions '.ts' benchmark/fps.ts",
-    "benchmark:render-time": "node --expose-gc $(npm bin)/jest --selectProjects benchmark --runTestsByPath benchmark/render-time.tsx"
+    "benchmark:render-time": "node --expose-gc $(npm bin)/jest -c jest.benchmark.js --runTestsByPath benchmark/render-time.tsx"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
