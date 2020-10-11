@@ -2,49 +2,8 @@ name: Benchmark test
 on: [push]
 
 jobs:
-  render-time:
-    name: Benchmark for Render Time
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-node-
-
-      - name: yarn install
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
-
-      # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
-      - name: yarn run benchmark:render-time
-        run: yarn run benchmark:render-time
-
-      # github-action-benchmark を実行
-      - name: Store benchmark result
-        uses: rhysd/github-action-benchmark@v1
-        with:
-          tool: 'benchmarkjs'
-          output-file-path: output.txt
-          # 以前より 200% ほど悪化していたらアラートを上げる
-          alert-threshold: '200%'
-          # アラートが上がったらワークフローを失敗させる
-          fail-on-alert: true
-          # commit が push される度にベンチマーク結果を commit comment でお知らせする
-          # NOTE: 普段は ON にするとノイズになるのでパフォーマンスチューニングをしたいときだけ ON にする
-          # comment-always: true
-          # master では GitHub Pages に結果を push する
-          auto-push: ${{ github.ref == 'refs/heads/master' }}
-          github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-
-  fps:
-    name: Benchmark for  FPS
+  benchmark:
+    name: Benchmark
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -70,6 +29,10 @@ jobs:
           site_id: 'rocketimer'
         env:
           NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+
+      # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
+      - name: yarn run benchmark:render-time
+        run: yarn run benchmark:render-time
 
       - name: yarn run benchmark:fps
         run: yarn run benchmark:fps
