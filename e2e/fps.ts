@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { log } from './log.helper';
 
 const SITE_URL = process.env.SITE_URL ?? 'http://localhost:8080';
 const DEBUG = process.env.DEBUG === '1' || false; // DEBUG=1 ならデバッグモードにする
@@ -61,7 +62,7 @@ async function measureFPS() {
   const fpsMonitor = new FPSMonitor();
   fpsMonitor.startMeasurement();
   startButton.click();
-  await wait(10 * 1000); // 10 秒間待機
+  await wait(2 * 1000); // 2 秒間待機
   const count = fpsMonitor.endMeasurement();
   return count;
 }
@@ -73,11 +74,15 @@ async function measureFPS() {
     args: ['--disable-frame-rate-limit'],
   });
   const page = await browser.newPage();
-  await page.goto(SITE_URL, { waitUntil: 'networkidle' });
 
-  // FPS を測定する
-  const measurement = await page.evaluate(measureFPS);
-  console.log(measurement);
+  const measurements: Measurement[] = [];
+  for (let i = 0; i < 10; i++) {
+    await page.goto(SITE_URL, { waitUntil: 'networkidle' });
+    const measurement = await page.evaluate(measureFPS);
+    log('measurement: ', measurement);
+    measurements.push(measurement);
+  }
+  log('measurements: ', measurements);
 
   await browser.close();
 })();
