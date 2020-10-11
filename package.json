@@ -16,6 +16,7 @@
     "test": "run-s -l test:*",
     "test:jest": "jest --testPathIgnorePatterns benchmark",
     "coverage": "yarn run test:jest --coverage",
+    "e2e:fps": "babel-node --extensions '.ts' e2e/fps.ts",
     "benchmark": "node --expose-gc $(npm bin)/jest --runTestsByPath ./src/benchmark/App.test.tsx"
   },
   "dependencies": {
