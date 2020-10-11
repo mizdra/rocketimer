@@ -1,6 +1,6 @@
 import { chromium } from 'playwright';
-import { log } from './log.helper';
-import { getStatistics, saveStatistics } from './statistics.helper';
+import { log } from './helper/log';
+import { getStatistics, saveStatistics } from './helper/statistics';
 
 const SITE_URL = process.env.SITE_URL ?? 'http://localhost:8080';
 const DEBUG = process.env.DEBUG === '1' || false; // DEBUG=1 ならデバッグモードにする
