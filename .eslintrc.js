@@ -7,7 +7,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    project: './tsconfig.json',
+    project: ['./tsconfig.frontend.json', './tsconfig.e2e.json'],
   },
   env: {
     es6: true,
