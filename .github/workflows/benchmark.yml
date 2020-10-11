@@ -1,4 +1,4 @@
-name: Performance regression check
+name: Benchmark test
 on: [push]
 
 jobs:
