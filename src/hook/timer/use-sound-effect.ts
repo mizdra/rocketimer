@@ -9,7 +9,15 @@ import { statusState, currentLapRemainState, currentLapIndexState } from '../../
 function useAudio(path: string) {
   const audio = useMemo(() => new Audio(path), [path]);
   const play = useCallback(async () => {
-    await audio.play();
+    const returns = audio.play();
+    returns
+      .then(() => {
+        window.dispatchEvent(new CustomEvent('play-success'));
+      })
+      .catch((err: Error) => {
+        window.dispatchEvent(new CustomEvent('play-failure', { detail: err }));
+      });
+    return returns;
   }, [audio]);
   return { play };
 }
