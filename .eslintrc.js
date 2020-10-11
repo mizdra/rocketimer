@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   extends: ['@mizdra/mizdra', '@mizdra/mizdra/+typescript', '@mizdra/mizdra/+react', '@mizdra/mizdra/+prettier'],
   parserOptions: {
-    project: ['./tsconfig.frontend.json', './tsconfig.benchmark.json'],
+    project: ['./tsconfig.frontend.json', './tsconfig.benchmark.json', './tsconfig.e2e.json'],
   },
   env: {
     es6: true,
@@ -18,4 +18,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['e2e/**/*'],
+      globals: {
+        page: 'readonly',
+      },
+    },
+  ],
 };
