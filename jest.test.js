@@ -4,7 +4,7 @@
 module.exports = {
   displayName: 'test',
   testMatch: ['<rootDir>/test/**/*.test.ts?(x)'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx,js,jsx}', '!**/*.d.ts'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx,js,jsx}'],
   moduleNameMapper: {
     '\\.mp3$': '<rootDir>/__mocks__/fileMock.js',
   },
