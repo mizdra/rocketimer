@@ -5,7 +5,7 @@ function createTimer(lapDurations: number[], offset: number) {
   const controller = new TestableTimerController();
   const timer = new CascadeTimer(lapDurations, offset, controller);
   const listener = jest.fn();
-  timer.addListener('tick', listener);
+  timer.addEventListener('tick', listener);
   return { controller, timer, listener };
 }
 

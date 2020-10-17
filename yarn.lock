@@ -1461,6 +1461,11 @@
   resolved "https://registry.yarnpkg.com/@mizdra/eslint-config-mizdra/-/eslint-config-mizdra-0.5.0.tgz#538b536e07991768f4772dd89c3d732050b4719a"
   integrity sha512-FSK3iU+QarR5YlDd0VfFFgt2AIjju0xcPe19P6Xy++FFMShPXeTNNxGkKQ7Y1pcbVl5rWy1P1ZqnWKWlbPEBig==
 
+"@mizdra/strictly-typed-event-target@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@mizdra/strictly-typed-event-target/-/strictly-typed-event-target-2.0.0.tgz#e30daa2bfe2b15e85b0ae68c0106249cb3c8c01b"
+  integrity sha512-HpAbTU9GS40bJg46//4TeBnO2Wda4KNs0HJVp3ueULdNFyZq2cLMoQdn2I2UyCE67gKs61TIeuwzxZ1ahfCjJQ==
+
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz#3a582bdb53804c6ba6d146579c46e52130cf4a3b"
@@ -2004,6 +2009,11 @@
   dependencies:
     "@typescript-eslint/types" "4.4.0"
     eslint-visitor-keys "^2.0.0"
+
+"@ungap/event-target@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@ungap/event-target/-/event-target-0.2.2.tgz#6543122625a0a793c5fa265f45717cd096b0fb7c"
+  integrity sha512-z0bsRd8APns6CDBVEPEj3p82TiFc1UY8uWNhL+T0ydpQqnpHyPVwwgJ4FC5KP85sLbg80+g+h644UTatwKNi/g==
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
@@ -4621,7 +4631,7 @@ eventemitter3@^3.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
-eventemitter3@^4.0.0, eventemitter3@^4.0.7:
+eventemitter3@^4.0.0:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
