@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": ["test/**/*", "typings/**/*"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "lib": ["esnext", "dom"],
+    /* Module Options */
+    "module": "esnext" // モジュール周りは tsc 側で弄らず jest に任せる
+  }
+}

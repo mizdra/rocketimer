@@ -18,7 +18,7 @@
     "check:eslint:benchmark": "eslint 'benchmark/**/*.{ts,tsx}'",
     "check:prettier": "prettier --check .",
     "test": "run-s -l test:*",
-    "test:jest": "jest -c jest.frontend.js",
+    "test:jest": "jest -c jest.test.js",
     "coverage": "yarn run test:jest --coverage",
     "benchmark": "run-s benchmark:*",
     "benchmark:fps": "babel-node --extensions '.ts' benchmark/fps.ts",
