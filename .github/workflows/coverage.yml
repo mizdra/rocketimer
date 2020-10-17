@@ -23,7 +23,6 @@ jobs:
           restore-keys: ${{ runner.OS }}-yarn-
 
       - name: yarn install --frozen-lockfile
-        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
       - name: yarn run coverage
