@@ -1,4 +1,4 @@
-import { formatDuration } from './duration';
+import { formatDuration } from '../../../src/lib/timer/duration';
 
 const ONE_CS = 10;
 const ONE_SECOND = 100 * ONE_CS;
