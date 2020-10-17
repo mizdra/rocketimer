@@ -1,4 +1,5 @@
 import EventEmitter from 'eventemitter3';
+import { createSTEventTarget, STEventListenerOrEventListenerObject } from '@mizdra/strictly-typed-event-target';
 import { OptimizedTimerController, TimerController } from './timer-controller';
 
 const INITIAL_START_TIME = 0;
@@ -42,10 +43,16 @@ function createCurrentLapState(lapDurations: number[], elapsed: number) {
   };
 }
 
+export type TimerEventMap = {
+  /** カウントダウン中のタイマーが更新された時に発火するイベント. */
+  tick: undefined;
+};
+const [TimerCustomEvent, TimerEventTarget] = createSTEventTarget<TimerEventMap>();
+
 /** 高FPSで動作するよう設計された多段カウントダウンタイマー */
 export class CascadeTimer {
   readonly #lapDurations: number[];
-  readonly #emitter: EventEmitter<EventTypes>;
+  readonly #emitter: typeof TimerEventTarget;
   readonly #controller: TimerController;
 
   #status: CascadeTimerStatus;
@@ -60,7 +67,7 @@ export class CascadeTimer {
   constructor(lapDurations: number[], offset = 0, controller: TimerController = new OptimizedTimerController()) {
     if (lapDurations.length == 0) throw new Error('インスタンスを作成するには少なくとも 1 つのラップが必要です.');
     this.#lapDurations = lapDurations;
-    this.#emitter = new EventEmitter();
+    this.#emitter = new TimerEventTarget();
     this.#controller = controller;
 
     this.#status = 'initial';
@@ -117,7 +124,7 @@ export class CascadeTimer {
 
       this.#status = newStatus;
       this.#lastTickTime = timestamp;
-      this.#emitter.emit('tick');
+      this.#emitter.dispatchEvent(new TimerCustomEvent('tick'));
     };
 
     this.#status = 'countdowning';
@@ -144,10 +151,14 @@ export class CascadeTimer {
   /**
    * イベントリスナを登録する.
    */
-  addListener<T extends keyof EventTypes>(eventName: T, handler: (...args: EventTypes[T]) => void): UnsubscribeFn {
-    this.#emitter.addListener(eventName, handler);
+  addEventListener<T extends keyof TimerEventMap>(
+    type: T,
+    listener: STEventListenerOrEventListenerObject<TimerEventMap, T> | null,
+    options?: boolean | AddEventListenerOptions,
+  ): UnsubscribeFn {
+    this.#emitter.addEventListener(type, listener, options);
     return () => {
-      this.#emitter.removeListener(eventName, handler);
+      this.#emitter.removeEventListener(type, listener, options);
     };
   }
 }
