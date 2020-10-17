@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1602924049328,
+  "lastUpdate": 1602944331889,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -178,6 +178,51 @@ window.BENCHMARK_DATA = {
             "name": "Render Time of TimerRemainDisplay",
             "value": 1.0276124699999856,
             "range": "±9.48%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0af21ac2b8b2e4b1d51529c6814497015d7c66a9",
+          "message": "Merge pull request #137 from RNGeek/use-strictly-typed-event-target\n\nstrictly-typed-event-target 導入",
+          "timestamp": "2020-10-17T23:15:38+09:00",
+          "tree_id": "809bf65a4d16ab7ebfadd32cb8c7222a0d892258",
+          "url": "https://github.com/RNGeek/rocketimer/commit/0af21ac2b8b2e4b1d51529c6814497015d7c66a9"
+        },
+        "date": 1602944331401,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "FPS during Countdowning",
+            "value": 285.46405787130436,
+            "range": "±3.11%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "Render Time of TimerTimeline",
+            "value": 1.3246352633334268,
+            "range": "±11.97%",
+            "unit": "ms/render",
+            "extra": "300 samples"
+          },
+          {
+            "name": "Render Time of TimerRemainDisplay",
+            "value": 1.2334967333335043,
+            "range": "±12.61%",
             "unit": "ms/render",
             "extra": "300 samples"
           }
