@@ -65,7 +65,7 @@ export function useCascadeTimer(options: Options): UseCascadeTimerResult {
 
   // tick イベントが発火したら state を更新する
   useEffect(() => {
-    const unsubscribe = timer.addListener('tick', syncStateWithTimer);
+    const unsubscribe = timer.addEventListener('tick', syncStateWithTimer);
     return unsubscribe;
   }, [lapDurations, syncStateWithTimer, timer]);
 
