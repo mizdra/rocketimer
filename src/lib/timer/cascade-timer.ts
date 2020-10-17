@@ -1,4 +1,3 @@
-import EventEmitter from 'eventemitter3';
 import { createSTEventTarget, STEventListenerOrEventListenerObject } from '@mizdra/strictly-typed-event-target';
 import { OptimizedTimerController, TimerController } from './timer-controller';
 
