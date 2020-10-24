@@ -3,6 +3,7 @@ import { log } from './helper/log';
 import { getStatistics, saveStatistics } from './helper/statistics';
 
 const SITE_URL = process.env.SITE_URL ?? 'http://localhost:8080';
+const DEBUG = process.env.DEBUG === '1' || false; // DEBUG=1 ならデバッグモードにする
 
 type Measurement = {
   /** 測定開始直後のメモリ使用量 - 測定終了直前のメモリ使用量 */
@@ -55,7 +56,7 @@ async function measureMemory(): Promise<Measurement[]> {
 
 void (async () => {
   const browser = await chromium.launch({
-    headless: false, // headless: true だと `performance.measureMemory` が利用できないので false に
+    headless: DEBUG ? false : true,
     args: ['--enable-blink-features=MeasureMemory,ForceEagerMeasureMemory'],
   });
   const page = await browser.newPage();
