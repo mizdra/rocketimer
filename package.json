@@ -20,6 +20,7 @@
     "coverage": "yarn run test --coverage",
     "benchmark": "run-s benchmark:*",
     "benchmark:fps": "babel-node --extensions '.ts' benchmark/fps.ts",
+    "benchmark:memory": "babel-node --extensions '.ts' benchmark/memory.ts",
     "benchmark:render-time": "node --expose-gc $(npm bin)/jest -c jest.benchmark.js --runTestsByPath benchmark/render-time.tsx"
   },
   "dependencies": {
