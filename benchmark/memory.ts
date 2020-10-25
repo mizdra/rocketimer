@@ -3,7 +3,6 @@ import { log } from './helper/log';
 import { getStatistics, saveStatistics } from './helper/statistics';
 
 const SITE_URL = process.env.SITE_URL ?? 'http://localhost:8080';
-const DEBUG = process.env.DEBUG === '1' || false; // DEBUG=1 ならデバッグモードにする
 
 type Measurement = {
   /** 測定開始直後のメモリ使用量 - 測定終了直前のメモリ使用量 */
