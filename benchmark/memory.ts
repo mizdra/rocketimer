@@ -67,7 +67,7 @@ void (async () => {
   const statForSecondsPerMB = getStatistics(measurements.map((measurement) => measurement.secondsPerMB));
 
   // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('カウントダウン中のメモリ使用量の増加率', 'second/MB', statForSecondsPerMB);
+  await saveStatistics('カウントダウン中のメモリ使用量の増加率', 'seconds/MB', statForSecondsPerMB);
   log('statForSecondsPerMB: ', statForSecondsPerMB);
 
   await browser.close();
