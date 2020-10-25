@@ -68,7 +68,7 @@ void (async () => {
   const statForBytesPerSecond = getStatistics(measurements.map((measurement) => measurement.bps));
 
   // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('カウントダウン中のメモリ使用量の変化量', 'bytes per second', statForBytesPerSecond);
+  await saveStatistics('カウントダウン中のメモリ使用量の変化量', 'bytes/second', statForBytesPerSecond);
   log('statForBytesPerSecond: ', statForBytesPerSecond);
 
   await browser.close();
