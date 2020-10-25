@@ -87,7 +87,7 @@ void (async () => {
   const statForFPS = getStatistics(measurements.map((measurement) => measurement.fps));
 
   // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('FPS during Countdowning', 'fps', statForFPS);
+  await saveStatistics('カウントダウン中のFPS', 'fps', statForFPS);
   log('statForFPS: ', statForFPS);
 
   await browser.close();

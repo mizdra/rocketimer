@@ -121,15 +121,21 @@ test('タイマーが 60 fps で描画されることをテストする', async 
   const updatesForTimerRemainDisplay = renderTime.current.TimerRemainDisplay.updates.slice(
     -UPDATE_COUNT_FOR_MEASUREMENT,
   );
+  const countsPerSecondForTimerTimeline = updatesForTimerTimeline.map((update) => 1 / (update / 1000));
+  const countsPerSecondForTimerRemainDisplay = updatesForTimerRemainDisplay.map((update) => 1 / (update / 1000));
 
-  const statForTimerTimeline = getStatistics(updatesForTimerTimeline);
-  const statForTimerRemainDisplay = getStatistics(updatesForTimerRemainDisplay);
+  const statForTimerTimeline = getStatistics(countsPerSecondForTimerTimeline);
+  const statForTimerRemainDisplay = getStatistics(countsPerSecondForTimerRemainDisplay);
 
   // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('Render Time of TimerTimeline', 'ms/render', statForTimerTimeline);
-  await saveStatistics('Render Time of TimerRemainDisplay', 'ms/render', statForTimerRemainDisplay);
+  await saveStatistics('1秒あたりに <TimerTimeline> を何回レンダリングできるか', 'counts/second', statForTimerTimeline);
+  await saveStatistics(
+    '1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか',
+    'counts/second',
+    statForTimerRemainDisplay,
+  );
 
   // 標準出力にも書き出す
-  log({ statForTimerTimeline, updatesForTimerTimeline });
-  log({ statForTimerRemainDisplay, updatesForTimerRemainDisplay });
+  log({ statForTimerTimeline, updatesForTimerTimeline, countsPerSecondForTimerTimeline });
+  log({ statForTimerRemainDisplay, updatesForTimerRemainDisplay, countsPerSecondForTimerRemainDisplay });
 });
