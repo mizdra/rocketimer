@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1602944331889,
+  "lastUpdate": 1603646913053,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -224,6 +224,58 @@ window.BENCHMARK_DATA = {
             "value": 1.2334967333335043,
             "range": "±12.61%",
             "unit": "ms/render",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "331c7057b8b03854c5d29176b6428938f30d7503",
+          "message": "Merge pull request #138 from RNGeek/measure-memory\n\nメモリ使用量を測定するE2Eテストを追加",
+          "timestamp": "2020-10-26T02:24:57+09:00",
+          "tree_id": "f4b297e6b60befde4c3cb5cf89ff4a8652472e5e",
+          "url": "https://github.com/RNGeek/rocketimer/commit/331c7057b8b03854c5d29176b6428938f30d7503"
+        },
+        "date": 1603646912607,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 316.1114474323448,
+            "range": "±2.83%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 38.37125201941694,
+            "range": "±65.56%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 968.3080131332491,
+            "range": "±2.02%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1024.8498215139175,
+            "range": "±1.90%",
+            "unit": "counts/second",
             "extra": "300 samples"
           }
         ]
