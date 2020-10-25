@@ -44,6 +44,10 @@ jobs:
       - name: yarn run benchmark:render-time
         run: yarn run benchmark:render-time
 
+      # デバッグ用にベンチマーク結果をコンソールに出力
+      - name: cat output.txt
+        run: cat output.txt
+
       # github-action-benchmark を実行
       - name: Store benchmark result
         uses: rhysd/github-action-benchmark@v1
