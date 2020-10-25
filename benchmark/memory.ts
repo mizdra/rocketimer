@@ -56,7 +56,7 @@ async function measureMemory(): Promise<Measurement[]> {
 
 void (async () => {
   const browser = await chromium.launch({
-    headless: DEBUG ? false : true,
+    headless: false,
     args: ['--enable-blink-features=MeasureMemory,ForceEagerMeasureMemory'],
   });
   const page = await browser.newPage();
