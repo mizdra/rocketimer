@@ -9,8 +9,8 @@ type Measurement = {
   bytesDiff: number;
   /** 測定時間 (ms) */
   time: number;
-  /** Bytes per second */
-  bps: number;
+  /** seconds per MB */
+  secondsPerMB: number;
 };
 
 /**
@@ -46,8 +46,8 @@ async function measureMemory(): Promise<Measurement[]> {
 
     const bytesDiff = measurement2.bytes - measurement1.bytes;
     const time = end - start;
-    const bps = bytesDiff / (time / 1000);
-    measurements.push({ bytesDiff, time, bps });
+    const secondsPerMB = time / 1000 / (bytesDiff / 1000 / 1000);
+    measurements.push({ bytesDiff, time, secondsPerMB });
   }
 
   return measurements;
@@ -64,11 +64,11 @@ void (async () => {
   const measurements = await page.evaluate(measureMemory);
   log('measurements: ', measurements);
 
-  const statForBytesPerSecond = getStatistics(measurements.map((measurement) => measurement.bps));
+  const statForSecondsPerMB = getStatistics(measurements.map((measurement) => measurement.secondsPerMB));
 
   // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('カウントダウン中のメモリ使用量の変化量', 'bytes/second', statForBytesPerSecond);
-  log('statForBytesPerSecond: ', statForBytesPerSecond);
+  await saveStatistics('カウントダウン中のメモリ使用量の増加率', 'second/MB', statForSecondsPerMB);
+  log('statForSecondsPerMB: ', statForSecondsPerMB);
 
   await browser.close();
 })();
