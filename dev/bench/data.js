@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1604172467505,
+  "lastUpdate": 1604176983764,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -483,6 +483,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 990.703536166164,
             "range": "±1.90%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "9f320b0852ac5e71bce59fef87f634685bf08fa4",
+          "message": "Update dependency @types/jest to ^26.0.15",
+          "timestamp": "2020-10-31T20:38:58Z",
+          "tree_id": "111aa0e1199c2ad25eca3a3af7d77d6f3aaa8910",
+          "url": "https://github.com/RNGeek/rocketimer/commit/9f320b0852ac5e71bce59fef87f634685bf08fa4"
+        },
+        "date": 1604176983110,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 316.63975525879096,
+            "range": "±2.21%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 35.04257690914305,
+            "range": "±91.14%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 974.6284575166054,
+            "range": "±2.12%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1032.5773767187125,
+            "range": "±1.95%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
