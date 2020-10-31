@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1603646913053,
+  "lastUpdate": 1604162949752,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -275,6 +275,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1024.8498215139175,
             "range": "±1.90%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "91faf3b2cc1bf72e5ccb3bf07a2d93f96f1454ea",
+          "message": "Update babel monorepo",
+          "timestamp": "2020-10-31T16:45:13Z",
+          "tree_id": "2dd95eca759ceba928efac31a1c3919a2fdbb4bd",
+          "url": "https://github.com/RNGeek/rocketimer/commit/91faf3b2cc1bf72e5ccb3bf07a2d93f96f1454ea"
+        },
+        "date": 1604162948967,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 308.486793468001,
+            "range": "±1.97%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 24.837144342084642,
+            "range": "±50.75%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 979.2552566338462,
+            "range": "±1.27%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1039.825957013123,
+            "range": "±1.24%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
