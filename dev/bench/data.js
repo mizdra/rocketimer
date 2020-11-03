@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1604398598727,
+  "lastUpdate": 1604399489953,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -414,6 +414,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 824.7141989017546,
             "range": "±2.35%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2fd57c298acbe9b7c925ac4526bb392f6a9a05f8",
+          "message": "Merge pull request #146 from RNGeek/renovate/major-17-react-monorepo\n\nUpdate react monorepo to v17 (major)",
+          "timestamp": "2020-11-03T19:27:58+09:00",
+          "tree_id": "5bfdfccff0512b3d7c176ad13609291c2b99cac0",
+          "url": "https://github.com/RNGeek/rocketimer/commit/2fd57c298acbe9b7c925ac4526bb392f6a9a05f8"
+        },
+        "date": 1604399489314,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 335.2990348819934,
+            "range": "±2.33%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 27.109735601305196,
+            "range": "±44.88%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1085.2415849218019,
+            "range": "±1.70%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1093.6729346321013,
+            "range": "±1.71%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
