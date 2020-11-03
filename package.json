@@ -82,6 +82,9 @@
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
   },
+  "resolutions": {
+    "*/**/@babel/runtime": "7.12.1"
+  },
   "engines": {
     "node": ">= 12.0.0",
     "npm": ">= 6.14.8"
