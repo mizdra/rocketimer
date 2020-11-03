@@ -22,7 +22,7 @@ module.exports = (env, argv) => ({
   },
   output: {
     path: distPath,
-    filename: 'js/[name].[hash].js',
+    filename: 'js/[name].[contenthash].js',
   },
   devtool: 'eval-source-map',
 
