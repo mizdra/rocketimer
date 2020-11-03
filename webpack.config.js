@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const rootPath = resolve(__dirname, '.');
@@ -69,11 +69,9 @@ module.exports = (env, argv) => ({
         },
       ],
     }),
-    new SWPrecacheWebpackPlugin({
+    new GenerateSW({
       cacheId: 'rocketimer',
-      filename: 'service-worker.js',
-      staticFileGlobsIgnorePatterns: [/_redirects$/],
-      stripPrefix: 'dist/',
+      swDest: resolve(distPath, './service-worker.js'),
     }),
   ],
 });
