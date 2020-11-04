@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, Suspense } from 'react';
 import Container from '@material-ui/core/Container';
 import { useCascadeTimer } from './hook/timer/use-cascade-timer';
 import { TimerRemainDisplay } from './component/molecules/timer/TimerRemainDisplay';
@@ -8,6 +8,7 @@ import { TimerConfigForm, TimerConfig } from './component/molecules/timer/TimerC
 import { useSetRecoilState } from 'recoil';
 import { lapConfigsState } from './recoil/cascade-timer';
 import { TimerController } from './lib/timer/timer-controller';
+import { UserPreference } from './component/molecules/UserPreference';
 
 export type AppProps = {
   timerOffset?: number;
@@ -28,6 +29,9 @@ export function App(props: AppProps) {
   return (
     <Container maxWidth="lg" style={{ padding: 30 }}>
       <TimerConfigForm onSave={handleConfigSave} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <UserPreference />
+      </Suspense>
       <TimerTimeline />
       <TimerRemainDisplay setOffset={timer.setOffset} />
       <TimerControllerComponent onStart={timer.start} onStop={timer.reset} />
