@@ -1401,6 +1401,43 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@kvs/env@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@kvs/env/-/env-1.1.0.tgz#01bb7472acfe39c9af408079729a38d23c5ab106"
+  integrity sha512-G/3kQLbtQOLoJ0Z+8oUoDphgLYH0EPZt1APvzJZUSz6HELgiyJyZEFDrUwmBVimVNdi2aYZmdRSlkcw5D5ujuA==
+  dependencies:
+    "@kvs/indexeddb" "^1.1.0"
+    "@kvs/node-localstorage" "^1.1.0"
+
+"@kvs/indexeddb@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@kvs/indexeddb/-/indexeddb-1.1.0.tgz#c8df9ba4b4bfeeb6960be64bc61cb77ab9b33494"
+  integrity sha512-bPMfvbyPxsRptk8ZcXbLN92dxpnfylVjsNd00p/oaaBEBnbpich9nX2sNI33Pso6cV2garTisN+XhhGs/8vBzA==
+  dependencies:
+    "@kvs/types" "^1.1.0"
+
+"@kvs/node-localstorage@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@kvs/node-localstorage/-/node-localstorage-1.1.0.tgz#6c9221f9895bd6b35d9785f89875c83284d3d463"
+  integrity sha512-TJY6ZbByPAACw09EmqGFirTx9F51EU3NdzQDZEwZ3q3ZBc6Mxp+VNB25YuU5ngIwV/g0uE5gSAFIPSkb2bmjsA==
+  dependencies:
+    "@kvs/storage" "^1.1.0"
+    app-root-path "^3.0.0"
+    mkdirp "^1.0.4"
+    node-localstorage "^2.1.6"
+
+"@kvs/storage@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@kvs/storage/-/storage-1.1.0.tgz#6b78871aef94077a247fa1f90e0e74941759208e"
+  integrity sha512-UwCPP14cvptBT+SChV+FpMDV9MKRji6k/9zACOwYOYYWbL36+DGUJ25wlR1KS0OgfEkiJo6FSY3WIjjTGePK3A==
+  dependencies:
+    "@kvs/types" "^1.1.0"
+
+"@kvs/types@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@kvs/types/-/types-1.1.0.tgz#b38b35724aa30c07915842f71cda21c958a05118"
+  integrity sha512-bFWCmUhipMnqCtYXbdpSBoBWK40E/CQxHs6KnFicgQqZ/h0K6qIyfAEqGjsruCrwah0tOpaynizODj3JIcaQRA==
+
 "@material-ui/core@^4.11.0":
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.0.tgz#b69b26e4553c9e53f2bfaf1053e216a0af9be15a"
@@ -2501,6 +2538,11 @@ anymatch@^3.0.3, anymatch@~3.1.1:
   dependencies:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
+
+app-root-path@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-3.0.0.tgz#210b6f43873227e18a4b810a032283311555d5ad"
+  integrity sha512-qMcx+Gy2UZynHjOHOIXPNvpf+9cjvk3cWrBBK7zg4gH9+clobJRb9NGzcT7mQTcV/6Gm/1WelUtqxVXnNlrwcw==
 
 aproba@^1.0.3:
   version "1.2.0"
@@ -7586,6 +7628,13 @@ node-int64@^0.4.0:
   resolved "https://registry.yarnpkg.com/node-int64/-/node-int64-0.4.0.tgz#87a9065cdb355d3182d8f94ce11188b825c68a3b"
   integrity sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=
 
+node-localstorage@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/node-localstorage/-/node-localstorage-2.1.6.tgz#7c62120beff8abbf960c858da70fddcfc336898a"
+  integrity sha512-yE7AycE5G2hU55d+F7Ona9nx97C+enJzWWx6jrsji7fuPZFJOvuW3X/LKKAcXRBcEIJPDOKt8ZiFWFmShR/irg==
+  dependencies:
+    write-file-atomic "^1.1.4"
+
 node-modules-regexp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz#8d9dbe28964a4ac5712e9131642107c71e90ec40"
@@ -10921,7 +10970,7 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
-write-file-atomic@^1.2.0:
+write-file-atomic@^1.1.4, write-file-atomic@^1.2.0:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/write-file-atomic/-/write-file-atomic-1.3.4.tgz#f807a4f0b1d9e913ae7a48112e6cc3af1991b45f"
   integrity sha1-+Aek8LHZ6ROuekgRLmzDrxmRtF8=
