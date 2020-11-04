@@ -4,7 +4,9 @@ import tickTackAudioPath from '../../audio/ticktack.mp3';
 import endedAudioPath from '../../audio/ended.mp3';
 import { usePrevious } from '../use-previous';
 import { useRecoilValue } from 'recoil';
-import { statusState, currentLapRemainState, currentLapIndexState } from '../../recoil/cascade-timer';
+import { statusState, totalElapsedState, lapDurationsState } from '../../recoil/cascade-timer';
+import { audioOffsetState } from '../../recoil/user-preference';
+import { createCurrentLapState } from '../../lib/timer/cascade-timer';
 
 function useAudio(path: string) {
   const audio = useMemo(() => new Audio(path), [path]);
@@ -17,8 +19,11 @@ function useAudio(path: string) {
 /** 秒の位が変わる時と残り時間が 0 になった時に音を鳴らす */
 export function useSoundEffect() {
   const status = useRecoilValue(statusState);
-  const currentLapRemain = useRecoilValue(currentLapRemainState);
-  const currentLapIndex = useRecoilValue(currentLapIndexState);
+  const lapDurations = useRecoilValue(lapDurationsState);
+  const totalElapsed = useRecoilValue(totalElapsedState);
+  const audioOffset = useRecoilValue(audioOffsetState);
+
+  const { currentLapIndex, currentLapRemain } = createCurrentLapState(lapDurations, totalElapsed + audioOffset);
 
   const { play: playTickTack } = useAudio(tickTackAudioPath);
   const { play: playEndedAudio } = useAudio(endedAudioPath);

@@ -25,7 +25,7 @@ export type EventTypes = {
 
 export type UnsubscribeFn = () => void;
 
-function createCurrentLapState(lapDurations: number[], elapsed: number) {
+export function createCurrentLapState(lapDurations: number[], elapsed: number) {
   let sum = 0;
   for (let i = 0; i < lapDurations.length; i++) {
     sum += lapDurations[i];

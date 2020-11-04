@@ -33,7 +33,10 @@ export function App(props: AppProps) {
         <UserPreference />
       </Suspense>
       <TimerTimeline />
-      <TimerRemainDisplay setOffset={timer.setOffset} />
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <TimerRemainDisplay setOffset={timer.setOffset} />
+      </Suspense>
       <TimerControllerComponent onStart={timer.start} onStop={timer.reset} />
     </Container>
   );
