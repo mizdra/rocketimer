@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1606762832290,
+  "lastUpdate": 1606769370481,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -882,6 +882,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 952.7136984894155,
             "range": "±1.78%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "2cd87b05765cf1acbe7bdc166e559326c2228bed",
+          "message": "Update dependency core-js to ^3.8.0",
+          "timestamp": "2020-11-30T20:45:55Z",
+          "tree_id": "273db322e65616a75f7f69aac9bf3a74a9aabd91",
+          "url": "https://github.com/RNGeek/rocketimer/commit/2cd87b05765cf1acbe7bdc166e559326c2228bed"
+        },
+        "date": 1606769369807,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 340.10283243104817,
+            "range": "±2.54%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 25.955918084067342,
+            "range": "±34.04%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1157.0083938687117,
+            "range": "±1.27%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1159.0251110345464,
+            "range": "±1.37%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
