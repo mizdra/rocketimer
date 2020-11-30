@@ -24,7 +24,7 @@
     "benchmark:render-time": "node --expose-gc $(npm bin)/jest -c jest.benchmark.js --runTestsByPath benchmark/render-time.tsx"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
+    "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
     "@mizdra/strictly-typed-event-target": "^2.0.0",
     "@react-hook/size": "^2.1.1",
