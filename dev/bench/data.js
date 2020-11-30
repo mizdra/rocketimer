@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1604405417397,
+  "lastUpdate": 1606753949460,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -622,6 +622,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 866.2863854495905,
             "range": "±1.45%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "96ef66ea727a3f4f0713845ddf949c9a51a4b797",
+          "message": "Update babel monorepo",
+          "timestamp": "2020-11-30T16:28:32Z",
+          "tree_id": "d9c22f0f587593179bc0a8d6c9a9c30ef489e3de",
+          "url": "https://github.com/RNGeek/rocketimer/commit/96ef66ea727a3f4f0713845ddf949c9a51a4b797"
+        },
+        "date": 1606753948756,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 307.5324679711286,
+            "range": "±2.41%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 24.18686098772638,
+            "range": "±37.53%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 942.542661187457,
+            "range": "±1.46%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 933.0935883284374,
+            "range": "±1.76%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
