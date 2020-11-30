@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1606760642589,
+  "lastUpdate": 1606762485254,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -778,6 +778,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1204.994195036874,
             "range": "±1.64%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "35dca58e0e17cbb01ecb5d5ba7f7efabfba46c89",
+          "message": "Update dependency @types/webpack to ^4.41.25",
+          "timestamp": "2020-11-30T18:51:20Z",
+          "tree_id": "e8f69d8fc0e9a368715352d354505c18daf3ca9b",
+          "url": "https://github.com/RNGeek/rocketimer/commit/35dca58e0e17cbb01ecb5d5ba7f7efabfba46c89"
+        },
+        "date": 1606762484619,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 406.3631228732507,
+            "range": "±1.71%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 40.29878190323175,
+            "range": "±75.05%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1284.668972378501,
+            "range": "±1.58%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1300.9816957740716,
+            "range": "±1.60%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
