@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1606762485254,
+  "lastUpdate": 1606762832290,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -830,6 +830,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1300.9816957740716,
             "range": "±1.60%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "b4ead817fe01a2d44cd1dffedf794eb035ff98f2",
+          "message": "Update dependency copy-webpack-plugin to ^6.3.2",
+          "timestamp": "2020-11-30T18:56:49Z",
+          "tree_id": "b1dd8733e760fea7d47c6248dc9e9f82e2b6a90e",
+          "url": "https://github.com/RNGeek/rocketimer/commit/b4ead817fe01a2d44cd1dffedf794eb035ff98f2"
+        },
+        "date": 1606762828947,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 298.0029457313698,
+            "range": "±1.63%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 20.879402065659065,
+            "range": "±36.35%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 942.4711757014775,
+            "range": "±1.82%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 952.7136984894155,
+            "range": "±1.78%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
