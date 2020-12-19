@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { UseCascadeTimerResult } from './use-cascade-timer';
 import { useRecoilValue } from 'recoil';
 import { offsetState } from '../../recoil/cascade-timer';
+import { UseCascadeTimerResult } from './use-cascade-timer';
 
 export function useOffsetChangeShortcut(setOffset: UseCascadeTimerResult['setOffset']) {
   const offset = useRecoilValue(offsetState);

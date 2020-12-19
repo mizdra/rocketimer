@@ -1,7 +1,8 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import useSize from '@react-hook/size';
 import Konva from 'konva';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
+import { range } from '../../../lib/array';
 import {
   calcParamsForKonva,
   CURRENT_LINE_X,
@@ -11,8 +12,7 @@ import {
   SECOND,
   STAGE_HEIGHT,
 } from '../../../lib/timeline';
-import { range } from '../../../lib/array';
-import useSize from '@react-hook/size';
+import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 
 export type TimerTimelineProps = {};
 

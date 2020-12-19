@@ -1,6 +1,6 @@
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { formatDuration } from '../../../../lib/timer/duration';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   container: {

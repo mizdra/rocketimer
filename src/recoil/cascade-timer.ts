@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
-import { CascadeTimerStatus } from '../lib/timer/cascade-timer';
 import { TimerConfig } from '../component/molecules/timer/TimerConfigForm';
+import { CascadeTimerStatus } from '../lib/timer/cascade-timer';
 
 const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
   { title: 'お湯が沸くまで', duration: 3 * 1000 },

@@ -1,14 +1,14 @@
-import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { DurationView } from './TimerRemainDisplay/DurationView';
+import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { currentLapRemainState, currentLapTitleState } from '../../../recoil/cascade-timer';
+import { UseCascadeTimerResult } from '../../../hook/timer/use-cascade-timer';
 import { useOffsetChangeShortcut } from '../../../hook/timer/use-offset-change-shortcut';
 import { useSoundEffect } from '../../../hook/timer/use-sound-effect';
-import { UseCascadeTimerResult } from '../../../hook/timer/use-cascade-timer';
+import { currentLapRemainState, currentLapTitleState } from '../../../recoil/cascade-timer';
+import { DurationView } from './TimerRemainDisplay/DurationView';
 
 const useStyles = makeStyles((theme) => ({
   title: {

@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
 import Container from '@material-ui/core/Container';
-import { useCascadeTimer } from './hook/timer/use-cascade-timer';
-import { TimerRemainDisplay } from './component/molecules/timer/TimerRemainDisplay';
-import { TimerController as TimerControllerComponent } from './component/molecules/timer/TimerController';
-import { TimerTimeline } from './component/molecules/timer/TimerTimeline';
-import { TimerConfigForm, TimerConfig } from './component/molecules/timer/TimerConfigForm';
+import React, { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { lapConfigsState } from './recoil/cascade-timer';
+import { TimerConfigForm, TimerConfig } from './component/molecules/timer/TimerConfigForm';
+import { TimerController as TimerControllerComponent } from './component/molecules/timer/TimerController';
+import { TimerRemainDisplay } from './component/molecules/timer/TimerRemainDisplay';
+import { TimerTimeline } from './component/molecules/timer/TimerTimeline';
+import { useCascadeTimer } from './hook/timer/use-cascade-timer';
 import { TimerController } from './lib/timer/timer-controller';
+import { lapConfigsState } from './recoil/cascade-timer';
 
 export type AppProps = {
   timerOffset?: number;
