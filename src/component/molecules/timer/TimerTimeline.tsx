@@ -127,7 +127,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
         // !!! The following code is copied from konva.js !!!
         // this code is lisenced by LICENSE.KONVA
         let delta = 0;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-explicit-any
         const wheelDelta = (e.evt as any).wheelDelta as number;
         if (wheelDelta) {
           /* IE/Opera. */
