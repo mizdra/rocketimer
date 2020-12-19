@@ -1,10 +1,10 @@
 import { useMemo, useEffect, useCallback } from 'react';
-import { formatDuration } from '../../lib/timer/duration';
-import tickTackAudioPath from '../../audio/ticktack.mp3';
-import endedAudioPath from '../../audio/ended.mp3';
-import { usePrevious } from '../use-previous';
 import { useRecoilValue } from 'recoil';
+import endedAudioPath from '../../audio/ended.mp3';
+import tickTackAudioPath from '../../audio/ticktack.mp3';
+import { formatDuration } from '../../lib/timer/duration';
 import { statusState, currentLapRemainState, currentLapIndexState } from '../../recoil/cascade-timer';
+import { usePrevious } from '../use-previous';
 
 function useAudio(path: string) {
   const audio = useMemo(() => new Audio(path), [path]);

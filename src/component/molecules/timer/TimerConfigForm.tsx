@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
-import TextField from '@material-ui/core/TextField';
-import { useForm, useFieldArray } from 'react-hook-form';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import CloseIcon from '@material-ui/icons/Close';
+import React, { useCallback } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 
 export type TimerConfig = {
   laps: {

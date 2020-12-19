@@ -1,7 +1,8 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import useSize from '@react-hook/size';
 import Konva from 'konva';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
+import { range } from '../../../lib/array';
 import {
   calcParamsForKonva,
   CURRENT_LINE_X,
@@ -11,10 +12,9 @@ import {
   SECOND,
   STAGE_HEIGHT,
 } from '../../../lib/timeline';
-import { range } from '../../../lib/array';
-import useSize from '@react-hook/size';
+import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 
-export type TimerTimelineProps = {};
+export type TimerTimelineProps = unknown;
 
 type KonvaNodes = {
   stage: Konva.Stage;
@@ -127,7 +127,7 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
         // !!! The following code is copied from konva.js !!!
         // this code is lisenced by LICENSE.KONVA
         let delta = 0;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-explicit-any
         const wheelDelta = (e.evt as any).wheelDelta as number;
         if (wheelDelta) {
           /* IE/Opera. */

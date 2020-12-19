@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { CascadeTimer } from '../../lib/timer/cascade-timer';
 import { useRecoilValue, useRecoilCallback } from 'recoil';
+import { CascadeTimer } from '../../lib/timer/cascade-timer';
+import { TimerController } from '../../lib/timer/timer-controller';
 import {
   statusState,
   currentLapRemainState,
@@ -8,7 +9,6 @@ import {
   offsetState,
   lapDurationsState,
 } from '../../recoil/cascade-timer';
-import { TimerController } from '../../lib/timer/timer-controller';
 
 export type UseCascadeTimerResult = {
   start: () => void;
