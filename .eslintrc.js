@@ -18,4 +18,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/no-empty-function': 0,
+      },
+    },
+  ],
 };
