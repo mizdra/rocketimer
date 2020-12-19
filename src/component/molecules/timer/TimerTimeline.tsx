@@ -14,7 +14,7 @@ import {
 } from '../../../lib/timeline';
 import { totalElapsedState, lapEndTimesState } from '../../../recoil/cascade-timer';
 
-export type TimerTimelineProps = {};
+export type TimerTimelineProps = unknown;
 
 type KonvaNodes = {
   stage: Konva.Stage;
