@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1608360847609,
+  "lastUpdate": 1609433632883,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -986,6 +986,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 894.3227260171703,
             "range": "±2.03%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "1c6ca9684c3a3efb052ae4e9c1a520d8850ffe28",
+          "message": "chore(deps): update babel monorepo",
+          "timestamp": "2020-12-31T16:49:25Z",
+          "tree_id": "8c97e751125c16b2c96d7f3f8207d693773256f9",
+          "url": "https://github.com/RNGeek/rocketimer/commit/1c6ca9684c3a3efb052ae4e9c1a520d8850ffe28"
+        },
+        "date": 1609433632209,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 293.34618937553546,
+            "range": "±2.40%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 23.321215635979975,
+            "range": "±29.51%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1007.0697854146258,
+            "range": "±1.17%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1007.007738411563,
+            "range": "±1.61%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
