@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1609447885315,
+  "lastUpdate": 1611820004527,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1246,6 +1246,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1280.25061351377,
             "range": "±1.29%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a41eae1f523dbea836aedc86032e5b92951c3906",
+          "message": "Merge pull request #163 from RNGeek/dependabot/npm_and_yarn/node-notifier-8.0.1\n\nBump node-notifier from 8.0.0 to 8.0.1",
+          "timestamp": "2021-01-28T16:42:19+09:00",
+          "tree_id": "d9c30df47200ed68348f5987550b24909f0dc048",
+          "url": "https://github.com/RNGeek/rocketimer/commit/a41eae1f523dbea836aedc86032e5b92951c3906"
+        },
+        "date": 1611820003849,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 272.6440594524447,
+            "range": "±2.61%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 19.567371414349182,
+            "range": "±29.25%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 901.608427817604,
+            "range": "±1.44%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 915.3589686140836,
+            "range": "±1.46%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
