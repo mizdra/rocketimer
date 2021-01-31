@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1612112840603,
+  "lastUpdate": 1612118793957,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1402,6 +1402,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 908.050673048678,
             "range": "±1.94%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "81b8d5d279ce27d8993eb3db1e90841f25568bae",
+          "message": "chore(deps): update dependency @types/jest to ^26.0.20",
+          "timestamp": "2021-01-31T18:42:31Z",
+          "tree_id": "54de2de0e38832445bf544759fb24015b358a801",
+          "url": "https://github.com/RNGeek/rocketimer/commit/81b8d5d279ce27d8993eb3db1e90841f25568bae"
+        },
+        "date": 1612118793316,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 257.14506354882354,
+            "range": "±3.24%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 25.439583529078195,
+            "range": "±46.69%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 817.9422487715954,
+            "range": "±1.55%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 830.6390495751227,
+            "range": "±1.46%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
