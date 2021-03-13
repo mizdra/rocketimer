@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615616900844,
+  "lastUpdate": 1615632341022,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -2130,6 +2130,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 870.3853585784417,
             "range": "±1.96%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "35d1630097fb4001ad11a716410fb5dd9e336efa",
+          "message": "Merge pull request #189 from RNGeek/update-eslint-config-mizdra\n\nUpgrade @mizdra/eslint-config-mizdra",
+          "timestamp": "2021-03-13T19:41:49+09:00",
+          "tree_id": "a38cd78d1c6ad6e0b1eb4d26dbd4767e159bd21c",
+          "url": "https://github.com/RNGeek/rocketimer/commit/35d1630097fb4001ad11a716410fb5dd9e336efa"
+        },
+        "date": 1615632338911,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 274.7663916590695,
+            "range": "±2.16%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 20.40071952523596,
+            "range": "±48.77%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 870.2670566157184,
+            "range": "±1.86%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 885.343632750848,
+            "range": "±1.73%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
