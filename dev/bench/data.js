@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615616839846,
+  "lastUpdate": 1615616900844,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -2078,6 +2078,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1061.325939814234,
             "range": "±1.27%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "30342490+mergecat[bot]@users.noreply.github.com",
+            "name": "mergecat[bot]",
+            "username": "mergecat[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "de3d9deeeb8f389f39941268b265969119313c66",
+          "message": "Merge pull request #184 from RNGeek/renovate/canvas-2.x",
+          "timestamp": "2021-03-13T06:24:25Z",
+          "tree_id": "75196f3882cca334a11f70da0efb53c13215ac64",
+          "url": "https://github.com/RNGeek/rocketimer/commit/de3d9deeeb8f389f39941268b265969119313c66"
+        },
+        "date": 1615616900320,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 265.2036954086454,
+            "range": "±3.17%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 23.415103635987684,
+            "range": "±33.57%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 844.6721425087256,
+            "range": "±1.94%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 870.3853585784417,
+            "range": "±1.96%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
