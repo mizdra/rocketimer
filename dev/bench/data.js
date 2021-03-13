@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615616812191,
+  "lastUpdate": 1615616839846,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -2026,6 +2026,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1156.551544985104,
             "range": "±1.46%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "30342490+mergecat[bot]@users.noreply.github.com",
+            "name": "mergecat[bot]",
+            "username": "mergecat[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c96ac7eafef1342c2ecc1b0a942f13a717f8931a",
+          "message": "Merge pull request #185 from RNGeek/renovate/major-8-linters",
+          "timestamp": "2021-03-13T06:23:13Z",
+          "tree_id": "5a3c867f74acf791f8bc418fa066ac93c84b4478",
+          "url": "https://github.com/RNGeek/rocketimer/commit/c96ac7eafef1342c2ecc1b0a942f13a717f8931a"
+        },
+        "date": 1615616839290,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 337.4969128383377,
+            "range": "±1.94%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 19.429350975670793,
+            "range": "±25.17%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1049.746514881512,
+            "range": "±1.27%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1061.325939814234,
+            "range": "±1.27%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
