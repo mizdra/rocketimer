@@ -14,7 +14,7 @@
     "check:tsc:frontend": "tsc -p tsconfig.frontend.json --noEmit",
     "check:tsc:test": "tsc -p tsconfig.test.json --noEmit",
     "check:tsc:benchmark": "tsc -p tsconfig.benchmark.json --noEmit",
-    "check:eslint": "eslint '{src,test,benchmark}/**/*.{ts,tsx}'",
+    "check:eslint": "eslint .",
     "check:prettier": "prettier --check .",
     "test": "jest -c jest.test.js",
     "coverage": "yarn run test --coverage",
