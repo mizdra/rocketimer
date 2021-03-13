@@ -1,7 +1,4 @@
-.DS_Store
-node_modules/
-dist/
-npm-debug.log
-yarn-error.log
-coverage/
-/.github/ISSUE_TEMPLATE
+/coverage
+/dist
+/dist
+/.github/ISSUE_TEMPLATE/-----------.md
