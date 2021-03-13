@@ -1,8 +1,8 @@
 const { resolve } = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { GenerateSW } = require('workbox-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 const rootPath = resolve(__dirname, '.');
 const libPath = resolve(__dirname, './lib');
@@ -11,7 +11,7 @@ const srcPath = resolve(__dirname, './src');
 const distPath = resolve(__dirname, './dist');
 
 /** @type import('webpack').ConfigurationFactory */
-module.exports = (env, argv) => ({
+module.exports = (_env, _argv) => ({
   entry: {
     app: [
       resolve(libPath, './google-analysis.js'),
