@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615616372740,
+  "lastUpdate": 1615616644934,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1922,6 +1922,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 891.8694203669671,
             "range": "±1.88%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "30342490+mergecat[bot]@users.noreply.github.com",
+            "name": "mergecat[bot]",
+            "username": "mergecat[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "af35ae3c13797ca71bd1d27ff9d7cfbfd6fdb46d",
+          "message": "Merge pull request #182 from RNGeek/renovate/node-14.x",
+          "timestamp": "2021-03-13T06:20:44Z",
+          "tree_id": "dbbb996218ef92deaedf0cd501187ef043bc6411",
+          "url": "https://github.com/RNGeek/rocketimer/commit/af35ae3c13797ca71bd1d27ff9d7cfbfd6fdb46d"
+        },
+        "date": 1615616644392,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 405.24542499857387,
+            "range": "±1.26%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 22.712931416259202,
+            "range": "±31.39%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1255.0467235635695,
+            "range": "±1.63%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1280.504761797092,
+            "range": "±1.29%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
