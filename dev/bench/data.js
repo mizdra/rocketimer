@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615616644934,
+  "lastUpdate": 1615616812191,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -1974,6 +1974,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1280.504761797092,
             "range": "±1.29%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "30342490+mergecat[bot]@users.noreply.github.com",
+            "name": "mergecat[bot]",
+            "username": "mergecat[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e512da26b5c778d8f8f7698f036f3c8b1809ce59",
+          "message": "Merge pull request #186 from RNGeek/renovate/webpack-bundle-analyzer-4.x",
+          "timestamp": "2021-03-13T06:23:30Z",
+          "tree_id": "b340beddc8d02a41d7d51539cc83762844d6128e",
+          "url": "https://github.com/RNGeek/rocketimer/commit/e512da26b5c778d8f8f7698f036f3c8b1809ce59"
+        },
+        "date": 1615616811643,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 352.2711603226426,
+            "range": "±4.54%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 24.832322535082156,
+            "range": "±41.70%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1148.5057919258934,
+            "range": "±1.49%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1156.551544985104,
+            "range": "±1.46%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
