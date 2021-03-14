@@ -18,11 +18,6 @@ export type CascadeTimerState = {
   offset: number;
 };
 
-export type EventTypes = {
-  /** カウントダウン中のタイマーが更新された時に発火するイベント. */
-  tick: [];
-};
-
 export type UnsubscribeFn = () => void;
 
 function createCurrentLapState(lapDurations: number[], elapsed: number) {
@@ -42,11 +37,11 @@ function createCurrentLapState(lapDurations: number[], elapsed: number) {
   };
 }
 
-export type TimerEventMap = {
+export type CascadeTimerEventMap = {
   /** カウントダウン中のタイマーが更新された時に発火するイベント. */
   tick: undefined;
 };
-const [TimerCustomEvent, TimerEventTarget] = createSTEventTarget<TimerEventMap>();
+const [TimerCustomEvent, TimerEventTarget] = createSTEventTarget<CascadeTimerEventMap>();
 
 /** 高FPSで動作するよう設計された多段カウントダウンタイマー */
 export class CascadeTimer {
@@ -150,9 +145,9 @@ export class CascadeTimer {
   /**
    * イベントリスナを登録する.
    */
-  addEventListener<T extends keyof TimerEventMap>(
+  addEventListener<T extends keyof CascadeTimerEventMap>(
     type: T,
-    listener: STEventListenerOrEventListenerObject<TimerEventMap, T> | null,
+    listener: STEventListenerOrEventListenerObject<CascadeTimerEventMap, T> | null,
     options?: boolean | AddEventListenerOptions,
   ): UnsubscribeFn {
     this.#emitter.addEventListener(type, listener, options);
