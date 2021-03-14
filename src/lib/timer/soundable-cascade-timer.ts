@@ -111,11 +111,11 @@ export function checkSoundEvent(
 ): 'ticktack' | 'ticktackEnded' | undefined {
   const prevStatus = prevSoundState.status;
   const newStatus = newSoundState.status;
-  const prevLapIndex = prevSoundState.currentLapIndex;
-  const newLapIndex = newSoundState.currentLapIndex;
-  const prevSeconds = formatDuration(prevSoundState.currentLapRemain);
-  const newSeconds = formatDuration(newSoundState.currentLapRemain);
-  const newLapRemain = newSoundState.currentLapRemain;
+  const prevLapIndex = prevSoundState.lapIndex;
+  const newLapIndex = newSoundState.lapIndex;
+  const prevSeconds = formatDuration(prevSoundState.lapRemain);
+  const newSeconds = formatDuration(newSoundState.lapRemain);
+  const newLapRemain = newSoundState.lapRemain;
   if (prevStatus === 'countdowning' && newStatus === 'ended') {
     return 'ticktackEnded';
   } else if (newStatus === 'countdowning' && prevLapIndex !== newLapIndex) {

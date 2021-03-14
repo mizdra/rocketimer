@@ -11,29 +11,29 @@ export type CascadeTimerState = {
   /** タイマーがカウントダウン中か, 停止しているかを返す */
   status: CascadeTimerStatus;
   /** カウントダウン中のラップの残り時間. 値は `tick` イベントに合わせて更新される. */
-  currentLapRemain: number;
+  lapRemain: number;
   /** カウントダウン中のラップのインデックス. 停止中は最後のラップのインデックスが設定される. */
-  currentLapIndex: number;
+  lapIndex: number;
   /** 残り時間のオフセット. `-1000` の場合は 1 秒遅れてカウントダウンされる. */
   offset: number;
 };
 
 export type UnsubscribeFn = () => void;
 
-function createCurrentLapState(lapDurations: number[], elapsed: number) {
+function createLapState(lapDurations: number[], elapsed: number) {
   let sum = 0;
   for (let i = 0; i < lapDurations.length; i++) {
     sum += lapDurations[i];
     if (elapsed < sum) {
       return {
-        currentLapIndex: i,
-        currentLapRemain: sum - elapsed,
+        lapIndex: i,
+        lapRemain: sum - elapsed,
       };
     }
   }
   return {
-    currentLapIndex: lapDurations.length - 1,
-    currentLapRemain: 0,
+    lapIndex: lapDurations.length - 1,
+    lapRemain: 0,
   };
 }
 
@@ -76,20 +76,20 @@ export class CascadeTimer {
     if (this.#status === 'initial') {
       return {
         status: 'initial',
-        ...createCurrentLapState(this.#lapDurations, this.#offset),
+        ...createLapState(this.#lapDurations, this.#offset),
         offset: this.#offset,
       };
     }
     if (this.#status === 'countdowning') {
       return {
         status: 'countdowning',
-        ...createCurrentLapState(this.#lapDurations, this.#lastTickTime - this.#startTime + this.#offset),
+        ...createLapState(this.#lapDurations, this.#lastTickTime - this.#startTime + this.#offset),
         offset: this.#offset,
       };
     }
     return {
       status: 'ended',
-      ...createCurrentLapState(this.#lapDurations, Number.MAX_SAFE_INTEGER),
+      ...createLapState(this.#lapDurations, Number.MAX_SAFE_INTEGER),
       offset: this.#offset,
     };
   }
@@ -107,8 +107,8 @@ export class CascadeTimer {
     const lastLapIndex = this.#lapDurations.length - 1;
     const onTick = (timestamp: number) => {
       const elapsed = timestamp - this.#startTime + this.#offset;
-      const { currentLapIndex, currentLapRemain } = createCurrentLapState(this.#lapDurations, elapsed);
-      const newStatus = currentLapIndex === lastLapIndex && currentLapRemain === 0 ? 'ended' : 'countdowning';
+      const { lapIndex, lapRemain } = createLapState(this.#lapDurations, elapsed);
+      const newStatus = lapIndex === lastLapIndex && lapRemain === 0 ? 'ended' : 'countdowning';
 
       if (newStatus === 'countdowning') {
         this.#timerId = this.#controller.requestTick(onTick);

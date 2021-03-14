@@ -25,12 +25,12 @@ function calcLapEndTimes(lapDurations: number[]): number[] {
 }
 
 /** 総経過時間を算出する */
-function calcTotalElapsed(lapDurations: number[], currentLapRemain: number, currentLapIndex: number): number {
+function calcTotalElapsed(lapDurations: number[], lapRemain: number, lapIndex: number): number {
   let elapsed = 0;
-  for (let i = 0; i < currentLapIndex; i++) {
+  for (let i = 0; i < lapIndex; i++) {
     elapsed += lapDurations[i];
   }
-  elapsed += lapDurations[currentLapIndex] - currentLapRemain;
+  elapsed += lapDurations[lapIndex] - lapRemain;
   return elapsed;
 }
 
@@ -52,13 +52,13 @@ export const statusState = atom<CascadeTimerStatus>({
   default: 'initial',
 });
 
-export const currentLapRemainState = atom<number>({
-  key: 'cascade-timer/currentLapRemainState',
+export const lapRemainState = atom<number>({
+  key: 'cascade-timer/lapRemainState',
   default: 0,
 });
 
-export const currentLapIndexState = atom<number>({
-  key: 'cascade-timer/currentLapIndeState',
+export const lapIndexState = atom<number>({
+  key: 'cascade-timer/lapIndexState',
   default: 0,
 });
 
@@ -67,9 +67,9 @@ export const totalElapsedState = selector({
   key: 'cascade-timer/totalElapsedState',
   get: ({ get }) => {
     const lapDurations = get(lapDurationsState);
-    const currentLapRemain = get(currentLapRemainState);
-    const currentLapIndex = get(currentLapIndexState);
-    return calcTotalElapsed(lapDurations, currentLapRemain, currentLapIndex);
+    const lapRemain = get(lapRemainState);
+    const lapIndex = get(lapIndexState);
+    return calcTotalElapsed(lapDurations, lapRemain, lapIndex);
   },
 });
 
@@ -90,11 +90,11 @@ export const lapEndTimesState = selector<number[]>({
   },
 });
 
-export const currentLapTitleState = selector<string>({
-  key: 'cascade-timer/currentLapTitleState',
+export const lapTitleState = selector<string>({
+  key: 'cascade-timer/lapTitleState',
   get: ({ get }) => {
     const lapConfigs = get(lapConfigsState);
-    const currentLapIndex = get(currentLapIndexState);
-    return lapConfigs[currentLapIndex].title;
+    const lapIndex = get(lapIndexState);
+    return lapConfigs[lapIndex].title;
   },
 });

@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import endedAudioPath from '../../audio/ended.mp3';
 import tickTackAudioPath from '../../audio/ticktack.mp3';
 import { formatDuration } from '../../lib/timer/duration';
-import { statusState, currentLapRemainState, currentLapIndexState } from '../../recoil/cascade-timer';
+import { statusState, lapRemainState, lapIndexState } from '../../recoil/cascade-timer';
 import { usePrevious } from '../use-previous';
 
 function useAudio(path: string) {
@@ -17,34 +17,24 @@ function useAudio(path: string) {
 /** 秒の位が変わる時と残り時間が 0 になった時に音を鳴らす */
 export function useSoundEffect() {
   const status = useRecoilValue(statusState);
-  const currentLapRemain = useRecoilValue(currentLapRemainState);
-  const currentLapIndex = useRecoilValue(currentLapIndexState);
+  const lapRemain = useRecoilValue(lapRemainState);
+  const lapIndex = useRecoilValue(lapIndexState);
 
   const { play: playTickTack } = useAudio(tickTackAudioPath);
   const { play: playEndedAudio } = useAudio(endedAudioPath);
 
   const prevStatus = usePrevious(status);
-  const prevCurrentLapIndex = usePrevious(currentLapIndex);
-  const { seconds } = formatDuration(currentLapRemain);
+  const prevLapIndex = usePrevious(lapIndex);
+  const { seconds } = formatDuration(lapRemain);
   const prevSeconds = usePrevious(seconds);
 
   useEffect(() => {
     if (prevStatus === 'countdowning' && status === 'ended') {
       void playEndedAudio();
-    } else if (status === 'countdowning' && prevCurrentLapIndex !== currentLapIndex) {
+    } else if (status === 'countdowning' && prevLapIndex !== lapIndex) {
       void playEndedAudio();
-    } else if (status === 'countdowning' && prevSeconds !== seconds && currentLapRemain < 10 * 1000) {
+    } else if (status === 'countdowning' && prevSeconds !== seconds && lapRemain < 10 * 1000) {
       void playTickTack();
     }
-  }, [
-    currentLapIndex,
-    currentLapRemain,
-    playEndedAudio,
-    playTickTack,
-    prevCurrentLapIndex,
-    prevSeconds,
-    prevStatus,
-    seconds,
-    status,
-  ]);
+  }, [lapIndex, lapRemain, playEndedAudio, playTickTack, prevLapIndex, prevSeconds, prevStatus, seconds, status]);
 }
