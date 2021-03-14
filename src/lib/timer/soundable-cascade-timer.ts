@@ -1,23 +1,26 @@
 import { createSTEventTarget, STEventListenerOrEventListenerObject } from '@mizdra/strictly-typed-event-target';
 import { CascadeTimer, CascadeTimerState, UnsubscribeFn } from './cascade-timer';
+import { formatDuration } from './duration';
 import { TimerController, OptimizedTimerController } from './timer-controller';
 
 export type { UnsubscribeFn };
 
 export type SoundableCascadeTimerEventMap = {
-  /** カウントダウン中のメインタイマーが更新された時に発火するイベント. */
-  mainTick: undefined;
-  /** カウントダウン中のサウンドタイマーが更新された時に発火するイベント. */
-  soundTick: undefined;
+  /** カウントダウン中のタイマーが更新された時に発火するイベント. */
+  remainChange: undefined;
+  /** カウントダウン中のサウンドタイマーの秒の位が変わった時に発火するイベント。ただし秒の位が 0 になった時は発火しない。 */
+  ticktack: undefined;
+  /** カウントダウン中のサウンドタイマーの秒の位が 0 になった時に発火するイベント. */
+  ticktackEnded: undefined;
 };
 const [TimerCustomEvent, TimerEventTarget] = createSTEventTarget<SoundableCascadeTimerEventMap>();
 
 /**
  * 音を鳴らすタイミングを文字盤の更新のタイミングからずらす機能を持った cascade-timer。
  * 音を鳴らすタイミングを管理するタイマー (サウンドタイマー) と文字盤用のタイマー (メインタイマー) を内部に持ち、
- * それぞれの tick イベントが発火すると、`soundTick` / `mainTick` イベントが発火するようになっている。
+ * それぞれの tick イベントが発火すると、`ticktack` / `ticktackEnded` / `remainChange` イベントが発火するようになっている。
  *
- * あくまで `SoundableCascadeTimer` は音を鳴らすタイミングを `soundTick` イベントの発火により教えてくれるだけであり、
+ * あくまで `SoundableCascadeTimer` は音を鳴らすタイミングを `ticktack` / `ticktackEnded` イベントの発火により教えてくれるだけであり、
  * 名前に反して実際に音を鳴らしてくれる訳ではない点に注意。これらのイベントを subscribe して音を鳴らす責務は
  * `SoundableCascadeTimer` の利用側にある。
  */
@@ -27,6 +30,7 @@ export class SoundableCascadeTimer {
   readonly #soundTimer: CascadeTimer;
   #mainOffset: number;
   #soundOffset: number;
+  #prevSoundState: CascadeTimerState;
 
   /**
    * @param lapDurations ラップごとのカウントダウン時間
@@ -43,9 +47,17 @@ export class SoundableCascadeTimer {
     this.#soundTimer = new CascadeTimer(lapDurations, mainOffset + soundOffset, controller);
     this.#mainOffset = mainOffset;
     this.#soundOffset = soundOffset;
+    this.#prevSoundState = this.#soundTimer.getState();
 
-    this.#mainTimer.addEventListener('tick', () => this.#emitter.dispatchEvent(new TimerCustomEvent('mainTick')));
-    this.#soundTimer.addEventListener('tick', () => this.#emitter.dispatchEvent(new TimerCustomEvent('soundTick')));
+    this.#mainTimer.addEventListener('tick', () => this.#emitter.dispatchEvent(new TimerCustomEvent('remainChange')));
+    this.#soundTimer.addEventListener('tick', () => {
+      const newSoundState = this.#soundTimer.getState();
+      const eventType = checkSoundEvent(this.#prevSoundState, newSoundState);
+      if (eventType !== undefined) {
+        this.#emitter.dispatchEvent(new TimerCustomEvent(eventType));
+      }
+      this.#prevSoundState = newSoundState;
+    });
   }
   /** メインタイマーの状態を返す. */
   getMainState(): CascadeTimerState {
@@ -90,4 +102,26 @@ export class SoundableCascadeTimer {
       this.#emitter.removeEventListener(type, listener, options);
     };
   }
+}
+
+/** サウンドタイマーの状態の変化を見て、`ticktack` / `ticktackEnded` を発火すべきタイミングかどうかを判定する。 */
+export function checkSoundEvent(
+  prevSoundState: CascadeTimerState,
+  newSoundState: CascadeTimerState,
+): 'ticktack' | 'ticktackEnded' | undefined {
+  const prevStatus = prevSoundState.status;
+  const newStatus = newSoundState.status;
+  const prevLapIndex = prevSoundState.currentLapIndex;
+  const newLapIndex = newSoundState.currentLapIndex;
+  const prevSeconds = formatDuration(prevSoundState.currentLapRemain);
+  const newSeconds = formatDuration(newSoundState.currentLapRemain);
+  const newLapRemain = newSoundState.currentLapRemain;
+  if (prevStatus === 'countdowning' && newStatus === 'ended') {
+    return 'ticktackEnded';
+  } else if (newStatus === 'countdowning' && prevLapIndex !== newLapIndex) {
+    return 'ticktackEnded';
+  } else if (newStatus === 'countdowning' && prevSeconds !== newSeconds && newLapRemain < 10 * 1000) {
+    return 'ticktack';
+  }
+  return undefined;
 }
