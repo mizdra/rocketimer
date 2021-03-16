@@ -41,7 +41,6 @@ export class SoundableCascadeTimer {
     soundOffset = 0,
     controller: TimerController = new OptimizedTimerController(),
   ) {
-    if (lapDurations.length == 0) throw new Error('インスタンスを作成するには少なくとも 1 つのラップが必要です.');
     this.#emitter = new TimerEventTarget();
     this.#mainTimer = new CascadeTimer(lapDurations, mainOffset, controller);
     this.#soundTimer = new CascadeTimer(lapDurations, mainOffset + soundOffset, controller);
@@ -72,6 +71,7 @@ export class SoundableCascadeTimer {
    * @param startTime タイマーの開始時刻. 指定しなければ `CascadeTimer#start` を呼び出した時間が用いられる.
    * */
   start(startTime?: number) {
+    this.#soundTimer.reset();
     this.#mainTimer.start(startTime);
     this.#soundTimer.start(startTime);
   }
