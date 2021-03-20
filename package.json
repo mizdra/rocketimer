@@ -8,7 +8,7 @@
   "scripts": {
     "start": "yarn run dev",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development",
+    "dev": "webpack-cli serve --mode development",
     "check": "run-s -c check:*",
     "check:tsc": "run-s -c check:tsc:*",
     "check:tsc:frontend": "tsc -p tsconfig.frontend.json --noEmit",
