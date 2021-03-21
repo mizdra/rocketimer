@@ -6,7 +6,6 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { UseCascadeTimerResult } from '../../../hook/timer/use-cascade-timer';
 import { useOffsetChangeShortcut } from '../../../hook/timer/use-offset-change-shortcut';
-import { useSoundEffect } from '../../../hook/timer/use-sound-effect';
 import { lapRemainState, lapTitleState } from '../../../recoil/cascade-timer';
 import { DurationView } from './TimerRemainDisplay/DurationView';
 
@@ -27,7 +26,6 @@ export function TimerRemainDisplay(props: { setOffset: UseCascadeTimerResult['se
   const lapRemain = useRecoilValue(lapRemainState);
 
   useOffsetChangeShortcut(props.setOffset);
-  useSoundEffect();
 
   const classes = useStyles();
   return (
