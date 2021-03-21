@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615634261209,
+  "lastUpdate": 1616345905430,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -2286,6 +2286,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 783.0157570692265,
             "range": "±2.08%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "019029d5ad4d4d1c23af354033db7a1f946f0645",
+          "message": "Merge pull request #191 from RNGeek/refactor-timer\n\n音出しのタイミングが調整できるように",
+          "timestamp": "2021-03-22T01:54:26+09:00",
+          "tree_id": "0f122dd42629ec06861df661c51280678651ddee",
+          "url": "https://github.com/RNGeek/rocketimer/commit/019029d5ad4d4d1c23af354033db7a1f946f0645"
+        },
+        "date": 1616345904873,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 268.5840258121599,
+            "range": "±2.27%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 40.469670831096664,
+            "range": "±44.42%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 887.4959084791531,
+            "range": "±1.77%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 896.2982305195754,
+            "range": "±1.94%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
