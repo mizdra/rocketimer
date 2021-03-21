@@ -27,8 +27,8 @@ describe('Timer', () => {
       const { timer } = createTimer([1000, 2000, 3000], 0);
       expect(timer.getState()).toEqual({
         status: 'initial',
-        currentLapRemain: 1000,
-        currentLapIndex: 0,
+        lapRemain: 1000,
+        lapIndex: 0,
         offset: 0,
       });
     });
@@ -41,8 +41,8 @@ describe('Timer', () => {
       const { timer } = createTimer([1000, 2000, 3000], 500);
       expect(timer.getState()).toEqual({
         status: 'initial',
-        currentLapRemain: 500,
-        currentLapIndex: 0,
+        lapRemain: 500,
+        lapIndex: 0,
         offset: 500,
       });
     });
@@ -50,8 +50,8 @@ describe('Timer', () => {
       const { timer } = createTimer([1000, 2000, 3000], -500);
       expect(timer.getState()).toEqual({
         status: 'initial',
-        currentLapRemain: 1500,
-        currentLapIndex: 0,
+        lapRemain: 1500,
+        lapIndex: 0,
         offset: -500,
       });
     });
@@ -66,8 +66,8 @@ describe('Timer', () => {
       test('現在のタイマーの状態を返す', () => {
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -77,8 +77,8 @@ describe('Timer', () => {
         context.timer.start();
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -88,8 +88,8 @@ describe('Timer', () => {
         context.timer.reset();
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -99,8 +99,8 @@ describe('Timer', () => {
         context.timer.setOffset(100);
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 900,
-          currentLapIndex: 0,
+          lapRemain: 900,
+          lapIndex: 0,
           offset: 100,
         });
       });
@@ -108,8 +108,8 @@ describe('Timer', () => {
         context.timer.setOffset(1000);
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 2000,
-          currentLapIndex: 1,
+          lapRemain: 2000,
+          lapIndex: 1,
           offset: 1000,
         });
       });
@@ -117,8 +117,8 @@ describe('Timer', () => {
         context.timer.setOffset(3000);
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 0,
-          currentLapIndex: 1,
+          lapRemain: 0,
+          lapIndex: 1,
           offset: 3000,
         });
       });
@@ -126,8 +126,8 @@ describe('Timer', () => {
         context.timer.setOffset(-1000);
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 2000,
-          currentLapIndex: 0,
+          lapRemain: 2000,
+          lapIndex: 0,
           offset: -1000,
         });
       });
@@ -150,8 +150,8 @@ describe('Timer', () => {
       test('現在のタイマーの状態を返す', () => {
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -163,8 +163,8 @@ describe('Timer', () => {
         }).toThrow();
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -174,8 +174,8 @@ describe('Timer', () => {
         context.timer.reset();
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -185,8 +185,8 @@ describe('Timer', () => {
         context.timer.setOffset(100);
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 900,
-          currentLapIndex: 0,
+          lapRemain: 900,
+          lapIndex: 0,
           offset: 100,
         });
       });
@@ -194,8 +194,8 @@ describe('Timer', () => {
         context.timer.setOffset(1000);
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 2000,
-          currentLapIndex: 1,
+          lapRemain: 2000,
+          lapIndex: 1,
           offset: 1000,
         });
       });
@@ -203,8 +203,8 @@ describe('Timer', () => {
         context.timer.setOffset(3000);
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 0,
-          currentLapIndex: 1,
+          lapRemain: 0,
+          lapIndex: 1,
           offset: 3000,
         });
       });
@@ -212,8 +212,8 @@ describe('Timer', () => {
         context.timer.setOffset(-1000);
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 2000,
-          currentLapIndex: 0,
+          lapRemain: 2000,
+          lapIndex: 0,
           offset: -1000,
         });
       });
@@ -236,8 +236,8 @@ describe('Timer', () => {
       test('現在のタイマーの状態を返す', () => {
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 1000,
-          currentLapIndex: 1,
+          lapRemain: 1000,
+          lapIndex: 1,
           offset: 500,
         });
       });
@@ -249,8 +249,8 @@ describe('Timer', () => {
         }).toThrow();
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 1000,
-          currentLapIndex: 1,
+          lapRemain: 1000,
+          lapIndex: 1,
           offset: 500,
         });
       });
@@ -260,8 +260,8 @@ describe('Timer', () => {
         context.timer.reset();
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -271,8 +271,8 @@ describe('Timer', () => {
         context.timer.setOffset(100);
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 1400,
-          currentLapIndex: 1,
+          lapRemain: 1400,
+          lapIndex: 1,
           offset: 100,
         });
       });
@@ -280,8 +280,8 @@ describe('Timer', () => {
         context.timer.setOffset(-1000);
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: -1000,
         });
       });
@@ -304,8 +304,8 @@ describe('Timer', () => {
       test('現在のタイマーの状態を返す', () => {
         expect(context.timer.getState()).toEqual({
           status: 'ended',
-          currentLapRemain: 0,
-          currentLapIndex: 1,
+          lapRemain: 0,
+          lapIndex: 1,
           offset: 500,
         });
       });
@@ -315,8 +315,8 @@ describe('Timer', () => {
         context.timer.start();
         expect(context.timer.getState()).toEqual({
           status: 'countdowning',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -326,8 +326,8 @@ describe('Timer', () => {
         context.timer.reset();
         expect(context.timer.getState()).toEqual({
           status: 'initial',
-          currentLapRemain: 500,
-          currentLapIndex: 0,
+          lapRemain: 500,
+          lapIndex: 0,
           offset: 500,
         });
       });
@@ -337,8 +337,8 @@ describe('Timer', () => {
         context.timer.setOffset(100);
         expect(context.timer.getState()).toEqual({
           status: 'ended',
-          currentLapRemain: 0,
-          currentLapIndex: 1,
+          lapRemain: 0,
+          lapIndex: 1,
           offset: 100,
         });
       });
@@ -346,8 +346,8 @@ describe('Timer', () => {
         context.timer.setOffset(-1000);
         expect(context.timer.getState()).toEqual({
           status: 'ended',
-          currentLapRemain: 0,
-          currentLapIndex: 1,
+          lapRemain: 0,
+          lapIndex: 1,
           offset: -1000,
         });
       });

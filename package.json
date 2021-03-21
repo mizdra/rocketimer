@@ -8,7 +8,7 @@
   "scripts": {
     "start": "yarn run dev",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development",
+    "dev": "webpack-cli serve --mode development",
     "check": "run-s -c check:*",
     "check:tsc": "run-s -c check:tsc:*",
     "check:tsc:frontend": "tsc -p tsconfig.frontend.json --noEmit",
@@ -32,7 +32,7 @@
     "konva": "^7.1.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hook-form": "^6.9.1",
+    "react-hook-form": "^6.15.5",
     "recoil": "^0.1.2",
     "tslib": "^2.0.1",
     "typescript": "^4.0.3"

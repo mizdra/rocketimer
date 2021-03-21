@@ -6,8 +6,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { UseCascadeTimerResult } from '../../../hook/timer/use-cascade-timer';
 import { useOffsetChangeShortcut } from '../../../hook/timer/use-offset-change-shortcut';
-import { useSoundEffect } from '../../../hook/timer/use-sound-effect';
-import { currentLapRemainState, currentLapTitleState } from '../../../recoil/cascade-timer';
+import { lapRemainState, lapTitleState } from '../../../recoil/cascade-timer';
 import { DurationView } from './TimerRemainDisplay/DurationView';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,19 +22,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function TimerRemainDisplay(props: { setOffset: UseCascadeTimerResult['setOffset'] }) {
-  const currentLapTitle = useRecoilValue(currentLapTitleState);
-  const currentLapRemain = useRecoilValue(currentLapRemainState);
+  const lapTitle = useRecoilValue(lapTitleState);
+  const lapRemain = useRecoilValue(lapRemainState);
 
   useOffsetChangeShortcut(props.setOffset);
-  useSoundEffect();
 
   const classes = useStyles();
   return (
     <Card>
       <CardContent>
-        <Typography className={classes.title}>{currentLapTitle}</Typography>
+        <Typography className={classes.title}>{lapTitle}</Typography>
         <div className={classes.time}>
-          <DurationView value={currentLapRemain} />
+          <DurationView value={lapRemain} />
         </div>
       </CardContent>
     </Card>
