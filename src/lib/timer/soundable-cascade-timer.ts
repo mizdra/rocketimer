@@ -74,6 +74,7 @@ export class SoundableCascadeTimer {
     this.#soundTimer.reset();
     this.#mainTimer.start(startTime);
     this.#soundTimer.start(startTime);
+    this.#prevSoundState = this.#soundTimer.getState();
   }
   /** カウントダウンを強制的に停止し, 初期状態に戻す. これにより, `tick` イベントの呼び出しが停止する. */
   reset() {
