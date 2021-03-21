@@ -28,8 +28,6 @@ export class SoundableCascadeTimer {
   readonly #emitter: typeof TimerEventTarget;
   readonly #mainTimer: CascadeTimer;
   readonly #soundTimer: CascadeTimer;
-  #mainOffset: number;
-  #soundOffset: number;
   #prevSoundState: CascadeTimerState;
 
   /**
@@ -44,8 +42,6 @@ export class SoundableCascadeTimer {
     this.#emitter = new TimerEventTarget();
     this.#mainTimer = new CascadeTimer(lapDurations, mainOffset, controller);
     this.#soundTimer = new CascadeTimer(lapDurations, mainOffset + soundOffset, controller);
-    this.#mainOffset = mainOffset;
-    this.#soundOffset = soundOffset;
     this.#prevSoundState = this.#soundTimer.getState();
 
     this.#mainTimer.addEventListener('tick', () => this.#emitter.dispatchEvent(new TimerCustomEvent('remainChange')));
@@ -83,14 +79,15 @@ export class SoundableCascadeTimer {
   }
   /** メインオフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
   setMainOffset(mainOffset: number) {
-    this.#mainOffset = mainOffset;
+    const oldMainOffset = this.#mainTimer.getState().offset;
+    const soundOffset = this.#soundTimer.getState().offset - oldMainOffset;
     this.#mainTimer.setOffset(mainOffset);
-    this.#soundTimer.setOffset(mainOffset + this.#soundOffset);
+    this.#soundTimer.setOffset(mainOffset + soundOffset);
   }
   /** サウンドオフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
   setSoundOffset(soundOffset: number) {
-    this.#soundOffset = soundOffset;
-    this.#soundTimer.setOffset(this.#mainOffset + soundOffset);
+    const mainOffset = this.#mainTimer.getState().offset;
+    this.#soundTimer.setOffset(mainOffset + soundOffset);
   }
   /** イベントリスナを登録する. */
   addEventListener<T extends keyof SoundableCascadeTimerEventMap>(
