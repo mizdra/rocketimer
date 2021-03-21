@@ -80,13 +80,13 @@ export class SoundableCascadeTimer {
     this.#mainTimer.reset();
     this.#soundTimer.reset();
   }
-  /** メインタイマーのオフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
+  /** メインオフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
   setMainOffset(mainOffset: number) {
     this.#mainOffset = mainOffset;
     this.#mainTimer.setOffset(mainOffset);
     this.#soundTimer.setOffset(mainOffset + this.#soundOffset);
   }
-  /** サウンドタイマーのオフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
+  /** サウンドオフセットを設定する. オフセットはカウントダウン中でもリアルタイムで反映されるため, 調律などに利用できる. */
   setSoundOffset(soundOffset: number) {
     this.#soundOffset = soundOffset;
     this.#soundTimer.setOffset(this.#mainOffset + soundOffset);
