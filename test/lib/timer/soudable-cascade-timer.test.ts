@@ -192,4 +192,22 @@ describe('checkSoundEvent', () => {
       ).toBe(expected);
     });
   });
+  describe('複数区間を一気にまたぐ時', () => {
+    test.each([
+      [['countdowning', 2001, 0], ['countdowning', 1000, 0], 'ticktack'],
+      [['countdowning', 2001, 0], ['countdowning', 11000, 1], 'ticktackEnded'],
+      [['countdowning', 2001, 0], ['countdowning', 10000, 1], 'ticktackEnded'],
+      [['countdowning', 1, 0], ['countdowning', 11000, 1], 'ticktackEnded'],
+      [['countdowning', 1, 0], ['countdowning', 10000, 1], 'ticktackEnded'],
+      [['countdowning', 2001, 0], ['ended', 0, 0], 'ticktackEnded'],
+      [['countdowning', 2001, 0], ['ended', 0, 1], 'ticktackEnded'],
+    ] as const)('%p => %p', (prev, next, expected) => {
+      expect(
+        checkSoundEvent(
+          { status: prev[0], lapRemain: prev[1], lapIndex: prev[2], offset: 0 },
+          { status: next[0], lapRemain: next[1], lapIndex: next[2], offset: 0 },
+        ),
+      ).toBe(expected);
+    });
+  });
 });
