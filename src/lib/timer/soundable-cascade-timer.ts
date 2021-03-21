@@ -113,8 +113,8 @@ export function checkSoundEvent(
   const newStatus = newSoundState.status;
   const prevLapIndex = prevSoundState.lapIndex;
   const newLapIndex = newSoundState.lapIndex;
-  const prevSeconds = formatDuration(prevSoundState.lapRemain);
-  const newSeconds = formatDuration(newSoundState.lapRemain);
+  const prevSeconds = formatDuration(prevSoundState.lapRemain).seconds;
+  const newSeconds = formatDuration(newSoundState.lapRemain).seconds;
   const newLapRemain = newSoundState.lapRemain;
   if (prevStatus === 'countdowning' && newStatus === 'ended') {
     return 'ticktackEnded';
