@@ -19,12 +19,6 @@ function createStartedTimer(lapDurations: number[], offset: number, soundOffset:
   return { timer, ...rest };
 }
 
-function createElapsedTimer(lapDurations: number[], offset: number, soundOffset: number, elapsed: number) {
-  const { controller, ...rest } = createStartedTimer(lapDurations, offset, soundOffset);
-  controller.advanceBy(elapsed);
-  return { controller, ...rest };
-}
-
 describe('SoundableCascadeTimer', () => {
   describe('#constructor', () => {
     test('インスタンスが作成できる', () => {
