@@ -114,13 +114,18 @@ export function checkSoundEvent(
   const prevLapIndex = prevSoundState.lapIndex;
   const newLapIndex = newSoundState.lapIndex;
   const prevSeconds = formatDuration(prevSoundState.lapRemain).seconds;
-  const newSeconds = formatDuration(newSoundState.lapRemain).seconds;
+  const prevLapRemain = prevSoundState.lapRemain;
   const newLapRemain = newSoundState.lapRemain;
   if (prevStatus === 'countdowning' && newStatus === 'ended') {
     return 'ticktackEnded';
   } else if (newStatus === 'countdowning' && prevLapIndex !== newLapIndex) {
     return 'ticktackEnded';
-  } else if (newStatus === 'countdowning' && prevSeconds !== newSeconds && newLapRemain < 10 * 1000) {
+  } else if (
+    newStatus === 'countdowning' &&
+    prevLapRemain > prevSeconds * 1000 &&
+    newLapRemain <= prevSeconds * 1000 &&
+    newLapRemain <= 10 * 1000
+  ) {
     return 'ticktack';
   }
   return undefined;

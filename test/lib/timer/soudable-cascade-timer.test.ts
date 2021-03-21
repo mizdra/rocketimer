@@ -127,44 +127,32 @@ describe('SoundableCascadeTimer', () => {
     });
   });
   describe('@ticktack', () => {
-    test('秒の桁が変わると発火する', () => {
+    test('checkSoundEvent で ticktack が返ってくるタイミングで発火する', () => {
       const context = createElapsedTimer([1001], 0, 0, 0);
       expect(context.ticktack.mock.calls.length).toBe(0);
       context.controller.advanceBy(1); // 残り時間 1000 ms
-      expect(context.ticktack.mock.calls.length).toBe(0);
+      expect(context.ticktack.mock.calls.length).toBe(1);
       context.controller.advanceBy(1); // 残り時間 999 ms
       expect(context.ticktack.mock.calls.length).toBe(1);
-      context.controller.advanceBy(1); // 残り時間 998 ms
-      expect(context.ticktack.mock.calls.length).toBe(1);
-    });
-    test('残り時間が10秒以上の時は発火しない', () => {
-      const context = createElapsedTimer([11 * 1000], 0, 0, 0);
-      expect(context.ticktack.mock.calls.length).toBe(0);
-      context.controller.advanceBy(1);
-      expect(context.ticktack.mock.calls.length).toBe(0);
-      context.controller.advanceBy(999); // 残り時間 10 秒
-      expect(context.ticktack.mock.calls.length).toBe(0);
-      context.controller.advanceBy(1);
-      expect(context.ticktack.mock.calls.length).toBe(1);
-    });
-    test('残り時間が0秒になった時は発火しない', () => {
-      const context = createElapsedTimer([1000], 0, 0, 1000);
-      expect(context.ticktack.mock.calls.length).toBe(0);
-      context.controller.advanceBy(1);
-      expect(context.ticktack.mock.calls.length).toBe(0);
     });
     test('メインオフセットやサウンドオフセットの影響を受ける', () => {
-      const context = createElapsedTimer([2000], 100, 200, 700);
+      const context = createElapsedTimer([1301], 100, 200, 0);
       expect(context.ticktack.mock.calls.length).toBe(0);
       context.controller.advanceBy(1);
       expect(context.ticktack.mock.calls.length).toBe(1);
     });
   });
   describe('@ticktackEnded', () => {
-    test('ラップの残り時間が0秒になった時に発火する', () => {
+    test('checkSoundEvent で ticktackEnded が返ってくるタイミングで発火する', () => {
       const context = createElapsedTimer([1000, 2000], 0, 0, 999);
       expect(context.ticktackEnded.mock.calls.length).toBe(0);
       context.controller.advanceBy(1); // 1ラップ目の残り時間 0 ms
+      expect(context.ticktackEnded.mock.calls.length).toBe(1);
+    });
+    test('メインオフセットやサウンドオフセットの影響を受ける', () => {
+      const context = createElapsedTimer([301], 100, 200, 0);
+      expect(context.ticktackEnded.mock.calls.length).toBe(0);
+      context.controller.advanceBy(1);
       expect(context.ticktackEnded.mock.calls.length).toBe(1);
     });
   });
