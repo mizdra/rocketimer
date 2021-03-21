@@ -116,11 +116,10 @@ describe('SoundableCascadeTimer', () => {
     });
   });
   describe('@remainChange', () => {
-    let context: ReturnType<typeof createTimer>;
-    beforeEach(() => {
-      context = createElapsedTimer([1000, 2000], 100, 200, 500);
-    });
     test('時刻の更新に合わせて発火する', () => {
+      const context = createStartedTimer([500], 0, 0);
+      expect(context.remainChange.mock.calls.length).toBe(0);
+      context.controller.advanceBy(1);
       expect(context.remainChange.mock.calls.length).toBe(1);
       context.controller.advanceBy(1);
       expect(context.remainChange.mock.calls.length).toBe(2);
@@ -128,7 +127,7 @@ describe('SoundableCascadeTimer', () => {
   });
   describe('@ticktack', () => {
     test('checkSoundEvent で ticktack が返ってくるタイミングで発火する', () => {
-      const context = createElapsedTimer([1001], 0, 0, 0);
+      const context = createStartedTimer([1001], 0, 0);
       expect(context.ticktack.mock.calls.length).toBe(0);
       context.controller.advanceBy(1); // 残り時間 1000 ms
       expect(context.ticktack.mock.calls.length).toBe(1);
@@ -136,7 +135,7 @@ describe('SoundableCascadeTimer', () => {
       expect(context.ticktack.mock.calls.length).toBe(1);
     });
     test('メインオフセットやサウンドオフセットの影響を受ける', () => {
-      const context = createElapsedTimer([1301], 100, 200, 0);
+      const context = createStartedTimer([1301], 100, 200);
       expect(context.ticktack.mock.calls.length).toBe(0);
       context.controller.advanceBy(1);
       expect(context.ticktack.mock.calls.length).toBe(1);
@@ -144,13 +143,13 @@ describe('SoundableCascadeTimer', () => {
   });
   describe('@ticktackEnded', () => {
     test('checkSoundEvent で ticktackEnded が返ってくるタイミングで発火する', () => {
-      const context = createElapsedTimer([1000, 2000], 0, 0, 999);
+      const context = createStartedTimer([1, 2000], 0, 0);
       expect(context.ticktackEnded.mock.calls.length).toBe(0);
       context.controller.advanceBy(1); // 1ラップ目の残り時間 0 ms
       expect(context.ticktackEnded.mock.calls.length).toBe(1);
     });
     test('メインオフセットやサウンドオフセットの影響を受ける', () => {
-      const context = createElapsedTimer([301], 100, 200, 0);
+      const context = createStartedTimer([301], 100, 200);
       expect(context.ticktackEnded.mock.calls.length).toBe(0);
       context.controller.advanceBy(1);
       expect(context.ticktackEnded.mock.calls.length).toBe(1);
