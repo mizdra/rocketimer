@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1616345905430,
+  "lastUpdate": 1617124473836,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -2338,6 +2338,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 896.2982305195754,
             "range": "±1.94%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "34ee45719f6b01314ab425875fe252b829922eb7",
+          "message": "Merge pull request #192 from RNGeek/measure-chunk-size\n\nmackerel で chunk size を監視する",
+          "timestamp": "2021-03-31T02:10:28+09:00",
+          "tree_id": "c3066690f7db890d481493bd79f5cc3014d9206d",
+          "url": "https://github.com/RNGeek/rocketimer/commit/34ee45719f6b01314ab425875fe252b829922eb7"
+        },
+        "date": 1617124473273,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 299.79927420957904,
+            "range": "±2.63%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 6.601545700545413,
+            "range": "±901.39%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 967.1640181889544,
+            "range": "±1.51%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 986.8474433536517,
+            "range": "±1.41%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
