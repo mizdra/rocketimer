@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const { readFileSync } = require('fs');
+
+const webpackJson = JSON.parse(readFileSync('/dev/stdin', 'utf8').toString());
+
+const metrics = webpackJson.chunks.map((chunk) => {
+  // NOTE: name は使用できる文字に制限があるので、使用できない文字は除外しておく
+  // ref: https://mackerel.io/ja/api-docs/entry/host-metrics
+  const name = `chunk-size.${chunk.names.join('~')}`.replace(/[^a-zA-Z0-9._-]/g, '');
+  const value = chunk.size;
+  // NOTE: time はエポック "秒" なので、秒に変換する
+  const time = Math.round(Date.now() / 1000);
+  return { name, value, time };
+});
+console.log(metrics);
