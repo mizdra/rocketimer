@@ -33,3 +33,15 @@ jobs:
 
       - name: yarn run build
         run: yarn run build
+
+      - name: Install mkr command
+        run: |
+          curl -fsSL https://mackerel.io/file/script/setup-apt-v2.sh | sh
+          sudo apt-get install mkr
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/measure-chunk-size'
+
+      - name: Measure bundle size
+        run: yarn run --silent build --json | script/format-chunk-size | mkr throw --service rocketimer || true
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/measure-chunk-size'
+        env:
+          MACKEREL_APIKEY: ${{ secrets.MACKEREL_APIKEY }}
