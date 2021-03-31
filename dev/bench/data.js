@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1617124473836,
+  "lastUpdate": 1617208673705,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -2390,6 +2390,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 986.8474433536517,
             "range": "±1.41%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bot@renovateapp.com",
+            "name": "Renovate Bot",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "distinct": true,
+          "id": "e6d09853530af0e00547f228ab1a5ba97f3d2d33",
+          "message": "chore(deps): update babel monorepo",
+          "timestamp": "2021-03-31T16:34:09Z",
+          "tree_id": "acfab1b67dedceb6504e56434480c38291b05ca2",
+          "url": "https://github.com/RNGeek/rocketimer/commit/e6d09853530af0e00547f228ab1a5ba97f3d2d33"
+        },
+        "date": 1617208673001,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 334.41596303592326,
+            "range": "±3.49%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 2.7387846278746397,
+            "range": "±2682.17%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1044.941902835911,
+            "range": "±1.48%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1051.167392042787,
+            "range": "±1.38%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
