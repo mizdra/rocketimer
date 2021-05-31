@@ -51,7 +51,7 @@
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
-    "@types/webpack": "^4.41.27",
+    "@types/webpack": "^4.41.29",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
     "babel-jest": "^26.5.2",
