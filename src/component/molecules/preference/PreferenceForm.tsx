@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import React, { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { soundOffsetState } from '../../../recoil/preference';
 
@@ -11,7 +11,7 @@ type FormData = {
 export function PreferenceForm() {
   const [soundOffset, setSoundOffset] = useRecoilState(soundOffsetState);
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { register, handleSubmit } = useForm<FormData>({
+  const { handleSubmit, control } = useForm<FormData>({
     defaultValues: { soundOffset },
   });
 
@@ -24,15 +24,21 @@ export function PreferenceForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
+      <Controller
         name="soundOffset"
-        type="number"
-        inputRef={register({
-          valueAsNumber: true,
-        })}
-        label="SoundOffset"
-        variant="outlined"
-        placeholder="0"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => (
+          <TextField
+            type="number"
+            {...field}
+            variant="outlined"
+            placeholder="0"
+            onChange={(e) => {
+              return parseInt(e.target.value, 10);
+            }}
+          />
+        )}
       />
       <Button type="submit" variant="contained" color="primary">
         設定を保存
