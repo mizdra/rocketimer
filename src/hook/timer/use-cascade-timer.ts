@@ -36,13 +36,14 @@ export function useCascadeTimer(options: Options): UseCascadeTimerResult {
 
   // 状態更新用の util 関数を定義
   const syncStateWithTimer = useRecoilCallback(
-    ({ set }) => () => {
-      const state = timer.getMainState();
-      set(statusState, state.status);
-      set(lapRemainState, state.lapRemain);
-      set(lapIndexState, state.lapIndex);
-      set(offsetState, state.offset);
-    },
+    ({ set }) =>
+      () => {
+        const state = timer.getMainState();
+        set(statusState, state.status);
+        set(lapRemainState, state.lapRemain);
+        set(lapIndexState, state.lapIndex);
+        set(offsetState, state.offset);
+      },
     [timer],
   );
 

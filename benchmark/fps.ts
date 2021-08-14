@@ -29,7 +29,7 @@ async function measureFPS() {
       this.startTime = performance.now();
 
       async function waitRaf() {
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
           requestAnimationFrame(() => resolve());
         });
       }
@@ -54,7 +54,7 @@ async function measureFPS() {
   }
 
   async function wait(ms: number) {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       setTimeout(() => resolve(), ms);
     });
   }

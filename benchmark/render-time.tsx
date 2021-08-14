@@ -8,6 +8,8 @@ import { TestableTimerController } from '../src/lib/timer/timer-controller';
 import { log } from './helper/log';
 import { getStatistics, saveStatistics } from './helper/statistics';
 
+jest.setTimeout(3 * 60 * 1000); // タイムアウトの上限を伸ばしておく
+
 // タイマーの更新に掛かる時間 (更新時間) を計測するベンチマーク。
 // この測定値を見ることでタイマーが 60 fps で描画されるかどうかを判断する
 // 手がかりとなることを期待している。
@@ -107,7 +109,7 @@ test('タイマーが 60 fps で描画されることをテストする', async 
     // コンポーネントの更新前に GC を強制的に発生させておき、コンポーネントの更新時にゴミが
     // ほとんどない状況を作っている。これにより、コンポーネントの更新時にゴミが GC 発生のしきい値を
     // 超えることがなくなり、コンポーネントの更新中に GC が発生しなくなるはず、という期待をしている。
-    global.gc();
+    global.gc?.();
 
     // タイマーを更新
     timerController.advanceBy(16);
