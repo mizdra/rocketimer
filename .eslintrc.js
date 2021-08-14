@@ -17,6 +17,7 @@ module.exports = {
         additionalHooks: 'useRecoilCallback',
       },
     ],
+    '@typescript-eslint/no-unsafe-call': 0,
   },
   overrides: [
     {
