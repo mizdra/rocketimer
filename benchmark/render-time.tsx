@@ -8,6 +8,8 @@ import { TestableTimerController } from '../src/lib/timer/timer-controller';
 import { log } from './helper/log';
 import { getStatistics, saveStatistics } from './helper/statistics';
 
+jest.setTimeout(3 * 60 * 1000); // タイムアウトの上限を伸ばしておく
+
 // タイマーの更新に掛かる時間 (更新時間) を計測するベンチマーク。
 // この測定値を見ることでタイマーが 60 fps で描画されるかどうかを判断する
 // 手がかりとなることを期待している。
