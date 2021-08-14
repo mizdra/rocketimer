@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1627760694988,
+  "lastUpdate": 1628941009186,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -3534,6 +3534,51 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1219.551294374691,
             "range": "±1.00%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8611c584fd2034708019898a537758d5595c170f",
+          "message": "Merge pull request #223 from RNGeek/upgrade-deps\n\n依存関係のアップデート",
+          "timestamp": "2021-08-14T20:32:54+09:00",
+          "tree_id": "c6acea0efe584ca61fe0745cc01962039b762533",
+          "url": "https://github.com/RNGeek/rocketimer/commit/8611c584fd2034708019898a537758d5595c170f"
+        },
+        "date": 1628941008153,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 343.76800125106666,
+            "range": "±10.71%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1041.2412375556735,
+            "range": "±2.79%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1058.743153157688,
+            "range": "±2.70%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
