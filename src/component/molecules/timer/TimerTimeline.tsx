@@ -105,8 +105,8 @@ function useKonvaCanvas(ref: React.RefObject<HTMLDivElement>) {
     stage.add(layer2);
     stage.add(layer3);
 
-    stage.children.each((layer) => {
-      layer.children.each((node) => {
+    stage.children?.forEach?.((layer) => {
+      layer.children?.forEach?.((node) => {
         if (node instanceof Konva.Shape) {
           node.transformsEnabled('position');
           node.hitStrokeWidth(0);
