@@ -30,7 +30,7 @@ jobs:
 
       # yarn run benchmark:fps のためにサーバを立てておく
       - name: Start server
-        run: yarn run dev &
+        run: yarn run webpack-cli serve --mode production &
 
       # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
       - name: yarn run benchmark:fps
