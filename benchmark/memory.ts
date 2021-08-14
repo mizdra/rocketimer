@@ -29,19 +29,19 @@ async function measureMemory(): Promise<Measurement[]> {
   // 最初のほうはメモリ使用量が安定しないので暖機運転する
   await wait(2 * 1000);
   // 強制的にGCも発生させておく
-  await performance.measureMemory!();
+  await performance.measureUserAgentSpecificMemory!();
   // もう 1 回おまじないとしてやっておく
   await wait(2 * 1000);
-  await performance.measureMemory!();
+  await performance.measureUserAgentSpecificMemory!();
 
   const measurements: Measurement[] = [];
   for (let i = 0; i < 10; i++) {
-    const measurement1 = await performance.measureMemory!();
+    const measurement1 = await performance.measureUserAgentSpecificMemory!();
     const start = performance.now();
 
     await wait(2 * 1000); // 2 秒間待機
 
-    const measurement2 = await performance.measureMemory!();
+    const measurement2 = await performance.measureUserAgentSpecificMemory!();
     const end = performance.now();
 
     const bytesDiff = measurement2.bytes - measurement1.bytes;
@@ -56,7 +56,7 @@ async function measureMemory(): Promise<Measurement[]> {
 void (async () => {
   const browser = await chromium.launch({
     headless: false,
-    args: ['--enable-blink-features=MeasureMemory,ForceEagerMeasureMemory'],
+    args: ['--enable-blink-features=ForceEagerMeasureMemory'],
   });
   const page = await browser.newPage();
 

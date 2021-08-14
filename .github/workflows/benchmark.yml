@@ -30,17 +30,15 @@ jobs:
 
       # yarn run benchmark:fps のためにサーバを立てておく
       - name: Start server
-        run: |
-          yarn run build
-          yarn run http-server --silent -p 8080 dist &
+        run: yarn run webpack-cli serve --mode production &
 
       # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
       - name: yarn run benchmark:fps
         run: yarn run benchmark:fps
       # playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動する
       # ref: https://github.com/microsoft/playwright-github-action#run-in-headful-mode
-      # - name: yarn run benchmark:memory
-      #   run: xvfb-run --auto-servernum -- yarn run benchmark:memory
+      - name: yarn run benchmark:memory
+        run: xvfb-run --auto-servernum -- yarn run benchmark:memory
       - name: yarn run benchmark:render-time
         run: yarn run benchmark:render-time
 

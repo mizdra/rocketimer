@@ -74,4 +74,11 @@ module.exports = (_env, _argv) => ({
       swDest: resolve(distPath, './service-worker.js'),
     }),
   ],
+
+  devServer: {
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+    },
+  },
 });
