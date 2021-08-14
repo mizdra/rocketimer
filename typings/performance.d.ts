@@ -1,3 +1,5 @@
+type Type = 'DOM' | 'JavaScript' | 'Shared' | string;
+
 interface MemoryMeasurement {
   bytes: number;
   breakdown: MemoryBreakdownEntry[];
@@ -5,10 +7,10 @@ interface MemoryMeasurement {
 
 interface MemoryBreakdownEntry {
   bytes: number;
-  attribution: string[];
+  types: Type[];
   userAgentSpecificTypes: string[];
 }
 
 interface Performance {
-  measureMemory?(): Promise<MemoryMeasurement>;
+  measureUserAgentSpecificMemory?(): Promise<MemoryMeasurement>;
 }
