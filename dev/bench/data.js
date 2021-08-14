@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1628941009186,
+  "lastUpdate": 1628941534695,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -3579,6 +3579,58 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1058.743153157688,
             "range": "±2.70%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ab356dbd78fc6f7b28568d5000efed854ff07982",
+          "message": "Merge pull request #224 from RNGeek/upgrade-playwright\n\nChromium における performance.measureMemory の仕様変更対応",
+          "timestamp": "2021-08-14T20:41:49+09:00",
+          "tree_id": "6855a7274f3f6cd0fe4b2d2554b536e8aad5fc73",
+          "url": "https://github.com/RNGeek/rocketimer/commit/ab356dbd78fc6f7b28568d5000efed854ff07982"
+        },
+        "date": 1628941534102,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 308.84663140715753,
+            "range": "±10.93%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "カウントダウン中のメモリ使用量の増加率",
+            "value": 17.381914816152108,
+            "range": "±22.32%",
+            "unit": "seconds/MB",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1016.7084516531964,
+            "range": "±1.41%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1037.5662935990906,
+            "range": "±1.36%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
