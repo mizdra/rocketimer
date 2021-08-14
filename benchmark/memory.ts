@@ -19,7 +19,7 @@ type Measurement = {
  * */
 async function measureMemory(): Promise<Measurement[]> {
   async function wait(ms: number) {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       setTimeout(() => resolve(), ms);
     });
   }
