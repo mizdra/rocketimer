@@ -5,19 +5,19 @@ import { useRecoilState } from 'recoil';
 import { soundOffsetState } from '../../../recoil/preference';
 
 type FormData = {
-  soundOffset: number;
+  soundOffset: string;
 };
 
 export function PreferenceForm() {
   const [soundOffset, setSoundOffset] = useRecoilState(soundOffsetState);
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { handleSubmit, control } = useForm<FormData>({
-    defaultValues: { soundOffset },
+    defaultValues: { soundOffset: soundOffset.toString() },
   });
 
   const onSubmit = useCallback(
     (data: FormData) => {
-      setSoundOffset(data.soundOffset);
+      setSoundOffset(+data.soundOffset);
     },
     [setSoundOffset],
   );
@@ -28,17 +28,7 @@ export function PreferenceForm() {
         name="soundOffset"
         control={control}
         rules={{ required: true }}
-        render={({ field }) => (
-          <TextField
-            type="number"
-            {...field}
-            variant="outlined"
-            placeholder="0"
-            onChange={(e) => {
-              return parseInt(e.target.value, 10);
-            }}
-          />
-        )}
+        render={({ field }) => <TextField type="number" {...field} variant="outlined" placeholder="0" />}
       />
       <Button type="submit" variant="contained" color="primary">
         設定を保存

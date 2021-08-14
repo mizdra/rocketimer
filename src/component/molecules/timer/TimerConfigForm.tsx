@@ -66,8 +66,7 @@ export function TimerConfigForm({ onSave }: TimerConfigFormProps) {
               label="タイトル"
               variant="outlined"
               placeholder="例: エンカウントまで"
-              onClick={isLastField ? handleAddField : undefined}
-              onChange={isLastField ? handleAddField : undefined}
+              onFocus={isLastField ? handleAddField : undefined}
             />
           )}
         />
@@ -85,8 +84,7 @@ export function TimerConfigForm({ onSave }: TimerConfigFormProps) {
               InputProps={{
                 endAdornment: <InputAdornment position="end">秒</InputAdornment>,
               }}
-              onClick={isLastField ? handleAddField : undefined}
-              onChange={isLastField ? handleAddField : undefined}
+              onFocus={isLastField ? handleAddField : undefined}
             />
           )}
         />
