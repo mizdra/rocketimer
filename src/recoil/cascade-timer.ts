@@ -45,6 +45,8 @@ export const lapDurationsState = selector<number[]>({
     const lapConfigs = get(lapConfigsState);
     return lapConfigs.map((lapConfig) => lapConfig.duration);
   },
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  cachePolicy_UNSTABLE: { eviction: 'most-recent' },
 });
 
 export const statusState = atom<CascadeTimerStatus>({
@@ -71,6 +73,8 @@ export const totalElapsedState = selector({
     const lapIndex = get(lapIndexState);
     return calcTotalElapsed(lapDurations, lapRemain, lapIndex);
   },
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  cachePolicy_UNSTABLE: { eviction: 'most-recent' },
 });
 
 export const offsetState = atom<number>({
@@ -88,6 +92,8 @@ export const lapEndTimesState = selector<number[]>({
     const lapDurations = get(lapDurationsState);
     return calcLapEndTimes(lapDurations);
   },
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  cachePolicy_UNSTABLE: { eviction: 'most-recent' },
 });
 
 export const lapTitleState = selector<string>({
@@ -97,4 +103,6 @@ export const lapTitleState = selector<string>({
     const lapIndex = get(lapIndexState);
     return lapConfigs[lapIndex].title;
   },
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  cachePolicy_UNSTABLE: { eviction: 'most-recent' },
 });
