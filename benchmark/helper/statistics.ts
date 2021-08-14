@@ -51,7 +51,7 @@ export function getStatistics(samples: number[]) {
   const sd = Math.sqrt(variance);
   const sem = sd / Math.sqrt(size);
   const df = size - 1;
-  const critical = tTable[((Math.round(df) || 1) as unknown) as keyof typeof tTable] || tTable.infinity;
+  const critical = tTable[(Math.round(df) || 1) as unknown as keyof typeof tTable] || tTable.infinity;
   const moe = sem * critical;
   // t 分布に基づく 95% 信頼区間
   const rme = (moe / mean) * 100 || 0;
