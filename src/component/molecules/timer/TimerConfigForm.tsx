@@ -4,7 +4,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { useCallback } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 
 export type TimerConfig = {
   laps: {
@@ -26,12 +26,12 @@ export type TimerConfigFormProps = {
 
 export function TimerConfigForm({ onSave }: TimerConfigFormProps) {
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { control, register, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       laps: [{ title: '', duration: '' }],
     },
   });
-  const { fields, append, remove } = useFieldArray<FormData['laps'][0]>({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'laps',
   });
@@ -57,31 +57,38 @@ export function TimerConfigForm({ onSave }: TimerConfigFormProps) {
     const isLastField = index === fields.length - 1;
     return (
       <div key={field.id}>
-        <TextField
-          name={`laps[${index}].title`}
-          inputRef={register()}
-          label="タイトル"
-          variant="outlined"
-          placeholder="例: エンカウントまで"
-          onClick={isLastField ? handleAddField : undefined}
-          onChange={isLastField ? handleAddField : undefined}
+        <Controller
+          name={`laps.${index}.title`}
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="タイトル"
+              variant="outlined"
+              placeholder="例: エンカウントまで"
+              onClick={isLastField ? handleAddField : undefined}
+              onChange={isLastField ? handleAddField : undefined}
+            />
+          )}
         />
-        <TextField
-          name={`laps[${index}].duration`}
-          inputRef={register()}
-          label="待機時間"
-          variant="outlined"
-          placeholder="例: 10"
-          type="number"
-          required={!isLastField}
-          inputProps={{
-            min: 0,
-          }}
-          InputProps={{
-            endAdornment: <InputAdornment position="end">秒</InputAdornment>,
-          }}
-          onClick={isLastField ? handleAddField : undefined}
-          onChange={isLastField ? handleAddField : undefined}
+        <Controller
+          name={`laps.${index}.duration`}
+          control={control}
+          rules={{ required: !isLastField, min: 0 }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="待機時間"
+              variant="outlined"
+              placeholder="例: 10"
+              type="number"
+              InputProps={{
+                endAdornment: <InputAdornment position="end">秒</InputAdornment>,
+              }}
+              onClick={isLastField ? handleAddField : undefined}
+              onChange={isLastField ? handleAddField : undefined}
+            />
+          )}
         />
         {!isLastField && (
           <IconButton aria-label="ラップを削除" onClick={() => remove(index)}>
