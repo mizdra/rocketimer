@@ -39,8 +39,8 @@ jobs:
         run: yarn run benchmark:fps
       # playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動する
       # ref: https://github.com/microsoft/playwright-github-action#run-in-headful-mode
-      # - name: yarn run benchmark:memory
-      #   run: xvfb-run --auto-servernum -- yarn run benchmark:memory
+      - name: yarn run benchmark:memory
+        run: xvfb-run --auto-servernum -- yarn run benchmark:memory
       - name: yarn run benchmark:render-time
         run: yarn run benchmark:render-time
 
