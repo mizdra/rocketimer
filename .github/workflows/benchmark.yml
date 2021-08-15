@@ -46,21 +46,12 @@ jobs:
       - name: Start server
         run: yarn run webpack-cli serve --mode production &
 
-      # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
-      - name: yarn run benchmark:fps
-        run: yarn run --silent benchmark:fps | mkr throw --service rocketimer
-        env:
-          MACKEREL_APIKEY: ${{ secrets.MACKEREL_APIKEY }}
-          TIME: ${{ steps.time.outputs.time }}
-
-      # playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動する
+      # NOTE: playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動している
       # ref: https://github.com/microsoft/playwright-github-action#run-in-headful-mode
-      - name: yarn run benchmark:memory
-        run: xvfb-run --auto-servernum -- yarn run --silent benchmark:memory | mkr throw --service rocketimer
+      - name: Run benchmark
+        run: |
+          yarn run --silent benchmark:fps | mkr throw --service rocketimer || true
+          xvfb-run --auto-servernum -- yarn run --silent benchmark:memory | mkr throw --service rocketimer || true
         env:
           MACKEREL_APIKEY: ${{ secrets.MACKEREL_APIKEY }}
           TIME: ${{ steps.time.outputs.time }}
-
-      # デバッグ用にベンチマーク結果をコンソールに出力
-      - name: cat output.txt
-        run: cat output.txt
