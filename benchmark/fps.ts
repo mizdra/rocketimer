@@ -1,6 +1,6 @@
 import { chromium } from 'playwright';
 import { log } from './helper/log';
-import { mean } from './helper/statistics';
+import { median } from './helper/statistics';
 
 // mackerel に送信する際に利用する現在時刻 (秒)
 const time = process.env.TIME === undefined ? Math.round(Date.now() / 1000) : +process.env.TIME;
@@ -73,7 +73,7 @@ async function measureFPS() {
 
 function printReportForMackerel(measurements: Measurement[]) {
   const name = 'fps.fps';
-  const value = mean(measurements.map((measurement) => measurement.fps));
+  const value = median(measurements.map((measurement) => measurement.fps));
   console.log(`${name} ${value} ${time}`);
 }
 
