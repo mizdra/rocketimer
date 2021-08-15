@@ -1,3 +1,5 @@
+import { mean } from './statistics';
+
 type MeasurementDiff = {
   // name: BytesPerSecond
   'memory-usage.all': number;
@@ -38,10 +40,6 @@ function diffMeasurements(
     }
   });
   return result;
-}
-
-function mean(array: number[]) {
-  return array.reduce((a, b) => a + b, 0) / array.length;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

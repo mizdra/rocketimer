@@ -67,3 +67,7 @@ ${name} x ${statistics.mean} ${unit} ±${statistics.rme.toFixed(2)}% (${statisti
   `.trim() + '\n',
   );
 }
+
+export function mean(array: number[]) {
+  return array.reduce((a, b) => a + b, 0) / array.length;
+}
