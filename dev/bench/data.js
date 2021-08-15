@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1629016306331,
+  "lastUpdate": 1629016481676,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -3676,6 +3676,51 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1184.2496020295944,
             "range": "±1.52%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "distinct": true,
+          "id": "96b3a9e423344780655b1ed10f6d9334130801d1",
+          "message": "chore: 計測終了",
+          "timestamp": "2021-08-15T17:25:52+09:00",
+          "tree_id": "5a2078328880daea16ef760663afee4d0d49a969",
+          "url": "https://github.com/RNGeek/rocketimer/commit/96b3a9e423344780655b1ed10f6d9334130801d1"
+        },
+        "date": 1629016481081,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 257.1190543083259,
+            "range": "±10.56%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 967.8917477588114,
+            "range": "±0.58%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 986.8202185189203,
+            "range": "±0.70%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
