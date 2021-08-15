@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1628941534695,
+  "lastUpdate": 1629016306331,
   "repoUrl": "https://github.com/RNGeek/rocketimer",
   "entries": {
     "Benchmark": [
@@ -3631,6 +3631,51 @@ window.BENCHMARK_DATA = {
             "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
             "value": 1037.5662935990906,
             "range": "±1.36%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pp.mizdra@gmail.com",
+            "name": "mizdra",
+            "username": "mizdra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "69dc82e1ed1719471fd013e03d837c0da17bf613",
+          "message": "Merge pull request #226 from RNGeek/kill-memory-leak\n\nメモリリーク改善",
+          "timestamp": "2021-08-15T17:23:25+09:00",
+          "tree_id": "6feea69c4b0c26867fcb90ba7dff34ff7bc7b643",
+          "url": "https://github.com/RNGeek/rocketimer/commit/69dc82e1ed1719471fd013e03d837c0da17bf613"
+        },
+        "date": 1629016305726,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "カウントダウン中のFPS",
+            "value": 366.7540195209396,
+            "range": "±7.93%",
+            "unit": "fps",
+            "extra": "10 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerTimeline> を何回レンダリングできるか",
+            "value": 1145.4300396682524,
+            "range": "±1.47%",
+            "unit": "counts/second",
+            "extra": "300 samples"
+          },
+          {
+            "name": "1秒あたりに <TimerRemainDisplay> を何回レンダリングできるか",
+            "value": 1184.2496020295944,
+            "range": "±1.52%",
             "unit": "counts/second",
             "extra": "300 samples"
           }
