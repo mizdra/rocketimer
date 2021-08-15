@@ -61,9 +61,6 @@ jobs:
           MACKEREL_APIKEY: ${{ secrets.MACKEREL_APIKEY }}
           TIME: ${{ steps.time.outputs.time }}
 
-      - name: yarn run benchmark:render-time
-        run: yarn run benchmark:render-time
-
       # デバッグ用にベンチマーク結果をコンソールに出力
       - name: cat output.txt
         run: cat output.txt
