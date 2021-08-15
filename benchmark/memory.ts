@@ -39,7 +39,7 @@ async function measureMemory(): Promise<Measurement[]> {
     const measurement1 = await performance.measureUserAgentSpecificMemory!();
     const start = performance.now();
 
-    await wait(2 * 1000); // 2 秒間待機
+    await wait(20 * 1000); // 20 秒間待機
 
     const measurement2 = await performance.measureUserAgentSpecificMemory!();
     const end = performance.now();
