@@ -72,7 +72,7 @@ async function measureFPS() {
 }
 
 function printReportForMackerel(measurements: Measurement[]) {
-  const name = 'fps';
+  const name = 'fps.fps';
   const value = mean(measurements.map((measurement) => measurement.fps));
   console.log(`${name} ${value} ${time}`);
 }
