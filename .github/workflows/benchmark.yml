@@ -1,15 +1,29 @@
 name: Benchmark test
-on: [push]
+
+on:
+  push:
+    branches:
+      - master
+      - improve-measure-data
 
 jobs:
   benchmark:
     name: Benchmark
     runs-on: ubuntu-latest
     steps:
+      - name: Get current time
+        id: time
+        run: echo "::set-output name=time::$(date +%s)"
+
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
+
+      - name: Install mkr command
+        run: |
+          curl -fsSL https://mackerel.io/file/script/setup-apt-v2.sh | sh
+          sudo apt-get install mkr
 
       # playwright を github action 上で動かすのに必要
       - uses: microsoft/playwright-github-action@v1
@@ -32,33 +46,12 @@ jobs:
       - name: Start server
         run: yarn run webpack-cli serve --mode production &
 
-      # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
-      - name: yarn run benchmark:fps
-        run: yarn run benchmark:fps
-      # playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動する
+      # NOTE: playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動している
       # ref: https://github.com/microsoft/playwright-github-action#run-in-headful-mode
-      - name: yarn run benchmark:memory
-        run: xvfb-run --auto-servernum -- yarn run benchmark:memory
-      - name: yarn run benchmark:render-time
-        run: yarn run benchmark:render-time
-
-      # デバッグ用にベンチマーク結果をコンソールに出力
-      - name: cat output.txt
-        run: cat output.txt
-
-      # github-action-benchmark を実行
-      - name: Store benchmark result
-        uses: rhysd/github-action-benchmark@v1
-        with:
-          tool: 'benchmarkjs'
-          output-file-path: output.txt
-          # 以前より 200% ほど悪化していたらアラートを上げる
-          alert-threshold: '200%'
-          # アラートが上がったらワークフローを失敗させる
-          fail-on-alert: true
-          # commit が push される度にベンチマーク結果を commit comment でお知らせする
-          # NOTE: 普段は ON にするとノイズになるのでパフォーマンスチューニングをしたいときだけ ON にする
-          # comment-always: true
-          # master では GitHub Pages に結果を push する
-          auto-push: ${{ github.ref == 'refs/heads/master' }}
-          github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+      - name: Run benchmark
+        run: |
+          yarn run --silent benchmark:fps | mkr throw --service rocketimer || true
+          xvfb-run --auto-servernum -- yarn run --silent benchmark:memory | mkr throw --service rocketimer || true
+        env:
+          MACKEREL_APIKEY: ${{ secrets.MACKEREL_APIKEY }}
+          TIME: ${{ steps.time.outputs.time }}

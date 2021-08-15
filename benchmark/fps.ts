@@ -1,6 +1,9 @@
 import { chromium } from 'playwright';
 import { log } from './helper/log';
-import { getStatistics, saveStatistics } from './helper/statistics';
+import { mean } from './helper/statistics';
+
+// mackerel に送信する際に利用する現在時刻 (秒)
+const time = process.env.TIME === undefined ? Math.round(Date.now() / 1000) : +process.env.TIME;
 
 const SITE_URL = process.env.SITE_URL ?? 'http://localhost:8080';
 const DEBUG = process.env.DEBUG === '1' || false; // DEBUG=1 ならデバッグモードにする
@@ -68,6 +71,12 @@ async function measureFPS() {
   return count;
 }
 
+function printReportForMackerel(measurements: Measurement[]) {
+  const name = 'fps.fps';
+  const value = mean(measurements.map((measurement) => measurement.fps));
+  console.log(`${name} ${value} ${time}`);
+}
+
 void (async () => {
   const browser = await chromium.launch({
     headless: DEBUG ? false : true,
@@ -84,11 +93,7 @@ void (async () => {
     measurements.push(measurement);
   }
 
-  const statForFPS = getStatistics(measurements.map((measurement) => measurement.fps));
-
-  // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('カウントダウン中のFPS', 'fps', statForFPS);
-  log('statForFPS: ', statForFPS);
+  printReportForMackerel(measurements);
 
   await browser.close();
 })();

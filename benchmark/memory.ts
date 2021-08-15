@@ -1,23 +1,17 @@
 import { chromium } from 'playwright';
+import { generateReport, MeasurementWithTime, printReportForMackerel } from './helper/MemoryUsageMonitor';
 import { log } from './helper/log';
-import { getStatistics, saveStatistics } from './helper/statistics';
+
+// mackerel に送信する際に利用する現在時刻 (秒)
+const time = process.env.TIME === undefined ? Math.round(Date.now() / 1000) : +process.env.TIME;
 
 const SITE_URL = process.env.SITE_URL ?? 'http://localhost:8080';
-
-type Measurement = {
-  /** 測定開始直後のメモリ使用量 - 測定終了直前のメモリ使用量 */
-  bytesDiff: number;
-  /** 測定時間 (ms) */
-  time: number;
-  /** seconds per MB */
-  secondsPerMB: number;
-};
 
 /**
  * メモリ使用量を測定してその測定結果を返す。
  * `Page#evaluate` に渡すのでシリアライズ可能なよう記述している。
  * */
-async function measureMemory(): Promise<Measurement[]> {
+async function measureMemory(): Promise<MeasurementWithTime[]> {
   async function wait(ms: number) {
     return new Promise<void>((resolve) => {
       setTimeout(() => resolve(), ms);
@@ -33,23 +27,18 @@ async function measureMemory(): Promise<Measurement[]> {
   // もう 1 回おまじないとして待機
   await wait(50 * 1000);
 
-  const measurements: Measurement[] = [];
-  for (let i = 0; i < 10; i++) {
-    const measurement1 = await performance.measureUserAgentSpecificMemory!();
-    const start = performance.now();
+  const measurementWithTimes: MeasurementWithTime[] = [];
 
-    await wait(20 * 1000); // 20 秒間待機
-
-    const measurement2 = await performance.measureUserAgentSpecificMemory!();
-    const end = performance.now();
-
-    const bytesDiff = measurement2.bytes - measurement1.bytes;
-    const time = end - start;
-    const secondsPerMB = time / 1000 / (bytesDiff / 1000 / 1000);
-    measurements.push({ bytesDiff, time, secondsPerMB });
+  const measurement = await performance.measureUserAgentSpecificMemory!();
+  const time = performance.now();
+  measurementWithTimes.push({ time, measurement });
+  for (let i = 0; i < 5; i++) {
+    await wait(10 * 1000); // 10 秒間待機
+    const measurement = await performance.measureUserAgentSpecificMemory!();
+    const time = performance.now();
+    measurementWithTimes.push({ time: time, measurement });
   }
-
-  return measurements;
+  return measurementWithTimes;
 }
 
 void (async () => {
@@ -60,14 +49,12 @@ void (async () => {
   const page = await browser.newPage();
 
   await page.goto(SITE_URL, { waitUntil: 'networkidle' });
-  const measurements = await page.evaluate(measureMemory);
-  log('measurements: ', measurements);
+  const measurementWithTimes = await page.evaluate(measureMemory);
+  const report = generateReport(measurementWithTimes);
 
-  const statForSecondsPerMB = getStatistics(measurements.map((measurement) => measurement.secondsPerMB));
-
-  // github-action-benchmark 向けに結果を書き出す
-  await saveStatistics('カウントダウン中のメモリ使用量の増加率', 'seconds/MB', statForSecondsPerMB);
-  log('statForSecondsPerMB: ', statForSecondsPerMB);
+  log('measurementWithTimes: ', measurementWithTimes);
+  log('report: ', report);
+  printReportForMackerel(time, report);
 
   await browser.close();
 })();

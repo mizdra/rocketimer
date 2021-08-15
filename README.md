@@ -2,7 +2,7 @@
 
 Blazing fast cascade timer.
 
-[![Benchmark Ready](https://img.shields.io/badge/benchmark-ready-brightgreen)](https://rngeek.github.io/rocketimer/dev/bench/) [![Coverage Status](https://coveralls.io/repos/github/RNGeek/rocketimer/badge.svg)](https://coveralls.io/github/RNGeek/rocketimer)
+[![Benchmark Ready](https://img.shields.io/badge/benchmark-ready-brightgreen)](https://rngeek.github.io/rocketimer/benchmark) [![Coverage Status](https://coveralls.io/repos/github/RNGeek/rocketimer/badge.svg)](https://coveralls.io/github/RNGeek/rocketimer)
 
 ## Requirements
 
