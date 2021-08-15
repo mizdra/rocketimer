@@ -6,10 +6,19 @@ jobs:
     name: Benchmark
     runs-on: ubuntu-latest
     steps:
+      - name: Get current time
+        id: time
+        run: echo "::set-output name=time::$(date +%s)"
+
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
+
+      - name: Install mkr command
+        run: |
+          curl -fsSL https://mackerel.io/file/script/setup-apt-v2.sh | sh
+          sudo apt-get install mkr
 
       # playwright を github action 上で動かすのに必要
       - uses: microsoft/playwright-github-action@v1
@@ -38,7 +47,10 @@ jobs:
       # playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動する
       # ref: https://github.com/microsoft/playwright-github-action#run-in-headful-mode
       - name: yarn run benchmark:memory
-        run: xvfb-run --auto-servernum -- yarn run benchmark:memory
+        run: xvfb-run --auto-servernum -- yarn run --silent benchmark:memory | mkr throw --service rocketimer
+        env:
+          MACKEREL_APIKEY: ${{ secrets.MACKEREL_APIKEY }}
+          TIME: ${{ steps.time.outputs.time }}
       - name: yarn run benchmark:render-time
         run: yarn run benchmark:render-time
 
