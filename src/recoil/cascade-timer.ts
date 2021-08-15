@@ -3,7 +3,7 @@ import { TimerConfig } from '../component/molecules/timer/TimerConfigForm';
 import { CascadeTimerStatus } from '../lib/timer/cascade-timer';
 
 const DEFAULT_LAP_CONFIGS: TimerConfig['laps'] = [
-  { title: 'お湯が沸くまで', duration: 3 * 1000 },
+  { title: 'お湯が沸くまで', duration: 5 * 60 * 1000 },
   { title: 'カップラーメンができるまで', duration: 5 * 1000 },
   { title: 'お昼休みが終わるまで', duration: 10 * 1000 },
   { title: '定時まで', duration: 10 * 1000 },
