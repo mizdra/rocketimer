@@ -5,6 +5,9 @@ on:
     branches:
       - master
       - improve-measure-data
+  schedule:
+    # JST で毎週土曜 12:00 (UTC で毎週土曜 3:00) に実行
+    - cron: '0 3 * * SAT'
 
 jobs:
   benchmark:
