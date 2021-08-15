@@ -58,7 +58,7 @@ jobs:
           fail-on-alert: true
           # commit が push される度にベンチマーク結果を commit comment でお知らせする
           # NOTE: 普段は ON にするとノイズになるのでパフォーマンスチューニングをしたいときだけ ON にする
-          comment-always: true
+          # comment-always: true
           # master では GitHub Pages に結果を push する
           auto-push: ${{ github.ref == 'refs/heads/master' }}
           github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
