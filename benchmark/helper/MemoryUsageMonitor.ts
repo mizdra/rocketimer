@@ -1,4 +1,4 @@
-import { mean } from './statistics';
+import { median } from './statistics';
 
 type MeasurementDiff = {
   // name: BytesPerSecond
@@ -47,19 +47,19 @@ function isNumber(value: any): value is number {
   return typeof value === 'number';
 }
 
-function meanMeasurementDiffs(measurementDiffs: MeasurementDiff[]): MeasurementDiff {
+function medianMeasurementDiffs(measurementDiffs: MeasurementDiff[]): MeasurementDiff {
   return {
-    'memory-usage.all': mean(measurementDiffs.map((diff) => diff['memory-usage.all'])),
-    'memory-usage.breakdown.JavaScript': mean(
+    'memory-usage.all': median(measurementDiffs.map((diff) => diff['memory-usage.all'])),
+    'memory-usage.breakdown.JavaScript': median(
       measurementDiffs.map((diff) => diff['memory-usage.breakdown.JavaScript']).filter(isNumber),
     ),
-    'memory-usage.breakdown.DOM': mean(
+    'memory-usage.breakdown.DOM': median(
       measurementDiffs.map((diff) => diff['memory-usage.breakdown.DOM']).filter(isNumber),
     ),
-    'memory-usage.breakdown.Shared': mean(
+    'memory-usage.breakdown.Shared': median(
       measurementDiffs.map((diff) => diff['memory-usage.breakdown.Shared']).filter(isNumber),
     ),
-    'memory-usage.breakdown.Canvas': mean(
+    'memory-usage.breakdown.Canvas': median(
       measurementDiffs.map((diff) => diff['memory-usage.breakdown.Canvas']).filter(isNumber),
     ),
   };
@@ -73,7 +73,7 @@ export function generateReport(measurementWithTimes: MeasurementWithTime[]): Mea
     const diff = diffMeasurements(measurementWithTime1, measurementWithTime2);
     measurementDiffs.push(diff);
   }
-  return meanMeasurementDiffs(measurementDiffs);
+  return medianMeasurementDiffs(measurementDiffs);
 }
 
 /**
