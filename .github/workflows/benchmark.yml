@@ -1,5 +1,10 @@
 name: Benchmark test
-on: [push]
+
+on:
+  push:
+    branches:
+      - master
+      - improve-measure-data
 
 jobs:
   benchmark:
@@ -44,6 +49,7 @@ jobs:
       # ベンチマークを実行し、github-action-benchmark 向けに結果を /output.txt に書き出しておく
       - name: yarn run benchmark:fps
         run: yarn run benchmark:fps
+
       # playwright を headful モードで起動しないと benchmark:memory が動かないので、xvfb-run を使い、playwright を headful モードで起動する
       # ref: https://github.com/microsoft/playwright-github-action#run-in-headful-mode
       - name: yarn run benchmark:memory
@@ -51,26 +57,10 @@ jobs:
         env:
           MACKEREL_APIKEY: ${{ secrets.MACKEREL_APIKEY }}
           TIME: ${{ steps.time.outputs.time }}
+
       - name: yarn run benchmark:render-time
         run: yarn run benchmark:render-time
 
       # デバッグ用にベンチマーク結果をコンソールに出力
       - name: cat output.txt
         run: cat output.txt
-
-      # github-action-benchmark を実行
-      - name: Store benchmark result
-        uses: rhysd/github-action-benchmark@v1
-        with:
-          tool: 'benchmarkjs'
-          output-file-path: output.txt
-          # 以前より 200% ほど悪化していたらアラートを上げる
-          alert-threshold: '200%'
-          # アラートが上がったらワークフローを失敗させる
-          fail-on-alert: true
-          # commit が push される度にベンチマーク結果を commit comment でお知らせする
-          # NOTE: 普段は ON にするとノイズになるのでパフォーマンスチューニングをしたいときだけ ON にする
-          # comment-always: true
-          # master では GitHub Pages に結果を push する
-          auto-push: ${{ github.ref == 'refs/heads/master' }}
-          github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
