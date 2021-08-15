@@ -49,10 +49,6 @@ module.exports = (_env, _argv) => ({
 
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.json'],
-    alias: {
-      'react-dom$': 'react-dom/profiling',
-      'scheduler/tracing': 'scheduler/tracing-profiling',
-    },
   },
 
   plugins: [
