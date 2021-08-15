@@ -27,12 +27,11 @@ async function measureMemory(): Promise<Measurement[]> {
   const startButton = document.querySelector<HTMLElement>('[data-testid="start-countdown-button"]')!;
   startButton.click();
   // 最初のほうはメモリ使用量が安定しないので暖機運転する
-  await wait(2 * 1000);
+  await wait(50 * 1000);
   // 強制的にGCも発生させておく
   await performance.measureUserAgentSpecificMemory!();
-  // もう 1 回おまじないとしてやっておく
-  await wait(2 * 1000);
-  await performance.measureUserAgentSpecificMemory!();
+  // もう 1 回おまじないとして待機
+  await wait(50 * 1000);
 
   const measurements: Measurement[] = [];
   for (let i = 0; i < 10; i++) {
