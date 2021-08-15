@@ -32,7 +32,7 @@ async function measureMemory(): Promise<MeasurementWithTime[]> {
   const measurement = await performance.measureUserAgentSpecificMemory!();
   const time = performance.now();
   measurementWithTimes.push({ time, measurement });
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     await wait(10 * 1000); // 10 秒間待機
     const measurement = await performance.measureUserAgentSpecificMemory!();
     const time = performance.now();
