@@ -78,7 +78,7 @@
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.3",
-    "workbox-webpack-plugin": "^6.0.0-alpha.3"
+    "workbox-webpack-plugin": "^6.5.4"
   },
   "resolutions": {
     "*/**/@babel/runtime": "7.20.0"
