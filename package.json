@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.20.0",
-    "@material-ui/core": "^4.12.3",
+    "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.2",
     "@mizdra/strictly-typed-event-target": "^2.0.0",
     "@react-hook/size": "^2.1.2",
